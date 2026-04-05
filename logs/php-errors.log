@@ -107,3 +107,12 @@
 <!DOCTYPE html><html lang="en" id="facebook"><head><title>Error</title><meta charset="utf-8" /><meta http-equiv="Cache-C (truncated...)
 
 [05-Apr-2026 13:39:42 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 17:27:45 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
