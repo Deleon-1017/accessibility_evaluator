@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Web Accessibility Evaluator</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="about-page">
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.php"><img src="logo.png" alt="Logo" width="60" height="60"
+                        class="mx-5 me-3">Web Accessibility Evaluator</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Web Accessibility Evaluator</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-3" aria-current="page" href="index.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-3" href="wcag.html">WCAG Guidelines</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-3" href="contact.html">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-3 active" aria-current="page" href="about.html">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-5 mt-5">
+        <div class="container">
+            <section class="mb-5" aria-labelledby="about-hero-title">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-12">
+                        <h1 id="about-hero-title" class="mb-3">About the Web Accessibility Evaluator</h1>
+                        <p class="lead text-muted">The Web Accessibility Evaluator is a web system that helps you check
+                            pages against WCAG 2.1. It brings scanning, HTML analysis, and a WCAG reference into a
+                            single place so you can learn and improve quickly.</p>
+                        <p class="text-muted mb-4">Use it to spot common accessibility barriers early, understand why an
+                            issue matters, and plan practical fixes during design and development.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-primary" href="index.php"><i class="bi bi-search me-2"
+                                    aria-hidden="true"></i>Start a Scan</a>
+                            <a class="btn btn-outline-secondary" href="wcag.html"><i class="bi bi-journal-text me-2"
+                                    aria-hidden="true"></i>Explore WCAG 2.1</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-layout mb-5" aria-labelledby="about-capabilities-title">
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="card h-100 w-100">
+                            <div class="card-top perceivable"></div>
+                            <div class="card-body d-flex flex-column">
+                                <h2 id="about-capabilities-title" class="card-title h6 fw-bold text-uppercase">
+                                    <span class="icon-container perceivable me-2"><i class="bi bi-grid-1x2 me-2"
+                                            aria-hidden="true"></i></span>
+                                    Core Capabilities
+                                </h2>
+                                <hr class="my-2" />
+                                <p class="card-text text-muted mb-4">Everything you need to spot issues quickly.</p>
+                                <ul class="list-unstyled about-feature-list mb-0" role="list">
+                                    <li class="about-feature">
+                                        <span class="icon-container perceivable me-2"><i class="bi bi-link-45deg me-2"
+                                                aria-hidden="true"></i></span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">URL Scanning</h3>
+                                            <p class="card-text text-muted mb-0">Evaluate a live website by URL and get
+                                                a quick overview of common accessibility issues.</p>
+                                        </div>
+                                    </li>
+                                    <li class="about-feature">
+                                        <span class="icon-container operable me-2"><i class="bi bi-code-slash me-2"
+                                                aria-hidden="true"></i></span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">HTML Analysis</h3>
+                                            <p class="card-text text-muted mb-0">Paste HTML to review structure, labels,
+                                                headings, and semantic patterns.</p>
+                                        </div>
+                                    </li>
+                                    <li class="about-feature">
+                                        <span class="icon-container understandable me-2"><i
+                                                class="bi bi-journal-check me-2" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">WCAG Reference</h3>
+                                            <p class="card-text text-muted mb-0">Browse WCAG 2.1 success criteria by
+                                                principle and conformance level.</p>
+                                        </div>
+                                    </li>
+                                    <li class="about-feature">
+                                        <span class="icon-container robust me-2"><i class="bi bi-funnel me-2"
+                                                aria-hidden="true"></i></span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">Focused Filters</h3>
+                                            <p class="card-text text-muted mb-0">Filter guidelines by level or principle
+                                                to focus on the most relevant issues.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="card h-100 w-100 about-timeline" aria-labelledby="about-steps-title">
+                            <div class="card-top operable"></div>
+                            <div class="card-body d-flex flex-column">
+                                <h2 id="about-steps-title" class="card-title h6 fw-bold text-uppercase">
+                                    <span class="icon-container operable me-2"><i class="bi bi-diagram-3 me-2"
+                                            aria-hidden="true"></i></span>
+                                    How It Works
+                                </h2>
+                                <hr class="my-2" />
+                                <ol class="about-timeline-list mb-0">
+                                    <li>
+                                        <span class="about-step-index">1</span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">Choose your input</h3>
+                                            <p class="card-text text-muted mb-0">Enter a URL or paste HTML to get
+                                                started.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="about-step-index">2</span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">Review highlights</h3>
+                                            <p class="card-text text-muted mb-0">See quick wins and common barriers
+                                                surfaced immediately.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="about-step-index">3</span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">Map to WCAG</h3>
+                                            <p class="card-text text-muted mb-0">Connect findings to relevant WCAG 2.1
+                                                guidance.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="about-step-index">4</span>
+                                        <div>
+                                            <h3 class="h6 fw-bold mb-1">Fix and re-check</h3>
+                                            <p class="card-text text-muted mb-0">Apply updates and confirm the
+                                                improvements.</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-layout mb-5" aria-labelledby="about-audience-title">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card h-100 w-100">
+                            <div class="card-top understandable"></div>
+                            <div class="card-body d-flex flex-column">
+                                <h2 id="about-audience-title" class="card-title h6 fw-bold text-uppercase">
+                                    <span class="icon-container understandable me-2"><i class="bi bi-people me-2"
+                                            aria-hidden="true"></i></span>
+                                    Who It Is For
+                                </h2>
+                                <hr class="my-2" />
+                                <ul class="list-unstyled about-audience-list mb-0" role="list">
+                                    <li><i class="bi bi-check-circle" aria-hidden="true"></i>Students and educators
+                                        learning accessibility.</li>
+                                    <li><i class="bi bi-check-circle" aria-hidden="true"></i>Designers and developers
+                                        building inclusive UI.</li>
+                                    <li><i class="bi bi-check-circle" aria-hidden="true"></i>Project teams doing quick
+                                        quality checks.</li>
+                                    <li><i class="bi bi-check-circle" aria-hidden="true"></i>Anyone starting with WCAG
+                                        2.1 basics.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card h-100 w-100" role="note" aria-labelledby="about-callout-title">
+                            <div class="card-top robust"></div>
+                            <div class="card-body d-flex flex-column">
+                                <h2 id="about-callout-title" class="card-title h6 fw-bold text-uppercase">
+                                    <span class="icon-container robust me-2"><i class="bi bi-shield-check me-2"
+                                            aria-hidden="true"></i></span>
+                                    Accessibility First
+                                </h2>
+                                <hr class="my-2" />
+                                <p class="card-text text-muted mb-0">This tool is an educational companion and does not
+                                    replace a full accessibility audit. Combine automated checks with manual testing and
+                                    real user feedback for the best results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white shadow-mt-auto">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold text-uppercase mb-3">About</h6>
+                    <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae impedit
+                        nesciunt, assumenda unde magni incidunt. Placeat commodi quod dolore, ex eligendi architecto
+                        velit ea dolores aliquam quis! Culpa, suscipit laudantium</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="fw-bold text-uppercase mb-3">WCAG 2.1 Guidelines</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="wcag.html?level=A" class="text-decoration-none text-muted d-block mb-2">Level A</a>
+                        </li>
+                        <li><a href="wcag.html?level=AA" class="text-decoration-none text-muted d-block mb-2">Level
+                                AA</a></li>
+                        <li><a href="wcag.html?level=AAA" class="text-decoration-none text-muted d-block mb-2">Level
+                                AAA</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="fw-bold text-uppercase mb-3">WCAG 2.1 Principles</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="wcag.html?principle=Perceivable"
+                                class="text-decoration-none text-muted d-block mb-2">Perceivable</a></li>
+                        <li><a href="wcag.html?principle=Operable"
+                                class="text-decoration-none text-muted d-block mb-2">Operable</a></li>
+                        <li><a href="wcag.html?principle=Understandable"
+                                class="text-decoration-none text-muted d-block mb-2">Understandable</a></li>
+                        <li><a href="wcag.html?principle=Robust"
+                                class="text-decoration-none text-muted d-block mb-2">Robust</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Product</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="index.php" class="text-decoration-none text-muted d-block mb-2">Scanner</a></li>
+                        <li><a href="wcag.html" class="text-decoration-none text-muted d-block mb-2">Guidelines</a></li>
+                    </ul>
+                </div>
+                <hr class="border-secondary-subtle">
+                <div class="text-center">
+                    <p class="small text-muted">
+                        This tool is for educational purposes.
+                    </p>
+                    <p class="small text-muted mb-1">
+                        Copyright &copy; 2026 All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

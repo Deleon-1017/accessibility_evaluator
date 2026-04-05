@@ -1,0 +1,14 @@
+Introduction to JavaScript Variables
+Instructor: Alex Chen
+Audio Duration: 1:56
+
+[00:00] Hey everyone, Alex here. Welcome back. In this lesson, we're covering one of the most important JavaScript fundamentals: variables.
+[00:11] Think of a variable as a labeled container. You put a value in that container so you can use it later in your program.
+[00:23] In JavaScript, you'll see three keywords for declaring variables: var, let, and const. In modern code, you'll mostly use let and const.
+[00:36] Let's start with let. If you write, let name equals John, you've created a variable called name, and stored the text John inside it.
+[00:49] Now let's look at const. Use const when a value should not be reassigned. For example, const PI equals 3 point 1 4 1 5 9.
+[01:01] Variables can hold different data types. Strings for text, numbers for math, booleans for true or false, and complex structures like arrays and objects.
+[01:14] Here's a realistic scenario. Imagine you're building a shopping cart. You might start with let cartTotal equals zero, and each time a user adds an item, you update that total.
+[01:31] Naming matters a lot. Instead of writing let x equals five, write let itemCount equals five. Clear names make your code easier to read, debug, and maintain.
+[01:44] Quick recap. Use let for values that can change. Use const for values that should stay the same. And always choose descriptive variable names.
+[01:55] Practice this with small examples every day, and variables will become second nature. Thanks for listening, and I'll see you in the next lesson.

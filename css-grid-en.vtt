@@ -1,0 +1,84 @@
+WEBVTT
+
+NOTE This is a caption file for CSS Grid Layout Tutorial
+
+00:00:00.000 --> 00:00:03.500
+Hello everyone! Welcome to this CSS Grid tutorial.
+
+00:00:03.500 --> 00:00:07.000
+Today we'll learn how to create responsive layouts
+using CSS Grid.
+
+00:00:07.500 --> 00:00:11.000
+Let's start by defining a grid container.
+[keyboard typing]
+
+00:00:11.500 --> 00:00:15.000
+We use "display: grid" to create a grid container.
+
+00:00:15.500 --> 00:00:19.000
+Then we define columns with "grid-template-columns".
+
+00:00:19.500 --> 00:00:23.000
+For example: grid-template-columns: 1fr 1fr 1fr;
+
+00:00:23.500 --> 00:00:27.000
+This creates three equal columns.
+[mouse clicking]
+
+00:00:27.500 --> 00:00:31.000
+Now let's add some gap between grid items.
+
+00:00:31.500 --> 00:00:35.000
+We use the "gap" property for this.
+
+00:00:35.500 --> 00:00:39.000
+gap: 20px; will add 20 pixels of space
+between all grid items.
+
+00:00:39.500 --> 00:00:43.000
+Let's see how this looks in the browser.
+[browser refreshing]
+
+00:00:43.500 --> 00:00:47.000
+Perfect! Now we have a responsive grid layout.
+
+00:00:47.500 --> 00:00:51.000
+You can also use grid-template-areas
+for more complex layouts.
+
+00:00:51.500 --> 00:00:55.000
+This allows you to name different sections
+of your grid.
+
+00:00:55.500 --> 00:00:59.000
+For example, you can define header, sidebar,
+main content, and footer areas.
+
+00:00:59.500 --> 00:01:03.000
+[keyboard typing]
+Let me show you an example.
+
+00:01:03.500 --> 00:01:07.000
+We define the template areas like this:
+grid-template-areas...
+
+00:01:07.500 --> 00:01:11.000
+Then we assign each grid item to an area
+using grid-area property.
+
+00:01:11.500 --> 00:01:15.000
+This makes your CSS much more readable
+and maintainable.
+
+00:01:15.500 --> 00:01:19.000
+CSS Grid is incredibly powerful for creating
+modern web layouts.
+
+00:01:19.500 --> 00:01:23.000
+Practice these concepts, and you'll be creating
+amazing layouts in no time!
+
+00:01:23.500 --> 00:01:26.000
+Thanks for watching! See you in the next tutorial.
+[upbeat music]

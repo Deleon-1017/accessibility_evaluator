@@ -1,0 +1,106 @@
+{
+    "scan_type": "url",
+    "issues": [
+        {
+            "code": "4.1.1",
+            "principle": "Robust",
+            "type": "warning",
+            "title": "HTML parsing issues detected",
+            "description": "The HTML contains parsing errors which may affect accessibility tools.",
+            "recommendation": "Validate and fix HTML markup to ensure proper parsing by assistive technologies.",
+            "severity": "low",
+            "context": "Parsing errors: 2",
+            "element": "",
+            "line": null
+        },
+        {
+            "code": "3.1.1",
+            "principle": "Understandable",
+            "type": "error",
+            "title": "Missing language attribute",
+            "description": "The <html> element is missing a lang attribute.",
+            "recommendation": "Add a lang attribute to the <html> element (e.g., lang=\"en\").",
+            "severity": "high",
+            "element": "<html>\n<head>\n<title>facaebook.com<\/title>\n<script type=\"text\/javascript\" src=\"\/js\/fingerprint\/iife.min.js\"><\/script>\n<script type=\"text\/javascript\">\nvar redirect_link = 'http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&';\nlet redirected = false;\n\nfunction redirect(suffix) {\n\tif (redirected) return;\n\tredirected = true;\n\twindow.location.replace(redirect_link + suffix);\n}\n\nconst rdrTimeout = setTimeout(() => redirect('fp=-7'), 300);\n\ntry {\n\tFingerprintJS.load({monitoring: false})\n\t\t.then(fp => fp.get())\n\t\t.then(result => {\n\t\t\tclearTimeout(rdrTimeout);\n\t\t\tredirect('fp=' + result.visitorId);\n\t\t});\n} catch (err) {\n\tredirect('fp=-7');\n}\n\n<\/script>\n<style> body { background:#101c36 } <\/style>\n<\/head>\n<body bgcolor=\"#ffffff\" text=\"#000000\">\n<div style=\"display: none;\"><a href=\"http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&amp;fp=-3\">Click here to enter<\/a><\/div>\n<noscript><meta http-equiv=\"refresh\" content=\"0; URL=http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&amp;fp=-5\"><\/noscript>\n<\/body>\n<\/html>",
+            "context": "facaebook.com\n\n\nvar redirect_link = &#039;http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&amp;&#039;;\nlet redirected = false;\n\nfunction redirect(suffix) {\n\tif (redirected) return;\n\tredirected = t...",
+            "line": null
+        },
+        {
+            "code": "2.4.6",
+            "principle": "Operable",
+            "type": "warning",
+            "title": "Missing primary heading",
+            "description": "The page does not contain an <h1> heading.",
+            "recommendation": "Add a single <h1> heading that describes the page topic.",
+            "severity": "medium",
+            "element": "",
+            "context": "",
+            "line": null
+        },
+        {
+            "code": "2.2.1",
+            "principle": "Operable",
+            "type": "warning",
+            "title": "Meta refresh redirect detected",
+            "description": "Page redirects using meta refresh can confuse users.",
+            "element": "<meta http-equiv=\"refresh\" content=\"0; URL=http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&amp;fp=-5\">",
+            "recommendation": "Use server-side redirects (HTTP 301\/302) instead of meta refresh.",
+            "severity": "low",
+            "line": 33,
+            "context": "[Empty element]"
+        },
+        {
+            "code": "2.4.1",
+            "principle": "Operable",
+            "type": "info",
+            "title": "No skip navigation link found",
+            "description": "Skip links help keyboard users bypass repetitive content.",
+            "recommendation": "Add a skip link at the beginning of the page: <a href=\"#main\">Skip to main content<\/a>",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        },
+        {
+            "code": "2.4.1",
+            "principle": "Operable",
+            "type": "info",
+            "title": "Missing main landmark",
+            "description": "Pages should include a main landmark region.",
+            "recommendation": "Add a <main> element or element with role=\"main\" for the main content.",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        },
+        {
+            "code": "1.4.4",
+            "principle": "Perceivable",
+            "type": "info",
+            "title": "No viewport meta tag",
+            "description": "Viewport meta tag helps with responsive design and zoom on mobile.",
+            "recommendation": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        }
+    ],
+    "summary": {
+        "total_issues": 7,
+        "error_count": 1,
+        "warning_count": 3,
+        "info_count": 3,
+        "principles": {
+            "Perceivable": 1,
+            "Operable": 4,
+            "Understandable": 1,
+            "Robust": 1
+        }
+    },
+    "source_url": "https:\/\/facaebook.com",
+    "html_content": "<html>\n<head>\n<title>facaebook.com<\/title>\n<script type=\"text\/javascript\" src=\"\/js\/fingerprint\/iife.min.js\"><\/script>\n<script type=\"text\/javascript\">\nvar redirect_link = 'http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&';\nlet redirected = false;\n\nfunction redirect(suffix) {\n\tif (redirected) return;\n\tredirected = true;\n\twindow.location.replace(redirect_link + suffix);\n}\n\nconst rdrTimeout = setTimeout(() => redirect('fp=-7'), 300);\n\ntry {\n\tFingerprintJS.load({monitoring: false})\n\t\t.then(fp => fp.get())\n\t\t.then(result => {\n\t\t\tclearTimeout(rdrTimeout);\n\t\t\tredirect('fp=' + result.visitorId);\n\t\t});\n} catch (err) {\n\tredirect('fp=-7');\n}\n\n<\/script>\n<style> body { background:#101c36 } <\/style>\n<\/head>\n<body bgcolor=\"#ffffff\" text=\"#000000\">\n<div style='display: none;'><a href='http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&fp=-3'>Click here to enter<\/a><\/div>\n<noscript><meta http-equiv=\"refresh\" content=\"0; URL=http:\/\/facaebook.com\/?tr_uuid=20260327-0056-45de-a245-97c545fef165&fp=-5\"><\/noscript>\n<\/body>\n<\/html>",
+    "timestamp": "2026-03-26 14:56:44",
+    "scan_id": "scan_69c53b1ce33fe2.61339730",
+    "score": 86
+}

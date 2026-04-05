@@ -1,0 +1,42 @@
+{
+    "kiroAgent.configureMCP": "Disabled",
+    "php.suggest.basic": false,
+    "intelephense.environment.includePaths": [
+        "vendor"
+    ],
+    "intelephense.stubs": [
+        "apache",
+        "bcmath",
+        "Core",
+        "curl",
+        "date",
+        "dom",
+        "fileinfo",
+        "filter",
+        "gd",
+        "hash",
+        "iconv",
+        "json",
+        "libxml",
+        "mbstring",
+        "mysqli",
+        "mysqlnd",
+        "openssl",
+        "pcre",
+        "PDO",
+        "pdo_mysql",
+        "Phar",
+        "SimpleXML",
+        "sockets",
+        "sodium",
+        "SPL",
+        "standard",
+        "tokenizer",
+        "xml",
+        "xmlreader",
+        "xmlwriter",
+        "zip",
+        "zlib"
+    ],
+    "html.autoClosingTags": false
+}

@@ -1,0 +1,33 @@
+{
+    "scan_type": "url",
+    "issues": [
+        {
+            "code": "3.1.1",
+            "principle": "Understandable",
+            "type": "error",
+            "title": "Missing language attribute",
+            "description": "The <html> element is missing a lang attribute.",
+            "recommendation": "Add a lang attribute to the <html> element (e.g., lang=\"en\").",
+            "severity": "high",
+            "element": "<html><head>\n<title>Access Denied<\/title>\n<\/head><body>\n<h1>Access Denied<\/h1>\n \nYou don't have permission to access \"http:\/\/www.abs-cbn.com\/\" on this server.<p>\nReference #18.c7d2027a.1770173245.75642bd4\n<\/p><p>https:\/\/errors.edgesuite.net\/18.c7d2027a.1770173245.75642bd4<\/p>\n<\/body>\n<\/html>",
+            "context": "Access Denied\n\nAccess Denied\n \nYou don&#039;t have permission to access &quot;http:\/\/www.abs-cbn.com\/&quot; on this server.\nReference #18.c7d2027a.1770173245.75642bd4\nhttps:\/\/errors.edgesuite.net\/18.c7d2027a.1770173..."
+        }
+    ],
+    "summary": {
+        "total_issues": 1,
+        "error_count": 1,
+        "warning_count": 0,
+        "info_count": 0,
+        "principles": {
+            "Perceivable": 0,
+            "Operable": 0,
+            "Understandable": 1,
+            "Robust": 0
+        }
+    },
+    "source_url": "https:\/\/www.abs-cbn.com\/",
+    "html_content": "<HTML><HEAD>\n<TITLE>Access Denied<\/TITLE>\n<\/HEAD><BODY>\n<H1>Access Denied<\/H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;www&#46;abs&#45;cbn&#46;com&#47;\" on this server.<P>\nReference&#32;&#35;18&#46;c7d2027a&#46;1770173245&#46;75642bd4\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;c7d2027a&#46;1770173245&#46;75642bd4<\/P>\n<\/BODY>\n<\/HTML>\n",
+    "timestamp": "2026-02-04 03:47:25",
+    "scan_id": "scan_6982b33deb89e0.04218385",
+    "score": 95
+}

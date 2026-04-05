@@ -1,0 +1,109 @@
+[08-Mar-2026 12:24:49 Europe/Berlin] Guzzle failed: HTTP Status: 202
+[08-Mar-2026 12:24:49 Europe/Berlin] Scan error: Received empty response from URL
+[08-Mar-2026 12:24:49 Europe/Berlin] Trace: #0 {main}
+[08-Mar-2026 12:25:06 Europe/Berlin] Guzzle failed: HTTP Status: 202
+[08-Mar-2026 12:25:06 Europe/Berlin] Scan error: Received empty response from URL
+[08-Mar-2026 12:25:06 Europe/Berlin] Trace: #0 {main}
+[11-Mar-2026 05:42:37 Europe/Berlin] Guzzle failed: cURL error 28: Resolving timed out after 10012 milliseconds (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://facebook.com
+[11-Mar-2026 05:43:19 Europe/Berlin] Scan error: Unable to fetch URL content using any available method
+[11-Mar-2026 05:43:19 Europe/Berlin] Trace: #0 C:\xampp\htdocs\trial\scan.php(355): fetchUrlContent('https://faceboo...')
+#1 {main}
+[11-Mar-2026 05:44:19 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[11-Mar-2026 05:45:20 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1159
+[11-Mar-2026 05:45:20 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1159
+[11-Mar-2026 05:47:07 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1159
+[22-Mar-2026 14:11:12 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[24-Mar-2026 03:55:05 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[26-Mar-2026 03:31:14 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[26-Mar-2026 07:51:52 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[26-Mar-2026 08:55:24 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[26-Mar-2026 08:58:23 Europe/Berlin] Guzzle failed: HTTP Status: 400
+[26-Mar-2026 09:10:00 Europe/Berlin] Guzzle failed: cURL error 6: Could not resolve host: facebook.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://facebook.com
+[26-Mar-2026 09:10:00 Europe/Berlin] cURL failed: Could not resolve host: facebook.com
+[26-Mar-2026 09:10:00 Europe/Berlin] Scan error: Unable to fetch URL content using any available method. The server might be blocking automated requests.
+[26-Mar-2026 09:10:00 Europe/Berlin] Trace: #0 C:\xampp\htdocs\trial\scan.php(393): fetchUrlContent('https://faceboo...')
+#1 {main}
+[26-Mar-2026 09:10:36 Europe/Berlin] Guzzle failed: cURL error 28: SSL connection timeout (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://instagram.com
+[26-Mar-2026 09:11:10 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[26-Mar-2026 09:11:10 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[26-Mar-2026 13:48:56 Europe/Berlin] Guzzle failed: Client error: `GET https://facebook.com` resulted in a `400 Bad Request` response:
+<!DOCTYPE html><html lang="en" id="facebook"><head><title>Error</title><meta charset="utf-8" /><meta http-equiv="Cache-C (truncated...)
+
+[26-Mar-2026 13:48:57 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[26-Mar-2026 14:18:42 Europe/Berlin] Guzzle failed: Client error: `GET https://facebook.com` resulted in a `400 Bad Request` response:
+<!DOCTYPE html><html lang="en" id="facebook"><head><title>Error</title><meta charset="utf-8" /><meta http-equiv="Cache-C (truncated...)
+
+[26-Mar-2026 14:18:42 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[26-Mar-2026 14:41:34 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[26-Mar-2026 14:41:34 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[27-Mar-2026 23:22:24 Europe/Berlin] Guzzle failed: Client error: `GET https://facebook.com` resulted in a `400 Bad Request` response:
+<!DOCTYPE html><html lang="en" id="facebook"><head><title>Error</title><meta charset="utf-8" /><meta http-equiv="Cache-C (truncated...)
+
+[27-Mar-2026 23:22:25 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[28-Mar-2026 01:19:40 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[28-Mar-2026 01:19:40 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[30-Mar-2026 15:29:56 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[30-Mar-2026 15:29:56 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:35:53 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:39:55 Europe/Berlin] Guzzle failed: Client error: `GET https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/` resulted in a `403 Forbidden` response:
+<!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/htm (truncated...)
+
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[30-Mar-2026 15:47:38 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 05:08:37 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:50 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:14:51 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 10:18:55 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[05-Apr-2026 13:33:23 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[05-Apr-2026 13:33:23 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[05-Apr-2026 13:39:41 Europe/Berlin] Guzzle failed: Client error: `GET https://facebook.com` resulted in a `400 Bad Request` response:
+<!DOCTYPE html><html lang="en" id="facebook"><head><title>Error</title><meta charset="utf-8" /><meta http-equiv="Cache-C (truncated...)
+
+[05-Apr-2026 13:39:42 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202

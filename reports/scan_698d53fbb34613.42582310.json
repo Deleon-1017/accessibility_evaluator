@@ -1,0 +1,106 @@
+{
+    "scan_type": "html",
+    "issues": [
+        {
+            "code": "4.1.1",
+            "principle": "Robust",
+            "type": "warning",
+            "title": "HTML parsing issues detected",
+            "description": "The HTML contains parsing errors which may affect accessibility tools.",
+            "recommendation": "Validate and fix HTML markup to ensure proper parsing by assistive technologies.",
+            "severity": "low",
+            "context": "Parsing errors: 4",
+            "element": "",
+            "line": null
+        },
+        {
+            "code": "1.3.1",
+            "principle": "Perceivable",
+            "type": "warning",
+            "title": "Skipped heading level",
+            "description": "Heading levels should not skip levels (e.g., <h2> to <h4>).",
+            "element": "<h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container perceivable me-2\"><i class=\"bi bi-link-45deg me-2\"><\/i><\/span>URL Scanning<\/h3>",
+            "recommendation": "Use heading levels in a logical order without skipping.",
+            "severity": "medium",
+            "line": 68,
+            "context": "URL Scanning"
+        },
+        {
+            "code": "1.3.1",
+            "principle": "Perceivable",
+            "type": "warning",
+            "title": "Skipped heading level",
+            "description": "Heading levels should not skip levels (e.g., <h2> to <h4>).",
+            "element": "<h6 class=\"fw-bold text-uppercase mb-3\">About<\/h6>",
+            "recommendation": "Use heading levels in a logical order without skipping.",
+            "severity": "medium",
+            "line": 156,
+            "context": "About"
+        },
+        {
+            "code": "2.4.1",
+            "principle": "Operable",
+            "type": "info",
+            "title": "No skip navigation link found",
+            "description": "Skip links help keyboard users bypass repetitive content.",
+            "recommendation": "Add a skip link at the beginning of the page: <a href=\"#main\">Skip to main content<\/a>",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        },
+        {
+            "code": "1.4.5",
+            "principle": "Perceivable",
+            "type": "info",
+            "title": "Image used for text content",
+            "description": "Using images instead of text can cause scaling and maintenance problems.",
+            "element": "<img src=\"logo.png\" alt=\"Logo\" width=\"60\" height=\"60\" class=\"mx-5 me-3\">",
+            "recommendation": "Use CSS and HTML text formatting instead of images for text content.",
+            "severity": "low",
+            "line": 16,
+            "context": "[Empty element]"
+        },
+        {
+            "code": "2.4.5",
+            "principle": "Operable",
+            "type": "info",
+            "title": "Limited navigation methods",
+            "description": "Page offers only one way to navigate. Users benefit from multiple navigation methods.",
+            "recommendation": "Provide search, site map, and\/or index in addition to navigation menus.",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        },
+        {
+            "code": "2.4.4",
+            "principle": "Operable",
+            "type": "info",
+            "title": "Inconsistent link text for same destination",
+            "description": "Same destination referenced with different link text.",
+            "recommendation": "Use consistent link text for the same destination across the website.",
+            "severity": "low",
+            "element": "",
+            "context": "",
+            "line": null
+        }
+    ],
+    "summary": {
+        "total_issues": 7,
+        "error_count": 0,
+        "warning_count": 3,
+        "info_count": 4,
+        "principles": {
+            "Perceivable": 3,
+            "Operable": 3,
+            "Understandable": 0,
+            "Robust": 1
+        }
+    },
+    "source_url": "",
+    "html_content": "<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>About | Web Accessibility Evaluator<\/title>\r\n    <link href=\"https:\/\/cdn.jsdelivr.net\/npm\/bootstrap@5.3.8\/dist\/css\/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB\" crossorigin=\"anonymous\">\r\n    <script src=\"https:\/\/cdn.jsdelivr.net\/npm\/bootstrap@5.3.8\/dist\/js\/bootstrap.bundle.min.js\" integrity=\"sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK\/BmnVDxM+D2scQbITxI\" crossorigin=\"anonymous\"><\/script>\r\n    <link rel=\"stylesheet\" href=\"https:\/\/cdn.jsdelivr.net\/npm\/bootstrap-icons@1.11.3\/font\/bootstrap-icons.css\" \/>\r\n    <link rel=\"stylesheet\" href=\"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/font-awesome\/6.4.0\/css\/all.min.css\">\r\n    <link rel=\"stylesheet\" href=\"style.css\">\r\n<\/head>\r\n<body>\r\n    <header>\r\n        <nav class=\"navbar navbar-expand-lg fixed-top\">\r\n            <div class=\"container-fluid\">\r\n                <a class=\"navbar-brand\" href=\"index.php\"><img src=\"logo.png\" alt=\"Logo\" width=\"60\" height=\"60\" class=\"mx-5 me-3\">Web Accessibility Evaluator<\/a>\r\n                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#offcanvasNavbar\" aria-controls=\"offcanvasNavbar\" aria-label=\"Toggle navigation\">\r\n                <span class=\"navbar-toggler-icon\"><\/span>\r\n                <\/button>\r\n                <div class=\"offcanvas offcanvas-end\" tabindex=\"-1\" id=\"offcanvasNavbar\" aria-labelledby=\"offcanvasNavbarLabel\">\r\n                    <div class=\"offcanvas-header\">\r\n                        <h5 class=\"offcanvas-title\" id=\"offcanvasNavbarLabel\">Web Accessibility Evaluator<\/h5>\r\n                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"><\/button>\r\n                    <\/div>\r\n                    <div class=\"offcanvas-body\">\r\n                        <ul class=\"navbar-nav justify-content-end flex-grow-1 pe-3\">\r\n                            <li class=\"nav-item\">\r\n                                <a class=\"nav-link mx-lg-3\" aria-current=\"page\" href=\"index.php\">Home<\/a>\r\n                            <\/li>\r\n                            <li class=\"nav-item\">\r\n                                <a class=\"nav-link mx-lg-3\" href=\"wcag.html\">WCAG Guidelines<\/a>\r\n                            <\/li>\r\n                            <li class=\"nav-item\">\r\n                                <a class=\"nav-link mx-lg-3\" href=\"contact.html\">Contact<\/a>\r\n                            <\/li>\r\n                            <li class=\"nav-item\">\r\n                                <a class=\"nav-link mx-lg-3 active\" aria-current=\"page\" href=\"about.html\">About<\/a>\r\n                            <\/li>\r\n                        <\/ul>\r\n                    <\/div>\r\n                <\/div>\r\n            <\/div>\r\n        <\/nav>\r\n    <\/header>\r\n\r\n    <main class=\"pt-5 mt-5\">\r\n        <div class=\"container\">\r\n            <div class=\"row align-items-center mb-5\">\r\n                <div class=\"col-lg-7\">\r\n                    <h1 class=\"mb-4\">About the Web Accessibility Evaluator<\/h1>\r\n                    <p class=\"my-4\">The Web Accessibility Evaluator is a web system that helps you check pages against WCAG 2.1. It brings scanning, HTML analysis, and a WCAG reference into a single place so you can learn and improve quickly.<\/p>\r\n                    <p class=\"mb-4\">Use it to spot common accessibility barriers early, understand why an issue matters, and plan practical fixes during design and development.<\/p>\r\n                    <div class=\"d-flex flex-wrap gap-2\">\r\n                        <a class=\"btn btn-primary\" href=\"index.php\"><i class=\"bi bi-search me-2\"><\/i>Start a Scan<\/a>\r\n                        <a class=\"btn btn-outline-secondary\" href=\"wcag.html\"><i class=\"bi bi-journal-text me-2\"><\/i>Explore WCAG 2.1<\/a>\r\n                    <\/div>\r\n                <\/div>\r\n                <div class=\"col-lg-5 text-center mt-4 mt-lg-0\">\r\n                    <img id=\"head-image\" src=\"accessibility.gif\" alt=\"Accessibility illustration\" class=\"img-fluid\">\r\n                <\/div>\r\n            <\/div>\r\n\r\n            <div class=\"row g-4 mb-5\">\r\n                <div class=\"col-md-6 col-lg-3 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top perceivable\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container perceivable me-2\"><i class=\"bi bi-link-45deg me-2\"><\/i><\/span>URL Scanning<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <p class=\"card-text text-muted flex-grow-1\">Evaluate a live website by URL and get a quick overview of common accessibility issues.<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n                <div class=\"col-md-6 col-lg-3 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top operable\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container operable me-2\"><i class=\"bi bi-code-slash me-2\"><\/i><\/span>HTML Analysis<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <p class=\"card-text text-muted flex-grow-1\">Paste HTML to review structure, labels, headings, and semantic patterns.<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n                <div class=\"col-md-6 col-lg-3 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top understandable\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container understandable me-2\"><i class=\"bi bi-journal-check me-2\"><\/i><\/span>WCAG Reference<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <p class=\"card-text text-muted flex-grow-1\">Browse WCAG 2.1 success criteria by principle and conformance level.<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n                <div class=\"col-md-6 col-lg-3 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top robust\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container robust me-2\"><i class=\"bi bi-funnel me-2\"><\/i><\/span>Focused Filters<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <p class=\"card-text text-muted flex-grow-1\">Filter guidelines by level or principle to focus on the most relevant issues.<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n            <\/div>\r\n\r\n            <div class=\"row g-4 mb-5\">\r\n                <div class=\"col-lg-6 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top operable\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container operable me-2\"><i class=\"bi bi-diagram-3 me-2\"><\/i><\/span>How It Works<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <ul class=\"list-unstyled text-muted mb-0\">\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Choose a URL or paste HTML code.<\/li>\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Run the scan or analysis to find issues.<\/li>\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Review related WCAG 2.1 guidance.<\/li>\r\n                                <li><i class=\"bi bi-check-circle me-2\"><\/i>Apply fixes and re-check your page.<\/li>\r\n                            <\/ul>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n                <div class=\"col-lg-6 d-flex\">\r\n                    <div class=\"card h-100 w-100\">\r\n                        <div class=\"card-top understandable\"><\/div>\r\n                        <div class=\"card-body d-flex flex-column\">\r\n                            <h3 class=\"card-title h6 fw-bold text-uppercase\"><span class=\"icon-container understandable me-2\"><i class=\"bi bi-people me-2\"><\/i><\/span>Who It Is For<\/h3>\r\n                            <hr class=\"my-2\"\/>\r\n                            <ul class=\"list-unstyled text-muted mb-0\">\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Students and educators learning accessibility.<\/li>\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Designers and developers building inclusive UI.<\/li>\r\n                                <li class=\"mb-2\"><i class=\"bi bi-check-circle me-2\"><\/i>Project teams doing quick quality checks.<\/li>\r\n                                <li><i class=\"bi bi-check-circle me-2\"><\/i>Anyone starting with WCAG 2.1 basics.<\/li>\r\n                            <\/ul>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n            <\/div>\r\n\r\n            <div class=\"row\">\r\n                <div class=\"col-12\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-body\">\r\n                            <h3 class=\"h5 mb-3\"><i class=\"bi bi-shield-check me-2\"><\/i>Accessibility First<\/h3>\r\n                            <p class=\"text-muted mb-0\">This tool is an educational companion and does not replace a full accessibility audit. Combine automated checks with manual testing and real user feedback for the best results.<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                <\/div>\r\n            <\/div>\r\n        <\/div>\r\n    <\/main>\r\n\r\n    <footer class=\"bg-white shadow-mt-auto\">\r\n        <div class=\"container py-5\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-4 mb-4\">\r\n                    <h6 class=\"fw-bold text-uppercase mb-3\">About<\/h6>\r\n                    <p class=\"small text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae impedit nesciunt, assumenda unde magni incidunt. Placeat commodi quod dolore, ex eligendi architecto velit ea dolores aliquam quis! Culpa, suscipit laudantium<\/p>\r\n                <\/div>\r\n                <div class=\"col-md-3 mb-4\">\r\n                    <h6 class=\"fw-bold text-uppercase mb-3\">WCAG 2.1 Guidelines<\/h6>\r\n                    <ul class=\"list-unstyled small\">\r\n                        <li><a href=\"wcag.html?level=A\" class=\"text-decoration-none text-muted d-block mb-2\">Level A<\/a><\/li>\r\n                        <li><a href=\"wcag.html?level=AA\" class=\"text-decoration-none text-muted d-block mb-2\">Level AA<\/a><\/li>\r\n                        <li><a href=\"wcag.html?level=AAA\" class=\"text-decoration-none text-muted d-block mb-2\">Level AAA<\/a><\/li>\r\n                    <\/ul>\r\n                <\/div>\r\n                <div class=\"col-md-3 mb-4\">\r\n                    <h6 class=\"fw-bold text-uppercase mb-3\">WCAG 2.1 Principles<\/h6>\r\n                    <ul class=\"list-unstyled small\">\r\n                        <li><a href=\"wcag.html?principle=Perceivable\" class=\"text-decoration-none text-muted d-block mb-2\">Perceivable<\/a><\/li>\r\n                        <li><a href=\"wcag.html?principle=Operable\" class=\"text-decoration-none text-muted d-block mb-2\">Operable<\/a><\/li>\r\n                        <li><a href=\"wcag.html?principle=Understandable\" class=\"text-decoration-none text-muted d-block mb-2\">Understandable<\/a><\/li>\r\n                        <li><a href=\"wcag.html?principle=Robust\" class=\"text-decoration-none text-muted d-block mb-2\">Robust<\/a><\/li>\r\n                    <\/ul>\r\n                <\/div>\r\n                <div class=\"col-md-2 mb-4\">\r\n                    <h6 class=\"fw-bold text-uppercase mb-3\">Product<\/h6>\r\n                    <ul class=\"list-unstyled small\">\r\n                        <li><a href=\"index.php\" class=\"text-decoration-none text-muted d-block mb-2\">Scanner<\/a><\/li>\r\n                        <li><a href=\"wcag.html\" class=\"text-decoration-none text-muted d-block mb-2\">Guidelines<\/a><\/li>\r\n                    <\/ul>\r\n                <\/div>\r\n                <hr class=\"border-secondary-subtle\">\r\n                <div class=\"text-center\">\r\n                    <p class=\"small text-muted\">\r\n                        This tool is for educational purposes.\r\n                    <\/p>\r\n                    <p class=\"small text-muted mb-1\">\r\n                        Copyright &copy; 2026 All Rights Reserved.\r\n                    <\/p>\r\n                <\/div>\r\n            <\/div>\r\n        <\/div>\r\n    <\/footer>\r\n<\/body>\r\n<\/html>",
+    "timestamp": "2026-02-12 05:15:55",
+    "scan_id": "scan_698d53fbb34613.42582310",
+    "score": 90
+}

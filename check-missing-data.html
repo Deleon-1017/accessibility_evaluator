@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG Data Completeness Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .summary {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .complete {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .incomplete {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .missing {
+            background: #ffe5e5 !important;
+        }
+        .status-icon {
+            font-size: 20px;
+        }
+        .details {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>WCAG Guidelines Data Completeness Check</h1>
+    <div class="summary" id="summary"></div>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Level</th>
+                <th>Has Examples</th>
+                <th>Has Before HTML</th>
+                <th>Has After HTML</th>
+                <th>Has Context</th>
+                <th>Has Techniques</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+
+    <script src="wcag-data.js"></script>
+    <script>
+        function checkDataCompleteness() {
+            const results = [];
+            let completeCount = 0;
+            let incompleteCount = 0;
+            const missingData = [];
+
+            wcagGuidelines.forEach(guideline => {
+                const check = {
+                    id: guideline.id,
+                    title: guideline.title,
+                    level: guideline.level,
+                    hasExamples: !!guideline.examples,
+                    hasBeforeHTML: !!(guideline.examples && guideline.examples.before && guideline.examples.before.html),
+                    hasAfterHTML: !!(guideline.examples && guideline.examples.after && guideline.examples.after.html),
+                    hasBeforeContext: !!(guideline.examples && guideline.examples.before && guideline.examples.before.context),
+                    hasAfterContext: !!(guideline.examples && guideline.examples.after && guideline.examples.after.context),
+                    hasTechniques: !!(guideline.techniques && guideline.techniques.length > 0),
+                    isComplete: false
+                };
+
+                // Check if all required fields are present
+                check.isComplete = check.hasExamples && 
+                                   check.hasBeforeHTML && 
+                                   check.hasAfterHTML && 
+                                   check.hasBeforeContext && 
+                                   check.hasAfterContext && 
+                                   check.hasTechniques;
+
+                if (check.isComplete) {
+                    completeCount++;
+                } else {
+                    incompleteCount++;
+                    missingData.push(check);
+                }
+
+                results.push(check);
+            });
+
+            return { results, completeCount, incompleteCount, missingData };
+        }
+
+        function displayResults() {
+            const { results, completeCount, incompleteCount, missingData } = checkDataCompleteness();
+            
+            // Display summary
+            const summary = document.getElementById('summary');
+            summary.innerHTML = `
+                <h2>Summary</h2>
+                <p><strong>Total Guidelines:</strong> ${results.length}</p>
+                <p class="complete"><strong>Complete:</strong> ${completeCount}</p>
+                <p class="incomplete"><strong>Incomplete:</strong> ${incompleteCount}</p>
+            `;
+
+            // Display table
+            const tbody = document.getElementById('resultsBody');
+            results.forEach(check => {
+                const row = document.createElement('tr');
+                if (!check.isComplete) {
+                    row.classList.add('missing');
+                }
+
+                row.innerHTML = `
+                    <td><strong>${check.id}</strong></td>
+                    <td>${check.title}</td>
+                    <td>${check.level}</td>
+                    <td class="status-icon">${check.hasExamples ? '✅' : '❌'}</td>
+                    <td class="status-icon">${check.hasBeforeHTML ? '✅' : '❌'}</td>
+                    <td class="status-icon">${check.hasAfterHTML ? '✅' : '❌'}</td>
+                    <td class="status-icon">${check.hasBeforeContext && check.hasAfterContext ? '✅' : '❌'}</td>
+                    <td class="status-icon">${check.hasTechniques ? '✅' : '❌'}</td>
+                    <td class="${check.isComplete ? 'complete' : 'incomplete'}">
+                        ${check.isComplete ? 'COMPLETE' : 'INCOMPLETE'}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Log missing data to console
+            if (missingData.length > 0) {
+                console.log('Guidelines with missing data:');
+                missingData.forEach(item => {
+                    console.log(`${item.id}: ${item.title}`);
+                    if (!item.hasExamples) console.log('  - Missing examples object');
+                    if (!item.hasBeforeHTML) console.log('  - Missing before.html');
+                    if (!item.hasAfterHTML) console.log('  - Missing after.html');
+                    if (!item.hasBeforeContext) console.log('  - Missing before.context');
+                    if (!item.hasAfterContext) console.log('  - Missing after.context');
+                    if (!item.hasTechniques) console.log('  - Missing techniques');
+                });
+            } else {
+                console.log('All guidelines have complete data! ✅');
+            }
+        }
+
+        // Run check on page load
+        displayResults();
+    </script>
+</body>
+</html>

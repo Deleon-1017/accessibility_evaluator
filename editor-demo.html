@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor Demo - Web Accessibility Evaluator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .demo-container {
+            margin-top: 40px;
+        }
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        .demo-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .issue-summary {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .issue-count {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            flex: 1;
+        }
+        .issue-count.errors {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .issue-count.warnings {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .issue-count.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        .code-controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container demo-container">
+        <h1>Code Editor with Issue Highlighting Demo</h1>
+        <p class="text-muted">This demonstrates the new CodeMirror-based editor with line number tracking for accessibility issues.</p>
+        
+        <div class="demo-section">
+            <div class="demo-header">
+                <h3>Features</h3>
+                <ul>
+                    <li><strong>Line Numbers:</strong> Every line is numbered for easy reference</li>
+                    <li><strong>Issue Markers:</strong> Lines with issues show colored icons in the gutter</li>
+                    <li><strong>Color-Coded Issues:</strong>
+                        <ul>
+                            <li><span style="color: #dc3545;">● Red (Error)</span> - Critical accessibility issues</li>
+                            <li><span style="color: #ffc107;">⚠ Yellow (Warning)</span> - Potential accessibility issues</li>
+                            <li><span style="color: #17a2b8;">ⓘ Blue (Info)</span> - Accessibility suggestions</li>
+                        </ul>
+                    </li>
+                    <li><strong>Syntax Highlighting:</strong> HTML code with proper formatting</li>
+                    <li><strong>Line Wrapping:</strong> Long lines wrap automatically</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>Example HTML Code with Issues</h3>
+            
+            <div class="code-controls">
+                <button class="btn btn-primary btn-sm" onclick="highlightSampleIssues()">
+                    <i class="bi bi-lightning-fill"></i> Highlight Sample Issues
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="clearAllEditorIssues()">
+                    <i class="bi bi-trash"></i> Clear Issues
+                </button>
+                <button class="btn btn-info btn-sm" onclick="showIssuesSummary()">
+                    <i class="bi bi-list-check"></i> Show Summary
+                </button>
+            </div>
+            
+            <label for="demo-editor" class="form-label fw-semibold">HTML Source Code</label>
+            <div id="demo-editor" class="html-editor-container"></div>
+            
+            <div id="issue-summary" class="issue-summary" style="display: none;">
+                <div class="issue-count errors">
+                    <div class="count">0</div>
+                    <div>Errors</div>
+                </div>
+                <div class="issue-count warnings">
+                    <div class="count">0</div>
+                    <div>Warnings</div>
+                </div>
+                <div class="issue-count info">
+                    <div class="count">0</div>
+                    <div>Info</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h3>How to Use in Your Application</h3>
+            <ol>
+                <li>Include CodeMirror libraries and code-editor-utils.js</li>
+                <li>Initialize the editor in a div container</li>
+                <li>After scanning HTML, call <code>highlightIssues(editor, issues)</code> with your results</li>
+                <li>Issues array format: <code>[{line: 5, severity: 'error', message: 'Missing alt attribute'}]</code></li>
+                <li>Users can see exactly which lines have problems with hover tooltips</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.js"></script>
+    <script src="code-editor-utils.js"></script>
+    
+    <script>
+        let demoEditor;
+        
+        // Initialize demo editor
+        document.addEventListener('DOMContentLoaded', function() {
+            const sampleHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Page</title>
+</head>
+<body>
+    <img src="image.png">
+    <button onclick="alert('clicked')">Click Me</button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">Link without text</a></li>
+            <li><a href="page.html">Home</a></li>
+        </ul>
+    </div>
+    <form>
+        <input type="text">
+        <textarea></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>`;
+            
+            demoEditor = CodeMirror(document.getElementById('demo-editor'), {
+                lineNumbers: true,
+                mode: 'htmlmixed',
+                lineWrapping: true,
+                indentUnit: 4,
+                indentWithTabs: false,
+                theme: 'default',
+                viewportMargin: Infinity,
+                value: sampleHTML
+            });
+        });
+        
+        function highlightSampleIssues() {
+            const issues = [
+                {
+                    line: 9,
+                    severity: 'error',
+                    message: 'Image missing alt attribute for accessibility'
+                },
+                {
+                    line: 10,
+                    severity: 'warning',
+                    message: 'Inline onclick handler - use event listeners instead'
+                },
+                {
+                    line: 12,
+                    severity: 'info',
+                    message: 'Consider using semantic nav element instead of div'
+                },
+                {
+                    line: 14,
+                    severity: 'error',
+                    message: 'Link has no descriptive text'
+                },
+                {
+                    line: 19,
+                    severity: 'warning',
+                    message: 'Form input missing associated label'
+                },
+                {
+                    line: 20,
+                    severity: 'warning',
+                    message: 'Textarea missing associated label'
+                }
+            ];
+            
+            highlightIssues(demoEditor, issues);
+            showIssuesSummary();
+        }
+        
+        function clearAllEditorIssues() {
+            clearAllIssues(demoEditor);
+            document.getElementById('issue-summary').style.display = 'none';
+        }
+        
+        function showIssuesSummary() {
+            const counts = countIssuesBySeverity();
+            const summaryDiv = document.getElementById('issue-summary');
+            
+            summaryDiv.querySelector('.errors .count').textContent = counts.errors;
+            summaryDiv.querySelector('.warnings .count').textContent = counts.warnings;
+            summaryDiv.querySelector('.info .count').textContent = counts.info;
+            
+            summaryDiv.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
