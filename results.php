@@ -200,217 +200,6 @@ $percentage = round(($score / $totalPossible) * 100);
             margin-top: 1rem;
         }
 
-        /* KPI Cards Row */
-        .kpi-cards-row {
-            margin-bottom: 2rem;
-        }
-
-        .kpi-card {
-            background: white;
-            border-radius: 0.875rem;
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .kpi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
-
-        .kpi-card.kpi-error {
-            border-color: #FEE2E2;
-        }
-
-        .kpi-card.kpi-error:hover {
-            border-color: #FCA5A5;
-        }
-
-        .kpi-card.kpi-warning {
-            border-color: #FEF3C7;
-        }
-
-        .kpi-card.kpi-warning:hover {
-            border-color: #FCD34D;
-        }
-
-        .kpi-card.kpi-info {
-            border-color: #DBEAFE;
-        }
-
-        .kpi-card.kpi-info:hover {
-            border-color: #93C5FD;
-        }
-
-        .kpi-card.kpi-total {
-            border-color: #E9D5FF;
-        }
-
-        .kpi-card.kpi-total:hover {
-            border-color: #C084FC;
-        }
-
-        .kpi-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            flex-shrink: 0;
-        }
-
-        .kpi-error .kpi-icon {
-            background: #FEE2E2;
-            color: #DC2626;
-        }
-
-        .kpi-warning .kpi-icon {
-            background: #FEF3C7;
-            color: #D97706;
-        }
-
-        .kpi-info .kpi-icon {
-            background: #DBEAFE;
-            color: #2563EB;
-        }
-
-        .kpi-total .kpi-icon {
-            background: #E9D5FF;
-            color: #9333EA;
-        }
-
-        .kpi-content {
-            flex: 1;
-        }
-
-        .kpi-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--gray-600);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-        }
-
-        .kpi-value {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--gray-900);
-            line-height: 1;
-        }
-
-        /* WCAG Principles Grid */
-        .principles-grid {
-            margin-bottom: 2rem;
-        }
-
-        .principle-card {
-            background: white;
-            border-radius: 0.875rem;
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            height: 100%;
-        }
-
-        .principle-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
-
-        .principle-card.principle-perceivable {
-            border-color: #DBEAFE;
-        }
-
-        .principle-card.principle-perceivable:hover {
-            border-color: #93C5FD;
-        }
-
-        .principle-card.principle-operable {
-            border-color: #D1FAE5;
-        }
-
-        .principle-card.principle-operable:hover {
-            border-color: #6EE7B7;
-        }
-
-        .principle-card.principle-understandable {
-            border-color: #FEF3C7;
-        }
-
-        .principle-card.principle-understandable:hover {
-            border-color: #FCD34D;
-        }
-
-        .principle-card.principle-robust {
-            border-color: #FEE2E2;
-        }
-
-        .principle-card.principle-robust:hover {
-            border-color: #FCA5A5;
-        }
-
-        .principle-icon-dash {
-            width: 56px;
-            height: 56px;
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            flex-shrink: 0;
-        }
-
-        .principle-perceivable .principle-icon-dash {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-
-        .principle-operable .principle-icon-dash {
-            background: #D1FAE5;
-            color: #047857;
-        }
-
-        .principle-understandable .principle-icon-dash {
-            background: #FEF3C7;
-            color: #B45309;
-        }
-
-        .principle-robust .principle-icon-dash {
-            background: #FEE2E2;
-            color: #B91C1C;
-        }
-
-        .principle-content {
-            flex: 1;
-        }
-
-        .principle-name {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--gray-600);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-        }
-
-        .principle-value {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--gray-900);
-            line-height: 1;
-        }
-
         /* Dashboard Content */
         .dashboard-content {
             margin-bottom: 2rem;
@@ -470,10 +259,11 @@ $percentage = round(($score / $totalPossible) * 100);
         }
 
         .summary-stat {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 3rem 1.25rem;
             align-items: center;
-            padding: 0.875rem 0;
+            gap: 0.75rem;
+            padding: 0.875rem 0.5rem;
             border-bottom: 1px solid var(--gray-200);
         }
 
@@ -485,12 +275,106 @@ $percentage = round(($score / $totalPossible) * 100);
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--gray-700);
+            justify-self: start;
         }
 
         .summary-value {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--gray-900);
+            text-align: right;
+            justify-self: end;
+        }
+
+        /* Interactive Summary Stats with Dropdown */
+        .summary-stat-interactive {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .summary-stat-interactive:last-child {
+            border-bottom: none;
+        }
+
+        .summary-stat-header {
+            width: 100%;
+            padding: 0.875rem 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-radius: 0.375rem;
+            border: none;
+            background: transparent;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 3rem 1.25rem;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .summary-stat-header:hover {
+            background: var(--gray-50);
+        }
+
+        .summary-stat-header:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .summary-stat-header .summary-label {
+            justify-self: start;
+        }
+
+        .summary-stat-header .summary-value {
+            justify-self: end;
+            text-align: right;
+        }
+
+        .dropdown-toggle-icon {
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+            color: var(--gray-600);
+            justify-self: center;
+            text-align: center;
+        }
+
+        .summary-stat-header[aria-expanded="true"] .dropdown-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .principles-dropdown-content {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 0.5rem;
+            margin: 0.5rem 0 0.875rem 0;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .collapse:not(.show) {
+            display: none;
+        }
+
+        .collapse.show {
+            display: block;
+        }
+
+        .collapsing {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.35s ease;
+        }
+
+        .principles-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .principles-dropdown-content .principle-badge {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-flex;
         }
 
         .widget-text {
@@ -520,35 +404,68 @@ $percentage = round(($score / $totalPossible) * 100);
         .results-table {
             margin-bottom: 0;
             table-layout: fixed;
+            width: 100%;
         }
 
         .results-table thead {
-            background: #E9ECEF;
+            background: #F9FAFB;
         }
 
         .results-table th {
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--gray-700);
-            padding: 1rem;
+            color: var(--gray-600);
+            padding: 1rem 1.25rem;
             border-bottom: 2px solid var(--gray-200);
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .results-table th:first-child {
+            text-align: center;
+        }
+
+        .results-table th:nth-child(2) {
+            text-align: center;
+        }
+
+        .results-table th:nth-child(3) {
+            text-align: center;
         }
 
         .results-table td {
-            padding: 1rem;
+            padding: 1.5rem 1.25rem;
             vertical-align: middle;
             color: var(--gray-700);
+            text-align: left;
+        }
+
+        .results-table td:first-child {
+            text-align: center;
+        }
+
+        .results-table td:nth-child(2) {
+            text-align: center;
+        }
+
+        .results-table td:nth-child(3) {
+            text-align: center;
         }
 
         .results-table tbody tr.issue-row {
             transition: background 0.2s ease;
             cursor: pointer;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .results-table tbody tr.issue-row:hover {
-            background: #F0F7FF;
+            background: #F9FAFB;
+        }
+
+        .results-table tbody tr.issue-row:last-child {
+            border-bottom: none;
         }
 
         /* Expandable Row Details */
@@ -621,43 +538,54 @@ $percentage = round(($score / $totalPossible) * 100);
             margin: 0;
         }
 
+        .results-table code {
+            background: #F3F4F6;
+            color: #DC2626;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
         .expand-icon {
-            transition: transform 0.3s ease, background 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.3s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 32px;
             height: 32px;
-            background: #6366F1;
+            background: transparent;
             border: none;
             border-radius: 0.375rem;
-            font-size: 0.75rem;
-            font-weight: 300;
-            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6B7280;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
         }
 
-        .issue-row:hover .expand-icon {
-            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
-            transform: translateY(-1px);
+        .expand-icon::before {
+            content: '\276F';
+            display: inline-block;
+            transform: rotate(90deg);
         }
 
-        .expand-icon.rotated {
-            transform: rotate(180deg);
-        }
-
-        .issue-row:hover .expand-icon.rotated {
-            transform: rotate(180deg) translateY(1px);
+        .expand-icon.rotated::before {
+            transform: rotate(-90deg);
         }
 
         /* Badge Styles */
         .badge-type {
-            padding: 0.375rem 0.875rem;
+            padding: 0.4rem 0.85rem;
             border-radius: 0.375rem;
-            font-size: 0.75rem;
+            font-size: 0.6875rem;
             font-weight: 700;
             text-transform: uppercase;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 75px;
+            text-align: center;
+            letter-spacing: 0.02em;
         }
 
         .badge-error {
@@ -679,32 +607,35 @@ $percentage = round(($score / $totalPossible) * 100);
         .principle-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.375rem 0.875rem;
-            border-radius: 1.5rem;
+            padding: 0.6rem 1.3rem;
+            border-radius: 1rem;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.6875rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            min-width: 130px;
+            justify-content: center;
         }
 
         .principle-perceivable {
-            background: #dbeafe;
-            color: #1e40af;
+            background: #DBEAFE;
+            color: #1E40AF;
         }
 
         .principle-operable {
-            background: #d1fae5;
-            color: #065f46;
+            background: #D1FAE5;
+            color: #065F46;
         }
 
         .principle-understandable {
-            background: #fef3c7;
-            color: #92400e;
+            background: #FEF3C7;
+            color: #92400E;
         }
 
         .principle-robust {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #FEE2E2;
+            color: #991B1B;
         }
 
         /* Modal Styles */
@@ -731,33 +662,6 @@ $percentage = round(($score / $totalPossible) * 100);
             text-transform: uppercase;
             color: var(--gray-600);
             margin-bottom: 0.75rem;
-        }
-
-        /* Back Button */
-        .back-section {
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.625rem;
-            padding: 1rem 2.5rem;
-            background: white;
-            color: var(--gray-700);
-            border: 2px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-back:hover {
-            background: var(--gray-50);
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
         }
 
         /* Responsive */
@@ -792,34 +696,6 @@ $percentage = round(($score / $totalPossible) * 100);
                 height: 140px;
             }
 
-            .kpi-card {
-                padding: 1.25rem;
-            }
-
-            .kpi-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.5rem;
-            }
-
-            .kpi-value {
-                font-size: 1.75rem;
-            }
-
-            .principle-card {
-                padding: 1.25rem;
-            }
-
-            .principle-icon-dash {
-                width: 48px;
-                height: 48px;
-                font-size: 1.5rem;
-            }
-
-            .principle-value {
-                font-size: 1.75rem;
-            }
-
             .card-header-dash {
                 padding: 1.25rem 1.5rem;
             }
@@ -850,42 +726,6 @@ $percentage = round(($score / $totalPossible) * 100);
             .score-circle-dash {
                 width: 120px;
                 height: 120px;
-            }
-
-            .kpi-card {
-                padding: 1rem;
-            }
-
-            .kpi-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.25rem;
-            }
-
-            .kpi-label {
-                font-size: 0.75rem;
-            }
-
-            .kpi-value {
-                font-size: 1.5rem;
-            }
-
-            .principle-card {
-                padding: 1rem;
-            }
-
-            .principle-icon-dash {
-                width: 44px;
-                height: 44px;
-                font-size: 1.25rem;
-            }
-
-            .principle-name {
-                font-size: 0.75rem;
-            }
-
-            .principle-value {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -1012,88 +852,7 @@ $percentage = round(($score / $totalPossible) * 100);
             </div>
         </div>
 
-        <!-- KPI Cards Row -->
-        <div class="kpi-cards-row">
-            <div class="row g-3">
-                <div class="col-md-3 col-sm-6">
-                    <div class="kpi-card kpi-error">
-                        <div class="kpi-icon">
-                            <i class="bi bi-x-circle-fill"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <div class="kpi-label">Errors</div>
-                            <div class="kpi-value"><?php echo $results['summary']['error_count']; ?></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="kpi-card kpi-warning">
-                        <div class="kpi-icon">
-                            <i class="bi bi-exclamation-triangle-fill"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <div class="kpi-label">Warnings</div>
-                            <div class="kpi-value"><?php echo $results['summary']['warning_count']; ?></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="kpi-card kpi-info">
-                        <div class="kpi-icon">
-                            <i class="bi bi-info-circle-fill"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <div class="kpi-label">Info</div>
-                            <div class="kpi-value"><?php echo $results['summary']['info_count']; ?></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="kpi-card kpi-total">
-                        <div class="kpi-icon">
-                            <i class="bi bi-list-check"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <div class="kpi-label">Total Issues</div>
-                            <div class="kpi-value"><?php echo $results['summary']['error_count'] + $results['summary']['warning_count'] + $results['summary']['info_count']; ?></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- WCAG Principles Grid -->
-        <div class="principles-grid">
-            <div class="row g-3">
-                <?php 
-                $principleIcons = [
-                    'Perceivable' => 'bi-eye',
-                    'Operable' => 'bi-mouse',
-                    'Understandable' => 'bi-lightbulb',
-                    'Robust' => 'bi-cpu'
-                ];
-                $principleColors = [
-                    'Perceivable' => 'perceivable',
-                    'Operable' => 'operable',
-                    'Understandable' => 'understandable',
-                    'Robust' => 'robust'
-                ];
-                foreach ($results['summary']['principles'] as $principle => $count): 
-                ?>
-                <div class="col-lg-3 col-md-6">
-                    <div class="principle-card principle-<?php echo $principleColors[$principle]; ?>">
-                        <div class="principle-icon-dash">
-                            <i class="bi <?php echo $principleIcons[$principle]; ?>"></i>
-                        </div>
-                        <div class="principle-content">
-                            <div class="principle-name"><?php echo $principle; ?></div>
-                            <div class="principle-value"><?php echo $count; ?></div>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
 
         <!-- Main Dashboard Content: 2-Column Layout -->
         <div class="dashboard-content">
@@ -1119,14 +878,14 @@ $percentage = round(($score / $totalPossible) * 100);
                                         <caption class="visually-hidden">Detailed listing of all detected accessibility issues</caption>
                                         <thead>
                                             <tr>
-                                                <th scope="col" style="width: 10%;">Type</th>
-                                                <th scope="col" style="width: 12%;">WCAG</th>
+                                                <th scope="col" style="width: 13%;">Type</th>
+                                                <th scope="col" style="width: 10%;">WCAG</th>
                                                 <?php if (!$results['source_url']): ?>
-                                                <th scope="col" style="width: 8%;">Line</th>
+                                                <th scope="col" style="width: 7%;">Line</th>
                                                 <?php endif; ?>
-                                                <th scope="col" style="width: 15%;">Principle</th>
+                                                <th scope="col" style="width: 18%;">Principle</th>
                                                 <th scope="col">Issue Description</th>
-                                                <th scope="col" style="width: 5%;"></th>
+                                                <th scope="col" style="width: 10%;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1157,7 +916,7 @@ $percentage = round(($score / $totalPossible) * 100);
                                                     <div class="small text-muted mt-1"><?php echo htmlspecialchars($issue['description']); ?></div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <span class="expand-icon">▼</span>
+                                                    <span class="expand-icon"></span>
                                                 </td>
                                             </tr>
                                             <tr class="issue-details-row" id="details-<?php echo $index; ?>">
@@ -1222,27 +981,102 @@ $percentage = round(($score / $totalPossible) * 100);
                             </h3>
                         </div>
                         <div class="widget-body">
+                            <?php
+                            // Calculate principles affected by each issue type
+                            $issueTypePrinciples = [
+                                'error' => [],
+                                'warning' => [],
+                                'info' => []
+                            ];
+                            
+                            foreach ($results['issues'] as $issue) {
+                                $type = strtolower($issue['type']);
+                                $principle = $issue['principle'];
+                                if (!in_array($principle, $issueTypePrinciples[$type])) {
+                                    $issueTypePrinciples[$type][] = $principle;
+                                }
+                            }
+                            ?>
+                            
                             <div class="summary-stat">
                                 <span class="summary-label">Total Issues</span>
                                 <span class="summary-value"><?php echo $results['summary']['error_count'] + $results['summary']['warning_count'] + $results['summary']['info_count']; ?></span>
+                                <span></span>
                             </div>
-                            <div class="summary-stat">
-                                <span class="summary-label text-danger">
-                                    <i class="bi bi-x-circle-fill me-1"></i>Errors
-                                </span>
-                                <span class="summary-value text-danger"><?php echo $results['summary']['error_count']; ?></span>
+                            
+                            <!-- Errors with Dropdown -->
+                            <div class="summary-stat-interactive">
+                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#errorPrinciples" aria-expanded="false" aria-controls="errorPrinciples">
+                                    <span class="summary-label text-danger">
+                                        <i class="bi bi-x-circle-fill me-1"></i>Errors
+                                    </span>
+                                    <span class="summary-value text-danger"><?php echo $results['summary']['error_count']; ?></span>
+                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                                </button>
+                                <div class="collapse" id="errorPrinciples">
+                                    <div class="principles-dropdown-content">
+                                        <div class="principles-label">Affected WCAG Principles:</div>
+                                        <?php if (!empty($issueTypePrinciples['error'])): ?>
+                                            <?php foreach ($issueTypePrinciples['error'] as $principle): ?>
+                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                    <?php echo htmlspecialchars($principle); ?>
+                                                </span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <span class="text-muted small">No errors found</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="summary-stat">
-                                <span class="summary-label text-warning">
-                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Warnings
-                                </span>
-                                <span class="summary-value text-warning"><?php echo $results['summary']['warning_count']; ?></span>
+                            
+                            <!-- Warnings with Dropdown -->
+                            <div class="summary-stat-interactive">
+                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#warningPrinciples" aria-expanded="false" aria-controls="warningPrinciples">
+                                    <span class="summary-label text-warning">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i>Warnings
+                                    </span>
+                                    <span class="summary-value text-warning"><?php echo $results['summary']['warning_count']; ?></span>
+                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                                </button>
+                                <div class="collapse" id="warningPrinciples">
+                                    <div class="principles-dropdown-content">
+                                        <div class="principles-label">Affected WCAG Principles:</div>
+                                        <?php if (!empty($issueTypePrinciples['warning'])): ?>
+                                            <?php foreach ($issueTypePrinciples['warning'] as $principle): ?>
+                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                    <?php echo htmlspecialchars($principle); ?>
+                                                </span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <span class="text-muted small">No warnings found</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="summary-stat">
-                                <span class="summary-label text-info">
-                                    <i class="bi bi-info-circle-fill me-1"></i>Info
-                                </span>
-                                <span class="summary-value text-info"><?php echo $results['summary']['info_count']; ?></span>
+                            
+                            <!-- Info with Dropdown -->
+                            <div class="summary-stat-interactive">
+                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#infoPrinciples" aria-expanded="false" aria-controls="infoPrinciples">
+                                    <span class="summary-label text-info">
+                                        <i class="bi bi-info-circle-fill me-1"></i>Info
+                                    </span>
+                                    <span class="summary-value text-info"><?php echo $results['summary']['info_count']; ?></span>
+                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                                </button>
+                                <div class="collapse" id="infoPrinciples">
+                                    <div class="principles-dropdown-content">
+                                        <div class="principles-label">Affected WCAG Principles:</div>
+                                        <?php if (!empty($issueTypePrinciples['info'])): ?>
+                                            <?php foreach ($issueTypePrinciples['info'] as $principle): ?>
+                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                    <?php echo htmlspecialchars($principle); ?>
+                                                </span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <span class="text-muted small">No info items found</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1295,13 +1129,7 @@ $percentage = round(($score / $totalPossible) * 100);
             </div>
         </div>
 
-        <!-- Back Button -->
-        <div class="back-section">
-            <a href="index.php" class="btn-back">
-                <i class="bi bi-arrow-left"></i>
-                Back to Scanner
-            </a>
-        </div>
+
     </main>
 
     <!-- Footer -->
@@ -1437,6 +1265,51 @@ $percentage = round(($score / $totalPossible) * 100);
                         this.click();
                     }
                 });
+            });
+
+            // Enhanced dropdown interactions for Scan Summary
+            const dropdownButtons = document.querySelectorAll('.summary-stat-header');
+            
+            dropdownButtons.forEach(button => {
+                // Manual click handler as backup
+                button.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('data-bs-target');
+                    const collapseElement = document.querySelector(targetId);
+                    
+                    if (collapseElement) {
+                        // Check if Bootstrap is available
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                            // Use Bootstrap's Collapse
+                            const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapseElement);
+                            bsCollapse.toggle();
+                        } else {
+                            // Fallback: manual toggle
+                            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                            
+                            if (isExpanded) {
+                                collapseElement.classList.remove('show');
+                                this.setAttribute('aria-expanded', 'false');
+                            } else {
+                                collapseElement.classList.add('show');
+                                this.setAttribute('aria-expanded', 'true');
+                            }
+                        }
+                    }
+                });
+                
+                // Listen for Bootstrap collapse events
+                const targetId = button.getAttribute('data-bs-target');
+                const collapseElement = document.querySelector(targetId);
+                
+                if (collapseElement) {
+                    collapseElement.addEventListener('show.bs.collapse', function() {
+                        button.setAttribute('aria-expanded', 'true');
+                    });
+                    
+                    collapseElement.addEventListener('hide.bs.collapse', function() {
+                        button.setAttribute('aria-expanded', 'false');
+                    });
+                }
             });
         });
     </script>
