@@ -7282,5 +7282,11 @@ const wcagTechniqueDetails = {
     }
 };
 
-window.wcagTechniqueDetails = wcagTechniqueDetails;
+// window.wcagTechniqueDetails = wcagTechniqueDetails; // Commented for Node.js compatibility
 
+
+
+// Export for Node.js
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { wcagGuidelines, wcagTechniqueDetails };
+}

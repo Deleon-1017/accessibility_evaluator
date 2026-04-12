@@ -1703,15 +1703,27 @@ try {
     // Store results in session
     $_SESSION['scan_results'] = $results;
 
-    // Create reports directory if it doesn't exist
-    $reportsDir = __DIR__ . '/reports';
-    if (!is_dir($reportsDir)) {
-        @mkdir($reportsDir, 0755, true);
+    // Save to database
+    try {
+        require_once __DIR__ . '/scan-results-db.php';
+        require_once __DIR__ . '/config/database.php';
+        
+        $db = getDatabaseConnection();
+        $scanDB = new ScanResultsDB($db);
+        $scanDB->saveScanResults($results);
+        
+        error_log("Scan results saved to database: " . $results['scan_id']);
+    } catch (Exception $e) {
+        error_log("Failed to save scan to database: " . $e->getMessage());
+        
+        // Fallback to JSON file if database fails
+        $reportsDir = __DIR__ . '/reports';
+        if (!is_dir($reportsDir)) {
+            @mkdir($reportsDir, 0755, true);
+        }
+        $reportFile = $reportsDir . '/' . $results['scan_id'] . '.json';
+        @file_put_contents($reportFile, json_encode($results, JSON_PRETTY_PRINT));
     }
-
-    // Store in file for persistence
-    $reportFile = $reportsDir . '/' . $results['scan_id'] . '.json';
-    @file_put_contents($reportFile, json_encode($results, JSON_PRETTY_PRINT));
 
     // Redirect to results page
     header('Location: results.php?scan_id=' . $results['scan_id']);

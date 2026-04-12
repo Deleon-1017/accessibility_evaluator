@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Console Output Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        #output { background: #000; color: #0f0; padding: 20px; white-space: pre-wrap; }
+        .error { color: #f00; }
+        .warn { color: #ff0; }
+        .info { color: #0ff; }
+    </style>
+</head>
+<body>
+    <h1>Console Output Capture</h1>
+    <div id="output"></div>
+
+    <script>
+        const output = document.getElementById('output');
+        
+        // Capture console.log
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            output.innerHTML += args.join(' ') + '\n';
+        };
+        
+        // Capture console.error
+        const originalError = console.error;
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            output.innerHTML += '<span class="error">ERROR: ' + args.join(' ') + '</span>\n';
+        };
+        
+        // Capture console.warn
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            output.innerHTML += '<span class="warn">WARN: ' + args.join(' ') + '</span>\n';
+        };
+        
+        // Now load the actual scripts
+        console.log('=== Starting WCAG Test ===');
+    </script>
+    
+    <!-- Load the same scripts as wcag.php -->
+    <script>
+        console.log('[WCAG] Script loaded');
+        
+        let wcagGuidelines = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[WCAG] DOM Content Loaded, starting fetch');
+            
+            // Create minimal DOM elements
+            document.body.innerHTML += `
+                <div id="loadingIndicator">Loading...</div>
+                <div id="errorMessage" class="d-none"><span id="errorText"></span></div>
+                <div id="guidelinesTableWrapper" style="display: none;">
+                    <table id="wcagTable">
+                        <tbody id="wcagTableBody"></tbody>
+                    </table>
+                </div>
+                <select id="levelFilter"><option value="all">All</option></select>
+                <select id="principleFilter"><option value="all">All</option></select>
+                <button id="resetFilters">Reset</button>
+                <span id="resultCount">0</span>
+                <div id="guidelineModal"></div>
+            `;
+            
+            fetchWcagGuidelines();
+        });
+        
+        async function fetchWcagGuidelines() {
+            console.log('[WCAG] fetchWcagGuidelines called');
+            
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            const tableWrapper = document.getElementById('guidelinesTableWrapper');
+            
+            console.log('[WCAG] Elements found:', {
+                loadingIndicator: !!loadingIndicator,
+                errorMessage: !!errorMessage,
+                tableWrapper: !!tableWrapper
+            });
+            
+            try {
+                const apiUrl = 'api/get-wcag-guidelines.php';
+                console.log('[WCAG] Fetching from:', apiUrl);
+                
+                const response = await fetch(apiUrl);
+                console.log('[WCAG] Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('[WCAG] Result:', {
+                    success: result.success,
+                    count: result.count,
+                    dataLength: result.data ? result.data.length : 0
+                });
+                
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to load guidelines');
+                }
+                
+                wcagGuidelines = result.data;
+                console.log('[WCAG] Guidelines stored:', wcagGuidelines.length);
+                console.log('[WCAG] First guideline:', wcagGuidelines[0]);
+                
+                loadingIndicator.style.display = 'none';
+                tableWrapper.style.display = 'block';
+                console.log('[WCAG] UI updated: loading hidden, table shown');
+                
+                console.log('[WCAG] Dispatching wcagDataLoaded event');
+                window.dispatchEvent(new CustomEvent('wcagDataLoaded'));
+                console.log('[WCAG] Event dispatched');
+                
+            } catch (error) {
+                console.error('[WCAG] Error fetching WCAG guidelines:', error);
+                loadingIndicator.style.display = 'none';
+                errorMessage.classList.remove('d-none');
+                document.getElementById('errorText').textContent = error.message;
+            }
+        }
+    </script>
+    
+    <script>
+        // Simulate wcag-script.js
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[WCAG-SCRIPT] DOM Content Loaded');
+            
+            const tableBody = document.getElementById('wcagTableBody');
+            console.log('[WCAG-SCRIPT] tableBody found:', !!tableBody);
+            
+            console.log('[WCAG-SCRIPT] Adding wcagDataLoaded event listener');
+            window.addEventListener('wcagDataLoaded', function() {
+                console.log('[WCAG-SCRIPT] wcagDataLoaded event received!');
+                console.log('[WCAG-SCRIPT] wcagGuidelines length:', wcagGuidelines.length);
+                console.log('[WCAG-SCRIPT] wcagGuidelines sample:', wcagGuidelines.slice(0, 2));
+                
+                // Try to render
+                if (wcagGuidelines.length > 0) {
+                    console.log('[WCAG-SCRIPT] Rendering table...');
+                    tableBody.innerHTML = '<tr><td>TEST ROW</td></tr>';
+                    console.log('[WCAG-SCRIPT] Table rendered');
+                } else {
+                    console.error('[WCAG-SCRIPT] No guidelines to render!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

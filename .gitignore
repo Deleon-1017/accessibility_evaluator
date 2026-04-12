@@ -1,0 +1,34 @@
+# Environment Configuration
+.env
+.env.local
+.env.*.local
+
+# Database
+*.sql.backup
+*.sql.bak
+
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Vendor
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Reports (optional - uncomment if you don't want to track reports)
+# reports/*.json
+
+# Temporary files
+*.tmp
+*.temp

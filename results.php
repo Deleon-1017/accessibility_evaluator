@@ -15,13 +15,30 @@ if (isset($_SESSION['scan_results']) && is_array($_SESSION['scan_results'])) {
 } else {
     $scanId = sanitizeInput($_GET['scan_id'] ?? '');
     if ($scanId !== '' && preg_match('/^[a-zA-Z0-9._-]+$/', $scanId)) {
-        $reportFile = __DIR__ . '/reports/' . $scanId . '.json';
-        if (is_file($reportFile)) {
-            $reportJson = file_get_contents($reportFile);
-            $decoded = json_decode($reportJson, true);
-            if (is_array($decoded)) {
-                $results = $decoded;
+        // Try loading from database first
+        try {
+            require_once __DIR__ . '/scan-results-db.php';
+            require_once __DIR__ . '/config/database.php';
+            
+            $db = getDatabaseConnection();
+            $scanDB = new ScanResultsDB($db);
+            $results = $scanDB->getScanResults($scanId);
+            
+            if ($results) {
                 $_SESSION['scan_results'] = $results;
+            }
+        } catch (Exception $e) {
+            error_log("Failed to load scan from database: " . $e->getMessage());
+            
+            // Fallback to JSON file
+            $reportFile = __DIR__ . '/reports/' . $scanId . '.json';
+            if (is_file($reportFile)) {
+                $reportJson = file_get_contents($reportFile);
+                $decoded = json_decode($reportJson, true);
+                if (is_array($decoded)) {
+                    $results = $decoded;
+                    $_SESSION['scan_results'] = $results;
+                }
             }
         }
     }
@@ -32,11 +49,9 @@ if ($results === null) {
     exit;
 }
 
-// Calculate accessibility score
-$totalPossible = 50;
-$deductions = min($results['summary']['error_count'] * 5 + $results['summary']['warning_count'] * 2, 45);
-$score = max($totalPossible - $deductions, 0);
-$percentage = round(($score / $totalPossible) * 100);
+// Use the accessibility score already calculated in scan.php
+$score = isset($results['score']) ? $results['score'] : 0;
+$percentage = round($score);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -755,7 +770,7 @@ $percentage = round(($score / $totalPossible) * 100);
                                 <a class="nav-link mx-lg-3" aria-current="page" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-lg-3" href="wcag.html">WCAG Guidelines</a>
+                                <a class="nav-link mx-lg-3" href="wcag.php">WCAG Guidelines</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-3" href="contact.html">Contact</a>
@@ -1119,7 +1134,7 @@ $percentage = round(($score / $totalPossible) * 100);
                                 <i class="bi bi-arrow-repeat me-2"></i>
                                 New Scan
                             </a>
-                            <a href="wcag.html" class="btn btn-outline-primary w-100">
+                            <a href="wcag.php" class="btn btn-outline-primary w-100">
                                 <i class="bi bi-book me-2"></i>
                                 View WCAG Guidelines
                             </a>
@@ -1143,25 +1158,25 @@ $percentage = round(($score / $totalPossible) * 100);
                 <div class="col-md-3 mb-4">
                     <h6 class="fw-bold text-uppercase mb-3">WCAG 2.1 Guidelines</h6>
                     <ul class="list-unstyled small">
-                        <li><a href="wcag.html#level-a" class="text-decoration-none text-muted d-block mb-2">Level A</a></li>
-                        <li><a href="wcag.html#level-aa" class="text-decoration-none text-muted d-block mb-2">Level AA</a></li>
-                        <li><a href="wcag.html#level-aaa" class="text-decoration-none text-muted d-block mb-2">Level AAA</a></li>
+                        <li><a href="wcag.php#level-a" class="text-decoration-none text-muted d-block mb-2">Level A</a></li>
+                        <li><a href="wcag.php#level-aa" class="text-decoration-none text-muted d-block mb-2">Level AA</a></li>
+                        <li><a href="wcag.php#level-aaa" class="text-decoration-none text-muted d-block mb-2">Level AAA</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
                     <h6 class="fw-bold text-uppercase mb-3">WCAG 2.1 Principles</h6>
                     <ul class="list-unstyled small">
-                        <li><a href="wcag.html#principle-perceivable" class="text-decoration-none text-muted d-block mb-2">Perceivable</a></li>
-                        <li><a href="wcag.html#principle-operable" class="text-decoration-none text-muted d-block mb-2">Operable</a></li>
-                        <li><a href="wcag.html#principle-understandable" class="text-decoration-none text-muted d-block mb-2">Understandable</a></li>
-                        <li><a href="wcag.html#principle-robust" class="text-decoration-none text-muted d-block mb-2">Robust</a></li>
+                        <li><a href="wcag.php#principle-perceivable" class="text-decoration-none text-muted d-block mb-2">Perceivable</a></li>
+                        <li><a href="wcag.php#principle-operable" class="text-decoration-none text-muted d-block mb-2">Operable</a></li>
+                        <li><a href="wcag.php#principle-understandable" class="text-decoration-none text-muted d-block mb-2">Understandable</a></li>
+                        <li><a href="wcag.php#principle-robust" class="text-decoration-none text-muted d-block mb-2">Robust</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h6 class="fw-bold text-uppercase mb-3">Product</h6>
                     <ul class="list-unstyled small">
                         <li><a href="index.php" class="text-decoration-none text-muted d-block mb-2">Scanner</a></li>
-                        <li><a href="wcag.html" class="text-decoration-none text-muted d-block mb-2">Guidelines</a></li>
+                        <li><a href="wcag.php" class="text-decoration-none text-muted d-block mb-2">Guidelines</a></li>
                     </ul>
                 </div>
                 <hr class="border-secondary-subtle">

@@ -59,7 +59,7 @@ if (isset($_SESSION['scan_error'])) {
                                 <a class="nav-link mx-lg-3 active" aria-current="page" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-lg-3" href="wcag.html">WCAG Guidelines</a>
+                                <a class="nav-link mx-lg-3" href="wcag.php">WCAG Guidelines</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-3" href="contact.html">Contact</a>

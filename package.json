@@ -1,0 +1,30 @@
+{
+  "name": "wcag-db-migration",
+  "version": "1.0.0",
+  "description": "WCAG Database Migration System - Migrate WCAG data from JavaScript to MySQL",
+  "main": "database/migrate.js",
+  "scripts": {
+    "migrate": "node database/migrate.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "wcag",
+    "accessibility",
+    "database",
+    "migration"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.5"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

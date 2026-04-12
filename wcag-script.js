@@ -1,37 +1,55 @@
 // WCAG Table Rendering and Filtering Script
+console.log('[WCAG-SCRIPT] File loaded - top of file');
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('[WCAG-SCRIPT] DOM Content Loaded');
+    
     const tableBody = document.getElementById('wcagTableBody');
     const levelFilter = document.getElementById('levelFilter');
     const principleFilter = document.getElementById('principleFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const resultCount = document.getElementById('resultCount');
+    
+    console.log('[WCAG-SCRIPT] Bootstrap check:', typeof bootstrap);
+    
+    if (typeof bootstrap === 'undefined') {
+        console.error('[WCAG-SCRIPT] Bootstrap is not loaded!');
+        return;
+    }
+    
     const guidelineModal = new bootstrap.Modal(document.getElementById('guidelineModal'));
     const guidelineModalBody = document.getElementById('guidelineModalBody');
     const guidelineModalLabel = document.getElementById('guidelineModalLabel');
 
-    // Initial render
-    renderTable();
+    console.log('[WCAG-SCRIPT] Elements found:', {
+        tableBody: !!tableBody,
+        levelFilter: !!levelFilter,
+        principleFilter: !!principleFilter,
+        resetFiltersBtn: !!resetFiltersBtn,
+        resultCount: !!resultCount
+    });
 
     // Event listeners for filters
     levelFilter.addEventListener('change', renderTable);
     principleFilter.addEventListener('change', renderTable);
     resetFiltersBtn.addEventListener('click', resetFilters);
 
-    // URL parameter handling
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('level')) {
-        levelFilter.value = urlParams.get('level');
+    // Wait for data to be loaded before rendering
+    console.log('[WCAG-SCRIPT] Adding wcagDataLoaded event listener');
+    window.addEventListener('wcagDataLoaded', function() {
+        console.log('[WCAG-SCRIPT] wcagDataLoaded event received');
+        console.log('[WCAG-SCRIPT] wcagGuidelines length:', wcagGuidelines.length);
         renderTable();
-    }
-    if (urlParams.has('principle')) {
-        principleFilter.value = urlParams.get('principle');
-        renderTable();
-    }
+    });
 
     function renderTable() {
+        console.log('[WCAG-SCRIPT] renderTable called');
+        console.log('[WCAG-SCRIPT] wcagGuidelines:', wcagGuidelines);
+        
         const selectedLevel = levelFilter.value;
         const selectedPrinciple = principleFilter.value;
+
+        console.log('[WCAG-SCRIPT] Filters:', { selectedLevel, selectedPrinciple });
 
         // Filter guidelines
         const filteredGuidelines = wcagGuidelines.filter(guideline => {
@@ -39,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const principleMatch = selectedPrinciple === 'all' || guideline.principle === selectedPrinciple;
             return levelMatch && principleMatch;
         });
+
+        console.log('[WCAG-SCRIPT] Filtered guidelines:', filteredGuidelines.length);
 
         // Update result count with animation
         const currentCount = parseInt(resultCount.textContent) || 0;
