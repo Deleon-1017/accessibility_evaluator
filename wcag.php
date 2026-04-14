@@ -229,9 +229,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <h6 class="fw-bold text-uppercase mb-3">About</h6>
-                    <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae impedit
-                        nesciunt, assumenda unde magni incidunt. Placeat commodi quod dolore, ex eligendi architecto
-                        velit ea dolores aliquam quis! Culpa, suscipit laudantium</p>
+                    <p class="small text-muted">Web Accessibility Evaluator helps you check your website's compliance with WCAG 2.1 guidelines. Get actionable insights to improve accessibility for all users.</p>
                 </div>
                 <div class="col-md-3 mb-4">
                     <h6 class="fw-bold text-uppercase mb-3">WCAG 2.1 Guidelines</h6>

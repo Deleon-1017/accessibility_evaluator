@@ -52,6 +52,32 @@ if ($results === null) {
 // Use the accessibility score already calculated in scan.php
 $score = isset($results['score']) ? $results['score'] : 0;
 $percentage = round($score);
+
+$summary = (isset($results['summary']) && is_array($results['summary'])) ? $results['summary'] : [];
+$errorCount = (int)($summary['error_count'] ?? 0);
+$warningCount = (int)($summary['warning_count'] ?? 0);
+$infoCount = (int)($summary['info_count'] ?? 0);
+$totalIssues = $errorCount + $warningCount + $infoCount;
+
+$scanTargetLabel = !empty($results['source_url']) ? 'Live URL Scan' : 'Local File Scan';
+$timestampRaw = (string)($results['timestamp'] ?? '');
+$scanTimestampDisplay = $timestampRaw !== '' ? $timestampRaw : 'Timestamp not available';
+$scanTimestampAttr = $timestampRaw;
+if ($timestampRaw !== '') {
+    $scanTimestampUnix = strtotime($timestampRaw);
+    if ($scanTimestampUnix !== false) {
+        $scanTimestampDisplay = date('M j, Y g:i A', $scanTimestampUnix);
+        $scanTimestampAttr = date(DATE_ATOM, $scanTimestampUnix);
+    }
+}
+
+if ($percentage >= 80) {
+    $scoreStatusText = 'Strong Foundation';
+} elseif ($percentage >= 60) {
+    $scoreStatusText = 'Needs Refinement';
+} else {
+    $scoreStatusText = 'Needs Immediate Attention';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,30 +138,46 @@ $percentage = round($score);
 
         /* Dashboard Hero Header */
         .dashboard-hero {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
             margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: none;
+        }
+
+        .hero-info-panel,
+        .hero-score-panel {
+            height: 100%;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 1rem;
+            padding: 1.25rem;
+        }
+
+        .hero-info-panel {
+            display: flex;
+            align-items: flex-start;
         }
 
         .website-info-card {
             display: flex;
-            align-items: center;
-            gap: 1.5rem;
+            align-items: flex-start;
+            gap: 1rem;
+            width: 100%;
         }
 
         .website-logo-dash {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             flex-shrink: 0;
             border-radius: 0.75rem;
             overflow: hidden;
-            background: var(--gray-50);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--gray-200);
+            border: none;
         }
 
         .website-logo-dash img {
@@ -155,16 +197,18 @@ $percentage = round($score);
         }
 
         .website-title {
-            font-size: 1.75rem;
+            font-size: 1.625rem;
             font-weight: 700;
             color: var(--gray-900);
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.75rem 0;
+            line-height: 1.15;
         }
 
         .website-meta {
             display: flex;
             flex-direction: column;
-            gap: 0.375rem;
+            gap: 0.75rem;
+            margin-top: 0.85rem;
         }
 
         .meta-item {
@@ -172,13 +216,23 @@ $percentage = round($score);
             color: var(--gray-600);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.55rem;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            line-height: 1.6;
         }
 
         .meta-item a {
             color: var(--primary);
             text-decoration: none;
             word-break: break-all;
+        }
+
+        .meta-item:not(.meta-url) {
+            width: fit-content;
+            max-width: 100%;
         }
 
         .meta-item a:hover {
@@ -192,11 +246,16 @@ $percentage = round($score);
         /* Score Dashboard Card */
         .score-dashboard-card {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
 
         .score-circle-dash {
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             margin: 0 auto;
         }
 
@@ -212,7 +271,14 @@ $percentage = round($score);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--gray-600);
-            margin-top: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .score-context-dash {
+            margin-top: 0.35rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--gray-700);
         }
 
         /* Dashboard Content */
@@ -681,15 +747,24 @@ $percentage = round($score);
 
         /* Responsive */
         @media (max-width: 992px) {
+            .dashboard-hero {
+                padding: 1.25rem;
+            }
+
             .score-circle-dash {
-                width: 160px;
-                height: 160px;
+                width: 154px;
+                height: 154px;
             }
         }
 
         @media (max-width: 768px) {
             .dashboard-hero {
-                padding: 1.5rem;
+                padding: 1rem;
+            }
+
+            .hero-info-panel,
+            .hero-score-panel {
+                padding: 1rem;
             }
 
             .website-info-card {
@@ -707,8 +782,8 @@ $percentage = round($score);
             }
 
             .score-circle-dash {
-                width: 140px;
-                height: 140px;
+                width: 138px;
+                height: 138px;
             }
 
             .card-header-dash {
@@ -739,8 +814,8 @@ $percentage = round($score);
             }
 
             .score-circle-dash {
-                width: 120px;
-                height: 120px;
+                width: 124px;
+                height: 124px;
             }
         }
     </style>
@@ -789,80 +864,105 @@ $percentage = round($score);
 
         <!-- Dashboard Hero Header -->
         <div class="dashboard-hero">
-            <div class="row align-items-center g-4">
+            <div class="row align-items-stretch g-3">
                 <!-- Left: Website Info -->
-                <div class="col-lg-7">
-                    <?php if ($results['source_url']): ?>
-                    <div class="website-info-card">
-                        <div class="website-logo-dash">
-                            <?php
-                            $parsedUrl = parse_url($results['source_url']);
-                            $domain = $parsedUrl['host'] ?? '';
-                            $faviconUrl = 'https://www.google.com/s2/favicons?domain=' . urlencode($domain) . '&sz=128';
-                            ?>
-                            <img src="<?php echo htmlspecialchars($faviconUrl); ?>" 
-                                 alt="Website logo" 
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <i class="bi bi-globe" style="display: none;"></i>
-                        </div>
-                        <div class="website-info-text">
-                            <h1 class="website-title"><?php 
-                                $parsedUrl = parse_url($results['source_url']);
-                                $domain = $parsedUrl['host'] ?? 'Website';
-                                $domain = preg_replace('/^www\./i', '', $domain);
-                                $domain = preg_replace('/\.[a-z]{2,}$/i', '', $domain);
-                                $domain = ucfirst($domain);
-                                echo htmlspecialchars($domain);
-                            ?></h1>
-                            <div class="website-meta">
-                                <span class="meta-item">
-                                    <i class="bi bi-link-45deg"></i>
-                                    <a href="<?php echo htmlspecialchars($results['source_url']); ?>" 
-                                       target="_blank" 
-                                       rel="noopener noreferrer">
-                                        <?php echo htmlspecialchars($results['source_url']); ?>
-                                    </a>
-                                </span>
-                                <span class="meta-item">
-                                    <i class="bi bi-calendar-check"></i>
-                                    <?php echo htmlspecialchars($results['timestamp']); ?>
-                                </span>
+                <div class="col-lg-8">
+                    <section class="hero-info-panel" aria-label="Scan target details">
+                        <div class="website-info-card">
+                            <div class="website-logo-dash">
+                                <?php if (!empty($results['source_url'])): ?>
+                                    <?php
+                                    $parsedUrl = parse_url($results['source_url']);
+                                    $domain = $parsedUrl['host'] ?? '';
+                                    $faviconUrl = 'https://www.google.com/s2/favicons?domain=' . urlencode($domain) . '&sz=128';
+                                    ?>
+                                    <img src="<?php echo htmlspecialchars($faviconUrl); ?>" 
+                                         alt="Website logo" 
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <i class="bi bi-globe" style="display: none;"></i>
+                                <?php else: ?>
+                                    <i class="bi bi-file-earmark-code"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="website-info-text">
+                                <h1 class="website-title"><?php 
+                                    if (!empty($results['source_url'])) {
+                                        $parsedUrl = parse_url($results['source_url']);
+                                        $domain = $parsedUrl['host'] ?? 'Website';
+                                        $domain = preg_replace('/^www\./i', '', $domain);
+                                        $domain = preg_replace('/\.[a-z]{2,}$/i', '', $domain);
+                                        $domain = ucfirst($domain);
+                                        echo htmlspecialchars($domain);
+                                    } else {
+                                        echo 'Uploaded HTML Document';
+                                    }
+                                ?></h1>
+                                <div class="website-meta">
+                                    <?php if (!empty($results['source_url'])): ?>
+                                        <span class="meta-item meta-url">
+                                            <i class="bi bi-link-45deg"></i>
+                                            <a href="<?php echo htmlspecialchars($results['source_url']); ?>" 
+                                               target="_blank" 
+                                               rel="noopener noreferrer">
+                                                <?php echo htmlspecialchars($results['source_url']); ?>
+                                            </a>
+                                        </span>
+                                    <?php endif; ?>
+                                    <span class="meta-item">
+                                        <i class="bi bi-broadcast-pin"></i>
+                                        <?php echo htmlspecialchars($scanTargetLabel); ?>
+                                    </span>
+                                    <span class="meta-item">
+                                        <i class="bi bi-calendar-check"></i>
+                                        <?php if ($scanTimestampAttr !== ''): ?>
+                                            <time datetime="<?php echo htmlspecialchars($scanTimestampAttr); ?>">
+                                                <?php echo htmlspecialchars($scanTimestampDisplay); ?>
+                                            </time>
+                                        <?php else: ?>
+                                            <?php echo htmlspecialchars($scanTimestampDisplay); ?>
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endif; ?>
+                    </section>
                 </div>
                 
                 <!-- Right: Accessibility Score Circle -->
-                <div class="col-lg-5">
-                    <div class="score-dashboard-card">
-                        <div class="score-circle-dash">
-                            <?php
-                            if ($percentage >= 80) {
-                                $scoreColor = '#10B981';
-                            } elseif ($percentage >= 60) {
-                                $scoreColor = '#F59E0B';
-                            } else {
-                                $scoreColor = '#EF4444';
-                            }
-                            ?>
-                            <svg class="score-svg-dash" viewBox="0 0 200 200">
-                                <circle cx="100" cy="100" r="85" fill="none" stroke="#E5E7EB" stroke-width="16" opacity="0.2"/>
-                                <circle cx="100" cy="100" r="85" fill="none" stroke="<?php echo $scoreColor; ?>" 
-                                        stroke-width="16" stroke-linecap="round"
-                                        stroke-dasharray="534.07"
-                                        stroke-dashoffset="calc(534.07 - (534.07 * <?php echo $percentage; ?> / 100))"
-                                        transform="rotate(-90 100 100)"
-                                        style="transition: stroke-dashoffset 1.5s ease-in-out;"/>
-                                <text x="100" y="95" text-anchor="middle" dominant-baseline="middle" 
-                                      fill="<?php echo $scoreColor; ?>" 
-                                      style="font-size: 3.5rem; font-weight: 900;">
-                                    <?php echo $percentage; ?>%
-                                </text>
-                            </svg>
+                <div class="col-lg-4">
+                    <section class="hero-score-panel" aria-label="Accessibility score summary">
+                        <div class="score-dashboard-card">
+                            <div class="score-circle-dash">
+                                <?php
+                                if ($percentage >= 80) {
+                                    $scoreColor = '#10B981';
+                                } elseif ($percentage >= 60) {
+                                    $scoreColor = '#F59E0B';
+                                } else {
+                                    $scoreColor = '#EF4444';
+                                }
+                                ?>
+                                <svg class="score-svg-dash" viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#E5E7EB" stroke-width="16" opacity="0.2"/>
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="<?php echo $scoreColor; ?>" 
+                                            stroke-width="16" stroke-linecap="round"
+                                            stroke-dasharray="534.07"
+                                            stroke-dashoffset="calc(534.07 - (534.07 * <?php echo $percentage; ?> / 100))"
+                                            transform="rotate(-90 100 100)"
+                                            style="transition: stroke-dashoffset 1.5s ease-in-out;"/>
+                                    <text x="100" y="95" text-anchor="middle" dominant-baseline="middle" 
+                                          fill="<?php echo $scoreColor; ?>" 
+                                          style="font-size: 3.5rem; font-weight: 900;">
+                                        <?php echo $percentage; ?>%
+                                    </text>
+                                </svg>
+                            </div>
+                            <div class="score-label-dash">Accessibility Score</div>
+                            <div class="score-context-dash" style="color: <?php echo $scoreColor; ?>;">
+                                <?php echo htmlspecialchars($scoreStatusText); ?>
+                            </div>
                         </div>
-                        <div class="score-label-dash">Accessibility Score</div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
@@ -1015,7 +1115,7 @@ $percentage = round($score);
                             
                             <div class="summary-stat">
                                 <span class="summary-label">Total Issues</span>
-                                <span class="summary-value"><?php echo $results['summary']['error_count'] + $results['summary']['warning_count'] + $results['summary']['info_count']; ?></span>
+                                <span class="summary-value"><?php echo $totalIssues; ?></span>
                                 <span></span>
                             </div>
                             
@@ -1025,7 +1125,7 @@ $percentage = round($score);
                                     <span class="summary-label text-danger">
                                         <i class="bi bi-x-circle-fill me-1"></i>Errors
                                     </span>
-                                    <span class="summary-value text-danger"><?php echo $results['summary']['error_count']; ?></span>
+                                    <span class="summary-value text-danger"><?php echo $errorCount; ?></span>
                                     <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
                                 </button>
                                 <div class="collapse" id="errorPrinciples">
@@ -1050,7 +1150,7 @@ $percentage = round($score);
                                     <span class="summary-label text-warning">
                                         <i class="bi bi-exclamation-triangle-fill me-1"></i>Warnings
                                     </span>
-                                    <span class="summary-value text-warning"><?php echo $results['summary']['warning_count']; ?></span>
+                                    <span class="summary-value text-warning"><?php echo $warningCount; ?></span>
                                     <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
                                 </button>
                                 <div class="collapse" id="warningPrinciples">
@@ -1075,7 +1175,7 @@ $percentage = round($score);
                                     <span class="summary-label text-info">
                                         <i class="bi bi-info-circle-fill me-1"></i>Info
                                     </span>
-                                    <span class="summary-value text-info"><?php echo $results['summary']['info_count']; ?></span>
+                                    <span class="summary-value text-info"><?php echo $infoCount; ?></span>
                                     <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
                                 </button>
                                 <div class="collapse" id="infoPrinciples">

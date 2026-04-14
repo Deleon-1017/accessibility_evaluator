@@ -749,6 +749,11 @@ footer a {
     margin-bottom: var(--spacing-2xl);
 }
 
+.about-page .about-hero {
+    padding-top: clamp(1rem, 2vw, 2rem);
+    margin-top: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
 .about-feature-list {
     display: flex;
     flex-direction: column;
@@ -1098,6 +1103,10 @@ footer a {
 .nav-tabs {
     border-bottom: none;
     margin-bottom: 2rem;
+}
+
+#scannerTab .nav-item + .nav-item {
+    margin-left: 0.9rem;
 }
 
 .nav-tabs .nav-link {
