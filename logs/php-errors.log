@@ -322,3 +322,638 @@
 [14-Apr-2026 02:13:58 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
 [14-Apr-2026 02:13:58 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
 [14-Apr-2026 02:13:59 Europe/Berlin] Scan results saved to database: scan_69dd86c5b3e6f0.13880518
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] PHP Deprecated:  strtolower(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1198
+[14-Apr-2026 05:07:25 Europe/Berlin] Scan results saved to database: scan_69ddaf6ae1df75.86930799
+[20-Apr-2026 14:53:29 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[20-Apr-2026 14:53:29 Europe/Berlin] PHP Deprecated:  preg_match(): Passing null to parameter #2 ($subject) of type string is deprecated in C:\xampp\htdocs\trial\scan.php on line 1202
+[20-Apr-2026 14:53:29 Europe/Berlin] Scan results saved to database: scan_69e621c8870850.09855335
+[20-Apr-2026 16:05:21 Europe/Berlin] Fetching URL: https://google.com
+[20-Apr-2026 16:05:22 Europe/Berlin] Successfully fetched 186185 bytes from URL
+[20-Apr-2026 16:05:22 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[20-Apr-2026 16:05:22 Europe/Berlin] Loaded 55 accessibility checks from database
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[20-Apr-2026 16:05:22 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[20-Apr-2026 16:05:22 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 4
+[20-Apr-2026 16:05:22 Europe/Berlin] Accessibility score calculated: 83/100
+[20-Apr-2026 16:05:22 Europe/Berlin] Scan results saved to database: scan_69e632a184d893.71998161
+[22-Apr-2026 03:25:04 Europe/Berlin] Fetching URL: https://google.com
+[22-Apr-2026 03:25:04 Europe/Berlin] Successfully fetched 186169 bytes from URL
+[22-Apr-2026 03:25:04 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 03:25:04 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 03:25:04 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 03:25:04 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 03:25:04 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 03:25:04 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 03:25:04 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 03:25:05 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 03:25:05 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 4
+[22-Apr-2026 03:25:05 Europe/Berlin] Accessibility score calculated: 83/100
+[22-Apr-2026 03:25:05 Europe/Berlin] Scan results saved to database: scan_69e82370206f51.00099343
+[22-Apr-2026 06:37:44 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 06:37:46 Europe/Berlin] Successfully fetched 249599 bytes from URL
+[22-Apr-2026 06:37:46 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 06:37:46 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 06:37:46 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 06:37:46 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 1
+[22-Apr-2026 06:37:46 Europe/Berlin] Accessibility score calculated: 95/100
+[22-Apr-2026 06:37:47 Europe/Berlin] Scan results saved to database: scan_69e8509894ad61.33512857
+[22-Apr-2026 06:39:32 Europe/Berlin] Fetching URL: https://fotor.com
+[22-Apr-2026 06:39:47 Europe/Berlin] Successfully fetched 218294 bytes from URL
+[22-Apr-2026 06:39:47 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 06:39:47 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 06:39:47 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 06:39:47 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 10
+[22-Apr-2026 06:39:47 Europe/Berlin] Accessibility score calculated: 50/100
+[22-Apr-2026 06:39:47 Europe/Berlin] Scan results saved to database: scan_69e851043841d4.49621741
+[22-Apr-2026 06:41:44 Europe/Berlin] Fetching URL: https://fotor.com
+[22-Apr-2026 06:41:46 Europe/Berlin] Successfully fetched 218294 bytes from URL
+[22-Apr-2026 06:41:46 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 06:41:46 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 06:41:46 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 06:41:46 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 10
+[22-Apr-2026 06:41:46 Europe/Berlin] Accessibility score calculated: 50/100
+[22-Apr-2026 06:41:47 Europe/Berlin] Scan results saved to database: scan_69e851883efac6.84862290
+[22-Apr-2026 06:43:52 Europe/Berlin] Fetching URL: https://google.com
+[22-Apr-2026 06:43:52 Europe/Berlin] Successfully fetched 199329 bytes from URL
+[22-Apr-2026 06:43:52 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 06:43:52 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 06:43:52 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 06:43:52 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 4
+[22-Apr-2026 06:43:52 Europe/Berlin] Accessibility score calculated: 83/100
+[22-Apr-2026 06:43:52 Europe/Berlin] Scan results saved to database: scan_69e852082c7e33.32653069
+[22-Apr-2026 06:45:07 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 06:45:10 Europe/Berlin] Successfully fetched 249599 bytes from URL
+[22-Apr-2026 06:45:10 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 06:45:10 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 06:45:10 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 06:45:10 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 1
+[22-Apr-2026 06:45:10 Europe/Berlin] Accessibility score calculated: 95/100
+[22-Apr-2026 06:45:10 Europe/Berlin] Scan results saved to database: scan_69e85253379316.53397555
+[22-Apr-2026 07:51:10 Europe/Berlin] Fetching URL: https://www.onesports.ph/
+[22-Apr-2026 07:51:14 Europe/Berlin] Successfully fetched 4609 bytes from URL
+[22-Apr-2026 07:51:14 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 07:51:14 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 07:51:15 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 07:51:15 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 3
+[22-Apr-2026 07:51:15 Europe/Berlin] Accessibility score calculated: 88/100
+[22-Apr-2026 07:51:15 Europe/Berlin] Scan results saved to database: scan_69e861ce8a1c96.97259129
+[22-Apr-2026 07:53:52 Europe/Berlin] Fetching URL: https://www.onesports.ph/
+[22-Apr-2026 07:53:53 Europe/Berlin] Successfully fetched 4609 bytes from URL
+[22-Apr-2026 07:53:53 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 07:53:53 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 07:53:53 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 07:53:53 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 3
+[22-Apr-2026 07:53:53 Europe/Berlin] Accessibility score calculated: 88/100
+[22-Apr-2026 07:53:53 Europe/Berlin] Scan results saved to database: scan_69e86270dd6b13.75786425
+[22-Apr-2026 07:55:02 Europe/Berlin] Fetching URL: https://fotor.com
+[22-Apr-2026 07:55:14 Europe/Berlin] Successfully fetched 218294 bytes from URL
+[22-Apr-2026 07:55:14 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 07:55:14 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 07:55:14 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 07:55:14 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 10
+[22-Apr-2026 07:55:14 Europe/Berlin] Accessibility score calculated: 50/100
+[22-Apr-2026 07:55:14 Europe/Berlin] Scan results saved to database: scan_69e862b6919574.79411919
+[22-Apr-2026 07:57:10 Europe/Berlin] Fetching URL: https://www.fotor.com/blog/
+[22-Apr-2026 07:57:11 Europe/Berlin] Successfully fetched 125139 bytes from URL
+[22-Apr-2026 07:57:11 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 07:57:11 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 07:57:11 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 07:57:11 Europe/Berlin] Checks executed: 20, Failed: 0, Total issues found: 6
+[22-Apr-2026 07:57:11 Europe/Berlin] Accessibility score calculated: 70/100
+[22-Apr-2026 07:57:11 Europe/Berlin] Scan results saved to database: scan_69e86336ab0383.41892797
+[22-Apr-2026 08:16:27 Europe/Berlin] Fetching URL: https://www.fotor.com/blog/
+[22-Apr-2026 08:16:31 Europe/Berlin] Successfully fetched 125139 bytes from URL
+[22-Apr-2026 08:16:32 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:16:32 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:16:32 Europe/Berlin] === SCAN ERROR ===
+[22-Apr-2026 08:16:32 Europe/Berlin] Error: Check implementations file not found: scan-check-implementations.php
+[22-Apr-2026 08:16:32 Europe/Berlin] File: C:\xampp\htdocs\trial\scan.php:266
+[22-Apr-2026 08:16:32 Europe/Berlin] Trace: #0 {main}
+[22-Apr-2026 08:16:32 Europe/Berlin] ==================
+[22-Apr-2026 08:42:08 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 08:42:09 Europe/Berlin] Successfully fetched 249599 bytes from URL
+[22-Apr-2026 08:42:09 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:42:09 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_html_parsing_errors (check_key: html_parsing_errors)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_img_missing_alt (check_key: img_missing_alt)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_missing_page_title (check_key: missing_page_title)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_missing_lang_attr (check_key: missing_lang_attr)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_missing_h1 (check_key: missing_h1)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_multiple_h1 (check_key: multiple_h1)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_skipped_heading_level (check_key: skipped_heading_level)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_link_no_accessible_name (check_key: link_no_accessible_name)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_placeholder_link (check_key: placeholder_link)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_form_control_no_label (check_key: form_control_no_label)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_button_input_no_label (check_key: button_input_no_label)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_image_input_no_alt (check_key: image_input_no_alt)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_button_no_accessible_name (check_key: button_no_accessible_name)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_iframe_no_title (check_key: iframe_no_title)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_table_no_headers (check_key: table_no_headers)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_audio_no_transcript (check_key: audio_no_transcript)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_video_no_captions (check_key: video_no_captions)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_autoplay_media (check_key: autoplay_media)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_meta_refresh (check_key: meta_refresh)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_no_skip_link (check_key: no_skip_link)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_positive_tabindex (check_key: positive_tabindex)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_required_no_error_structure (check_key: required_no_error_structure)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_no_lang_markup_non_latin (check_key: no_lang_markup_non_latin)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_radio_no_fieldset (check_key: radio_no_fieldset)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_no_aria_live_regions (check_key: no_aria_live_regions)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_empty_heading (check_key: empty_heading)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_generic_heading (check_key: generic_heading)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_hidden_content_accessibility (check_key: hidden_content_accessibility)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_aria_role_no_name (check_key: aria_role_no_name)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_missing_main_landmark (check_key: missing_main_landmark)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_missing_nav_landmark (check_key: missing_nav_landmark)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_video_no_audio_desc (check_key: video_no_audio_desc)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_css_reordering (check_key: css_reordering)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_color_only_info (check_key: color_only_info)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_image_for_text (check_key: image_for_text)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_non_semantic_clickable (check_key: non_semantic_clickable)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_marquee_element (check_key: marquee_element)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_rapid_flashing (check_key: rapid_flashing)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_focus_outline_removed (check_key: focus_outline_removed)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_limited_navigation (check_key: limited_navigation)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_form_auto_submit (check_key: form_auto_submit)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_form_no_confirmation (check_key: form_no_confirmation)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_no_client_error_handling (check_key: no_client_error_handling)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_complex_input_no_help (check_key: complex_input_no_help)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_touch_no_fallback (check_key: touch_no_fallback)
+[22-Apr-2026 08:42:09 Europe/Berlin] Check function not found: run_check_char_key_shortcuts (check_key: char_key_shortcuts)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_inconsistent_link_text (check_key: inconsistent_link_text)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_video_no_basic_attrs (check_key: video_no_basic_attrs)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_fixed_font_size (check_key: fixed_font_size)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_layout_no_semantic (check_key: layout_no_semantic)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_zoom_disabled (check_key: zoom_disabled)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_no_viewport_meta (check_key: no_viewport_meta)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_form_no_aria (check_key: form_no_aria)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_bullets_not_lists (check_key: bullets_not_lists)
+[22-Apr-2026 08:42:10 Europe/Berlin] Check function not found: run_check_vague_link_text (check_key: vague_link_text)
+[22-Apr-2026 08:42:10 Europe/Berlin] Checks executed: 0, Failed: 0, Total issues found: 0
+[22-Apr-2026 08:42:10 Europe/Berlin] Accessibility score calculated: 100/100
+[22-Apr-2026 08:42:10 Europe/Berlin] Scan results saved to database: scan_69e86dc0db26f3.67036413
+[22-Apr-2026 08:42:44 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 08:42:45 Europe/Berlin] Successfully fetched 249599 bytes from URL
+[22-Apr-2026 08:42:45 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:42:45 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:42:45 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 11
+[22-Apr-2026 08:42:45 Europe/Berlin] Accessibility score calculated: 79/100
+[22-Apr-2026 08:42:45 Europe/Berlin] Scan results saved to database: scan_69e86de48cc116.50308664
+[22-Apr-2026 08:45:23 Europe/Berlin] Fetching URL: https://www.fotor.com/blog/
+[22-Apr-2026 08:45:28 Europe/Berlin] Successfully fetched 125139 bytes from URL
+[22-Apr-2026 08:45:28 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:45:28 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:45:28 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 51
+[22-Apr-2026 08:45:28 Europe/Berlin] Accessibility score calculated: 30/100
+[22-Apr-2026 08:45:28 Europe/Berlin] Scan results saved to database: scan_69e86e83855855.71881173
+[22-Apr-2026 08:48:44 Europe/Berlin] Scanning 20133 bytes of HTML code
+[22-Apr-2026 08:48:44 Europe/Berlin] HTML parsed successfully. Parse errors: 6
+[22-Apr-2026 08:48:44 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:48:44 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 8
+[22-Apr-2026 08:48:44 Europe/Berlin] Accessibility score calculated: 90/100
+[22-Apr-2026 08:48:44 Europe/Berlin] Scan results saved to database: scan_69e86f4c1a9f63.83129539
+[22-Apr-2026 08:49:52 Europe/Berlin] Fetching URL: https://google.com
+[22-Apr-2026 08:49:52 Europe/Berlin] Successfully fetched 194999 bytes from URL
+[22-Apr-2026 08:49:52 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:49:52 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:49:52 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 45
+[22-Apr-2026 08:49:52 Europe/Berlin] Accessibility score calculated: 36/100
+[22-Apr-2026 08:49:52 Europe/Berlin] Scan results saved to database: scan_69e86f9017a7c6.46993478
+[22-Apr-2026 08:50:19 Europe/Berlin] Fetching URL: https://cvsu.edu.ph
+[22-Apr-2026 08:50:20 Europe/Berlin] Successfully fetched 227765 bytes from URL
+[22-Apr-2026 08:50:20 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:50:20 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:50:21 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 116
+[22-Apr-2026 08:50:21 Europe/Berlin] Accessibility score calculated: 30/100
+[22-Apr-2026 08:50:21 Europe/Berlin] Scan results saved to database: scan_69e86fab9f2a36.52546612
+[22-Apr-2026 08:50:58 Europe/Berlin] Fetching URL: http://aeisjean.com
+[22-Apr-2026 08:51:05 Europe/Berlin] Successfully fetched 105516 bytes from URL
+[22-Apr-2026 08:51:05 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:51:05 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:51:05 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 48
+[22-Apr-2026 08:51:05 Europe/Berlin] Accessibility score calculated: 30/100
+[22-Apr-2026 08:51:05 Europe/Berlin] Scan results saved to database: scan_69e86fd2b0dd36.90146264
+[22-Apr-2026 08:51:48 Europe/Berlin] Fetching URL: https://library.cvsu.edu.ph
+[22-Apr-2026 08:51:50 Europe/Berlin] Successfully fetched 6181 bytes from URL
+[22-Apr-2026 08:51:50 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 08:51:50 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 08:51:50 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 7
+[22-Apr-2026 08:51:50 Europe/Berlin] Accessibility score calculated: 81/100
+[22-Apr-2026 08:51:50 Europe/Berlin] Scan results saved to database: scan_69e870049d5674.59135707
+[22-Apr-2026 09:55:46 Europe/Berlin] Fetching URL: https://google.com
+[22-Apr-2026 09:55:47 Europe/Berlin] Successfully fetched 186282 bytes from URL
+[22-Apr-2026 09:55:47 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 09:55:47 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 09:55:47 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 44
+[22-Apr-2026 09:55:47 Europe/Berlin] Accessibility score calculated: 37/100
+[22-Apr-2026 09:55:47 Europe/Berlin] Scan results saved to database: scan_69e87f02c3cfb9.29755379
+[22-Apr-2026 09:57:31 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 09:57:32 Europe/Berlin] Successfully fetched 249599 bytes from URL
+[22-Apr-2026 09:57:32 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 09:57:32 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 09:57:32 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 11
+[22-Apr-2026 09:57:32 Europe/Berlin] Accessibility score calculated: 79/100
+[22-Apr-2026 09:57:32 Europe/Berlin] Scan results saved to database: scan_69e87f6b5a6633.86176353
+[22-Apr-2026 15:36:12 Europe/Berlin] Fetching URL: https://x.com
+[22-Apr-2026 15:36:13 Europe/Berlin] Successfully fetched 92514 bytes from URL
+[22-Apr-2026 15:36:13 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[22-Apr-2026 15:36:13 Europe/Berlin] Loaded 55 accessibility checks from database
+[22-Apr-2026 15:36:13 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 11
+[22-Apr-2026 15:36:13 Europe/Berlin] Accessibility score calculated: 79/100
+[22-Apr-2026 15:36:13 Europe/Berlin] Scan results saved to database: scan_69e8cecc229b46.32630882
+[23-Apr-2026 06:47:10 Europe/Berlin] Fetching URL: https://google.com
+[23-Apr-2026 06:47:14 Europe/Berlin] Successfully fetched 186345 bytes from URL
+[23-Apr-2026 06:47:14 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[23-Apr-2026 06:47:14 Europe/Berlin] Loaded 55 accessibility checks from database
+[23-Apr-2026 06:47:14 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 44
+[23-Apr-2026 06:47:14 Europe/Berlin] Accessibility score calculated: 37/100
+[23-Apr-2026 06:47:15 Europe/Berlin] Scan results saved to database: scan_69e9a44e917d98.73630428
+[23-Apr-2026 08:41:08 Europe/Berlin] Fetching URL: https://google.com
+[23-Apr-2026 08:41:13 Europe/Berlin] Successfully fetched 186315 bytes from URL
+[23-Apr-2026 08:41:13 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[23-Apr-2026 08:41:13 Europe/Berlin] Loaded 55 accessibility checks from database
+[23-Apr-2026 08:41:14 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 44
+[23-Apr-2026 08:41:14 Europe/Berlin] Accessibility score calculated: 37/100
+[23-Apr-2026 08:41:14 Europe/Berlin] Scan results saved to database: scan_69e9bf04261350.63094900
+[23-Apr-2026 08:42:16 Europe/Berlin] Scanning 20133 bytes of HTML code
+[23-Apr-2026 08:42:16 Europe/Berlin] HTML parsed successfully. Parse errors: 6
+[23-Apr-2026 08:42:16 Europe/Berlin] Loaded 55 accessibility checks from database
+[23-Apr-2026 08:42:16 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 8
+[23-Apr-2026 08:42:16 Europe/Berlin] Accessibility score calculated: 90/100
+[23-Apr-2026 08:42:16 Europe/Berlin] Scan results saved to database: scan_69e9bf48336bd7.79673901

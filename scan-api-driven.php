@@ -1,41 +1,19 @@
-﻿<?php
-/**
- * Accessibility Scanner - API-Driven Version
- * 
- * This scanner loads accessibility check rules from the database via API
- * and executes them against HTML content to identify WCAG compliance issues.
- * 
- * @package AccessibilityScanner
- * @version 2.0.0
- */
+<?php
+// scan.php - API-driven accessibility scanner
+// Uses get-accessibility-checks.php API to load checks from database
 
 /**
  * @var \Symfony\Component\DomCrawler\Crawler $crawler
  * @var \Symfony\Component\DomCrawler\Crawler $node
  */
 
-// Start session
 session_start();
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
-// Configure error reporting for production
+// Configure error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/logs/php-errors.log');
-
-// Set execution time limit
-set_time_limit(60);
-
-// Maximum HTML content size (5MB)
-define('MAX_HTML_SIZE', 5242880);
-
-// ============================================================================
-// Dependencies Check
-// ============================================================================
 
 // Check if composer autoload exists
 $autoloadPath = __DIR__ . '/vendor/autoload.php';
@@ -45,17 +23,13 @@ if (!file_exists($autoloadPath)) {
     exit;
 }
 
-// Include required files
+// Include security helper
 require_once __DIR__ . '/security-helper.php';
-require_once $autoloadPath;
-require_once __DIR__ . '/scan-helpers.php';
 
 // Initialize secure session
 initSecureSession();
 
-// ============================================================================
-// Request Validation
-// ============================================================================
+require_once $autoloadPath;
 
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -72,16 +46,16 @@ if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
 
 // Validate scan type
 $scanType = sanitizeInput($_POST['scan_type'] ?? '');
-if (!in_array($scanType, ['url', 'html'], true)) {
+if (!in_array($scanType, ['url', 'html'])) {
     $_SESSION['scan_error'] = 'Invalid scan type';
     header('Location: index.php?error=1');
     exit;
 }
 
-// ============================================================================
-// Initialize Results
-// ============================================================================
+// Set time limit for scanning
+set_time_limit(60);
 
+// Initialize results array
 $results = [
     'scan_type' => $scanType,
     'issues' => [],
@@ -103,81 +77,63 @@ $results = [
     'scan_id' => uniqid('scan_', true)
 ];
 
-// ============================================================================
-// Main Scanning Logic
-// ============================================================================
+// Include helper functions
+require_once __DIR__ . '/scan-helpers.php';
 
 try {
     $htmlContent = '';
     
-    // ========================================================================
-    // Step 1: Fetch or Get HTML Content
-    // ========================================================================
-    
+    // Fetch or get HTML content
     if ($scanType === 'url') {
-        // Scan from URL
         $url = filter_var(trim($_POST['website_url'] ?? ''), FILTER_VALIDATE_URL);
         
         if (!$url) {
             throw new Exception('Invalid URL provided. Please enter a valid URL starting with http:// or https://');
         }
         
-        // Validate URL scheme
         $parsedUrl = parse_url($url);
         if (!is_array($parsedUrl)) {
             throw new Exception('Invalid URL provided.');
         }
-        
         $scheme = strtolower($parsedUrl['scheme'] ?? '');
         if (!in_array($scheme, ['http', 'https'], true)) {
             throw new Exception('Only http and https URLs are supported.');
         }
         
         $results['source_url'] = $url;
-        
-        // Fetch HTML content
-        error_log("Fetching URL: $url");
         $htmlContent = fetchUrlContent($url);
         
         if (empty($htmlContent)) {
             throw new Exception('Received empty response from URL');
         }
         
-        if (strlen($htmlContent) > MAX_HTML_SIZE) {
+        if (strlen($htmlContent) > 5242880) {
             throw new Exception('Fetched HTML content is too large. Maximum size is 5MB.');
         }
         
         $results['html_content'] = $htmlContent;
-        error_log("Successfully fetched " . strlen($htmlContent) . " bytes from URL");
         
     } else {
-        // Scan from HTML code
         $htmlContent = $_POST['html_code'] ?? '';
         
         if (empty(trim($htmlContent))) {
             throw new Exception('Please enter HTML code to analyze');
         }
         
-        if (strlen($htmlContent) > MAX_HTML_SIZE) {
+        if (strlen($htmlContent) > 5242880) {
             throw new Exception('HTML content is too large. Maximum size is 5MB.');
         }
         
         $results['html_content'] = $htmlContent;
         
-        // Wrap partial HTML for proper parsing
+        // Wrap partial HTML
         if (!preg_match('/<!DOCTYPE\s+html|<html\s+/i', $htmlContent)) {
             $htmlContent = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Scanned Page</title></head><body>' .
                 $htmlContent . '</body></html>';
-            error_log("Wrapped partial HTML with document structure");
         }
-        
-        error_log("Scanning " . strlen($htmlContent) . " bytes of HTML code");
     }
     
-    // ========================================================================
-    // Step 2: Parse HTML with DomCrawler
-    // ========================================================================
-    
+    // Parse HTML with DomCrawler
     if (!class_exists('Symfony\Component\DomCrawler\Crawler')) {
         throw new Exception('DomCrawler class not found. Please install Symfony DomCrawler via Composer.');
     }
@@ -189,19 +145,14 @@ try {
     /** @var \Symfony\Component\DomCrawler\Crawler $crawler */
     $crawler = new Symfony\Component\DomCrawler\Crawler();
     
-    // Suppress libxml warnings from malformed HTML
+    // Suppress libxml warnings
     $useInternalErrors = libxml_use_internal_errors(true);
     $crawler->addHtmlContent($htmlContent, 'UTF-8');
     $parseErrors = libxml_get_errors();
     libxml_clear_errors();
     libxml_use_internal_errors($useInternalErrors);
     
-    error_log("HTML parsed successfully. Parse errors: " . count($parseErrors));
-    
-    // ========================================================================
-    // Step 3: Initialize Issues Array
-    // ========================================================================
-    
+    // Initialize issues array
     $allIssues = [];
     
     // Add HTML parsing errors if any
@@ -218,15 +169,8 @@ try {
         ]);
     }
     
-    // ========================================================================
-    // Step 4: Load Accessibility Checks from API
-    // ========================================================================
-    
+    // Fetch accessibility checks from API
     $apiUrl = __DIR__ . '/api/get-accessibility-checks.php';
-    
-    if (!file_exists($apiUrl)) {
-        throw new Exception('Accessibility checks API not found. Please ensure the database is configured.');
-    }
     
     // Use direct file inclusion for better performance
     ob_start();
@@ -236,45 +180,18 @@ try {
     
     $checksData = json_decode($checksJson, true);
     
-    if (!$checksData || !isset($checksData['success']) || !$checksData['success']) {
-        $errorMsg = $checksData['error'] ?? 'Unknown error';
-        error_log("API returned error: $errorMsg");
-        throw new Exception('Failed to load accessibility checks from database. Please run the migration: ' . $errorMsg);
-    }
-    
-    if (!isset($checksData['checks']) || !is_array($checksData['checks'])) {
-        throw new Exception('Invalid response from accessibility checks API.');
+    if (!$checksData || !$checksData['success']) {
+        error_log("API returned error: " . ($checksData['error'] ?? 'Unknown error'));
+        throw new Exception('Failed to load accessibility checks from database. Please run the migration.');
     }
     
     $accessibilityChecks = $checksData['checks'];
-    $checkCount = count($accessibilityChecks);
+    error_log("Loaded " . count($accessibilityChecks) . " accessibility checks from database");
     
-    if ($checkCount === 0) {
-        error_log("WARNING: No accessibility checks loaded from database");
-        throw new Exception('No accessibility checks found in database. Please run the migration.');
-    }
+    // Include the check implementations
+    require_once __DIR__ . '/scan-check-implementations.php';
     
-    error_log("Loaded $checkCount accessibility checks from database");
-    
-    // ========================================================================
-    // Step 5: Load Check Implementations
-    // ========================================================================
-    
-    $implementationsFile = __DIR__ . '/scan-check-implementations.php';
-    
-    if (!file_exists($implementationsFile)) {
-        throw new Exception('Check implementations file not found: scan-check-implementations.php');
-    }
-    
-    require_once $implementationsFile;
-    
-    // ========================================================================
-    // Step 6: Run Each Check
-    // ========================================================================
-    
-    $checksRun = 0;
-    $checksFailed = 0;
-    
+    // Run each check
     foreach ($accessibilityChecks as $check) {
         $checkKey = $check['check_key'];
         $functionName = 'run_check_' . $checkKey;
@@ -282,28 +199,17 @@ try {
         if (function_exists($functionName)) {
             try {
                 $functionName($check, $crawler, $htmlContent, $allIssues);
-                $checksRun++;
             } catch (Exception $e) {
-                $checksFailed++;
                 error_log("Error running check {$checkKey}: " . $e->getMessage());
             }
-        } else {
-            error_log("Check function not found: $functionName (check_key: $checkKey)");
         }
     }
     
-    error_log("Checks executed: $checksRun, Failed: $checksFailed, Total issues found: " . count($allIssues));
-    
-    // ========================================================================
-    // Step 7: Process Results
-    // ========================================================================
-    
+    // Process results
     $results['issues'] = $allIssues;
     $results['summary']['total_issues'] = count($allIssues);
     
-    // Count issues by type and principle
     foreach ($allIssues as $issue) {
-        // Count by type
         switch ($issue['type']) {
             case 'error':
                 $results['summary']['error_count']++;
@@ -316,16 +222,12 @@ try {
                 break;
         }
         
-        // Count by principle
-        if (isset($issue['principle']) && isset($results['summary']['principles'][$issue['principle']])) {
+        if (isset($results['summary']['principles'][$issue['principle']])) {
             $results['summary']['principles'][$issue['principle']]++;
         }
     }
     
-    // ========================================================================
-    // Step 8: Calculate Accessibility Score
-    // ========================================================================
-    
+    // Calculate accessibility score
     $maxScore = 100;
     $errorDeduction = $results['summary']['error_count'] * 5;
     $warningDeduction = $results['summary']['warning_count'] * 2;
@@ -333,18 +235,10 @@ try {
     $totalDeduction = min($errorDeduction + $warningDeduction + $infoDeduction, 70);
     $results['score'] = max($maxScore - $totalDeduction, 0);
     
-    error_log("Accessibility score calculated: {$results['score']}/100");
-    
-    // ========================================================================
-    // Step 9: Store Results in Session
-    // ========================================================================
-    
+    // Store results in session
     $_SESSION['scan_results'] = $results;
     
-    // ========================================================================
-    // Step 10: Save to Database
-    // ========================================================================
-    
+    // Save to database
     try {
         require_once __DIR__ . '/scan-results-db.php';
         require_once __DIR__ . '/config/database.php';
@@ -354,47 +248,26 @@ try {
         $scanDB->saveScanResults($results);
         
         error_log("Scan results saved to database: " . $results['scan_id']);
-        
     } catch (Exception $e) {
         error_log("Failed to save scan to database: " . $e->getMessage());
         
-        // Fallback to JSON file if database fails
+        // Fallback to JSON file
         $reportsDir = __DIR__ . '/reports';
         if (!is_dir($reportsDir)) {
             @mkdir($reportsDir, 0755, true);
         }
-        
         $reportFile = $reportsDir . '/' . $results['scan_id'] . '.json';
-        $saved = @file_put_contents($reportFile, json_encode($results, JSON_PRETTY_PRINT));
-        
-        if ($saved) {
-            error_log("Scan results saved to JSON file: $reportFile");
-        } else {
-            error_log("WARNING: Failed to save scan results to both database and JSON file");
-        }
+        @file_put_contents($reportFile, json_encode($results, JSON_PRETTY_PRINT));
     }
     
-    // ========================================================================
-    // Step 11: Redirect to Results Page
-    // ========================================================================
-    
+    // Redirect to results page
     header('Location: results.php?scan_id=' . $results['scan_id']);
     exit;
     
 } catch (Exception $e) {
-    // ========================================================================
-    // Error Handling
-    // ========================================================================
-    
     $_SESSION['scan_error'] = 'Error: ' . $e->getMessage();
-    
-    // Log detailed error information
-    error_log('=== SCAN ERROR ===');
-    error_log('Error: ' . $e->getMessage());
-    error_log('File: ' . $e->getFile() . ':' . $e->getLine());
+    error_log('Scan error: ' . $e->getMessage());
     error_log('Trace: ' . $e->getTraceAsString());
-    error_log('==================');
-    
     header('Location: index.php?error=1');
     exit;
 }
