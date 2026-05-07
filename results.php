@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // results.php - Wireframe-Based Bootstrap 5 Redesign
 session_start();
 
@@ -536,13 +536,14 @@ if ($percentage >= 80) {
         }
 
         .results-table tbody tr.issue-row {
-            transition: background 0.2s ease;
             cursor: pointer;
             border-bottom: 1px solid var(--gray-200);
         }
 
         .results-table tbody tr.issue-row:hover {
-            background: #F9FAFB;
+            background: transparent !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         .results-table tbody tr.issue-row:last-child {
@@ -828,7 +829,7 @@ if ($percentage >= 80) {
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">
-                    <img src="logo.png" alt="Logo" width="60" height="60" class="mx-5 me-3">
+                    <img src="logo.png" alt="Logo" width="60" height="60" class="mx-3 me-3">
                     Web Accessibility Evaluator
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">

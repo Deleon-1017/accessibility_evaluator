@@ -1,3 +1,26 @@
+/**
+ * ============================================================================
+ * DEPRECATED: This file is no longer used by wcag.php
+ * ============================================================================
+ * 
+ * This file has been replaced by wcag-sidebar-app.js which implements the new
+ * sidebar-based layout for the WCAG Guidelines page.
+ * 
+ * The old table rendering and filtering code below has been commented out.
+ * Modal rendering functionality has been migrated to wcag-sidebar-app.js.
+ * 
+ * This file is preserved for reference only.
+ * 
+ * Date deprecated: 2024
+ * Replaced by: wcag-sidebar-app.js
+ * ============================================================================
+ */
+
+/*
+// ============================================================================
+// OLD TABLE RENDERING CODE (DEPRECATED - NO LONGER IN USE)
+// ============================================================================
+
 // WCAG Table Rendering and Filtering Script
 console.log('[WCAG-SCRIPT] File loaded - top of file');
 
@@ -162,6 +185,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 16);
     }
 
+    // ============================================================================
+    // MODAL RENDERING FUNCTIONS (MIGRATED TO wcag-sidebar-app.js)
+    // ============================================================================
+
     function showGuidelineDetails(guideline) {
         // Set modal title with criteria name
         guidelineModalLabel.textContent = `WCAG ${guideline.id}: ${guideline.title}`;
@@ -247,28 +274,27 @@ document.addEventListener('DOMContentLoaded', function() {
             ${renderOutputComparison(before, after)}
 
             <!-- Impact Comparison -->
-            <div class="wcag-modal-comparison-grid">
-                ${before && before.context ? `
-                <div class="wcag-modal-impact-box">
-                    <div class="wcag-modal-impact-header">
-                        <span class="wcag-modal-impact-label">Before: User Experience Impact</span>
-                    </div>
-                    <div class="wcag-modal-impact-content">
+            <div class="wcag-modal-impact-box full-width">
+                <div class="wcag-modal-impact-header">
+                    <span class="wcag-modal-impact-label">User Experience Impact</span>
+                </div>
+                <div class="wcag-modal-impact-content-combined">
+                    ${before && before.context ? `
+                    <div class="impact-column before">
+                        <div class="impact-sub-label">Before</div>
                         <p class="wcag-modal-impact-text">${highlightInaccessible(before.context)}</p>
                     </div>
-                </div>
-                ` : ''}
+                    ` : ''}
+                    
+                    ${before && before.context && after && after.context ? '<div class="impact-vertical-divider"></div>' : ''}
 
-                ${after && after.context ? `
-                <div class="wcag-modal-impact-box">
-                    <div class="wcag-modal-impact-header">
-                        <span class="wcag-modal-impact-label">After: User Experience Impact</span>
-                    </div>
-                    <div class="wcag-modal-impact-content">
+                    ${after && after.context ? `
+                    <div class="impact-column after">
+                        <div class="impact-sub-label">After</div>
                         <p class="wcag-modal-impact-text">${highlightAccessible(after.context)}</p>
                     </div>
+                    ` : ''}
                 </div>
-                ` : ''}
             </div>
 
             ${renderKeySummary(guideline)}
@@ -623,3 +649,8 @@ document.addEventListener('DOMContentLoaded', function() {
         renderTable();
     }
 });
+
+// ============================================================================
+// END OF DEPRECATED CODE
+// ============================================================================
+*/

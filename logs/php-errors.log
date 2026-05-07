@@ -957,3 +957,42 @@
 [23-Apr-2026 08:42:16 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 8
 [23-Apr-2026 08:42:16 Europe/Berlin] Accessibility score calculated: 90/100
 [23-Apr-2026 08:42:16 Europe/Berlin] Scan results saved to database: scan_69e9bf48336bd7.79673901
+[26-Apr-2026 08:37:38 Europe/Berlin] Fetching URL: https://instagram.com
+[26-Apr-2026 08:37:39 Europe/Berlin] Successfully fetched 797573 bytes from URL
+[26-Apr-2026 08:37:39 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[26-Apr-2026 08:37:39 Europe/Berlin] Loaded 55 accessibility checks from database
+[26-Apr-2026 08:37:39 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 10
+[26-Apr-2026 08:37:39 Europe/Berlin] Accessibility score calculated: 76/100
+[26-Apr-2026 08:37:40 Europe/Berlin] Scan results saved to database: scan_69edb2b2bb05b4.52150010
+[28-Apr-2026 02:59:45 Europe/Berlin] Fetching URL: http://google.com
+[28-Apr-2026 02:59:59 Europe/Berlin] Successfully fetched 198131 bytes from URL
+[28-Apr-2026 02:59:59 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[28-Apr-2026 02:59:59 Europe/Berlin] Loaded 55 accessibility checks from database
+[28-Apr-2026 02:59:59 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 44
+[28-Apr-2026 02:59:59 Europe/Berlin] Accessibility score calculated: 37/100
+[28-Apr-2026 02:59:59 Europe/Berlin] Scan results saved to database: scan_69f006811f9b41.74493000
+[28-Apr-2026 07:16:50 Europe/Berlin] Scanning 15116 bytes of HTML code
+[28-Apr-2026 07:16:50 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[28-Apr-2026 07:16:50 Europe/Berlin] Loaded 55 accessibility checks from database
+[28-Apr-2026 07:16:51 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 5
+[28-Apr-2026 07:16:51 Europe/Berlin] Accessibility score calculated: 94/100
+[28-Apr-2026 07:16:51 Europe/Berlin] Scan results saved to database: scan_69f042c2ca9393.51479043
+[29-Apr-2026 04:26:26 Europe/Berlin] Scanning 20133 bytes of HTML code
+[29-Apr-2026 04:26:26 Europe/Berlin] HTML parsed successfully. Parse errors: 6
+[29-Apr-2026 04:26:26 Europe/Berlin] Loaded 55 accessibility checks from database
+[29-Apr-2026 04:26:26 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 8
+[29-Apr-2026 04:26:26 Europe/Berlin] Accessibility score calculated: 90/100
+[29-Apr-2026 04:26:26 Europe/Berlin] Scan results saved to database: scan_69f16c528f7eb9.71084024
+[30-Apr-2026 09:26:50 Europe/Berlin] Fetching URL: https://google.com
+[30-Apr-2026 09:26:55 Europe/Berlin] Successfully fetched 210445 bytes from URL
+[30-Apr-2026 09:26:55 Europe/Berlin] HTML parsed successfully. Parse errors: 0
+[30-Apr-2026 09:26:55 Europe/Berlin] Loaded 55 accessibility checks from database
+[30-Apr-2026 09:26:55 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 45
+[30-Apr-2026 09:26:55 Europe/Berlin] Accessibility score calculated: 36/100
+[30-Apr-2026 09:26:55 Europe/Berlin] Scan results saved to database: scan_69f3043abc53f6.19443043
+[30-Apr-2026 10:32:10 Europe/Berlin] Scanning 20133 bytes of HTML code
+[30-Apr-2026 10:32:10 Europe/Berlin] HTML parsed successfully. Parse errors: 6
+[30-Apr-2026 10:32:10 Europe/Berlin] Loaded 55 accessibility checks from database
+[30-Apr-2026 10:32:10 Europe/Berlin] Checks executed: 55, Failed: 0, Total issues found: 8
+[30-Apr-2026 10:32:10 Europe/Berlin] Accessibility score calculated: 90/100
+[30-Apr-2026 10:32:10 Europe/Berlin] Scan results saved to database: scan_69f3138a58ee40.38865297

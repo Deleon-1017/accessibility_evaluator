@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Error and Loading States - WCAG Sidebar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="wcag-sidebar-layout.css">
+    <style>
+        body {
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        .test-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Test Error and Loading States</h1>
+        
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <button class="btn btn-primary test-button" onclick="testLoading()">Show Loading State</button>
+            <button class="btn btn-danger test-button" onclick="testError()">Show Error State</button>
+            <button class="btn btn-warning test-button" onclick="testInvalidGuideline()">Show Invalid Guideline Notification</button>
+            <button class="btn btn-secondary test-button" onclick="clearStates()">Clear All States</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>Preview Area</h2>
+            <div id="testContainer" class="wcag-main-content">
+                <div class="landing-page" id="landingPage">
+                    <div class="wcag-hero">
+                        <h1>WCAG 2.1 Guidelines</h1>
+                        <p class="lead">This is the landing page content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="wcag-sidebar-app.js"></script>
+    <script>
+        // Mock WCAGApp for testing
+        const mockApp = {
+            config: {
+                mainContentElementId: 'testContainer'
+            },
+            mainContent: {
+                landingPage: document.getElementById('landingPage'),
+                detailView: null
+            },
+            escapeHtml: function(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        };
+
+        function testLoading() {
+            console.log('Testing loading state...');
+            
+            // Create loading indicator
+            let loadingIndicator = document.getElementById('wcagLoadingIndicator');
+            
+            if (!loadingIndicator) {
+                loadingIndicator = document.createElement('div');
+                loadingIndicator.id = 'wcagLoadingIndicator';
+                loadingIndicator.className = 'wcag-loading-indicator';
+                loadingIndicator.setAttribute('role', 'status');
+                loadingIndicator.setAttribute('aria-live', 'polite');
+                loadingIndicator.innerHTML = `
+                    <div class="loading-content">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading guidelines...</span>
+                        </div>
+                        <p class="loading-text">Loading WCAG guidelines...</p>
+                    </div>
+                `;
+                
+                const mainContentElement = document.getElementById('testContainer');
+                if (mainContentElement) {
+                    mainContentElement.insertBefore(loadingIndicator, mainContentElement.firstChild);
+                }
+            }
+            
+            loadingIndicator.style.display = 'flex';
+            
+            // Hide landing page
+            const landingPage = document.getElementById('landingPage');
+            if (landingPage) {
+                landingPage.style.display = 'none';
+            }
+        }
+
+        function testError() {
+            console.log('Testing error state...');
+            
+            // Hide loading
+            const loadingIndicator = document.getElementById('wcagLoadingIndicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+            
+            // Create error container
+            let errorContainer = document.getElementById('wcagErrorContainer');
+            
+            if (!errorContainer) {
+                errorContainer = document.createElement('div');
+                errorContainer.id = 'wcagErrorContainer';
+                errorContainer.className = 'wcag-error-container';
+                
+                const mainContentElement = document.getElementById('testContainer');
+                if (mainContentElement) {
+                    mainContentElement.insertBefore(errorContainer, mainContentElement.firstChild);
+                }
+            }
+            
+            errorContainer.innerHTML = `
+                <div class="error-state" role="alert">
+                    <div class="error-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="error-title">Error Loading Guidelines</h3>
+                    <p class="error-message">Failed to fetch guidelines: Network error occurred. Please check your connection and try again.</p>
+                    <div class="error-actions">
+                        <button class="btn btn-primary retry-button" onclick="alert('Retry clicked!')">
+                            <i class="bi bi-arrow-clockwise"></i> Retry
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            errorContainer.style.display = 'block';
+            
+            // Hide landing page
+            const landingPage = document.getElementById('landingPage');
+            if (landingPage) {
+                landingPage.style.display = 'none';
+            }
+        }
+
+        function testInvalidGuideline() {
+            console.log('Testing invalid guideline notification...');
+            
+            const notification = document.createElement('div');
+            notification.className = 'wcag-notification alert alert-warning';
+            notification.setAttribute('role', 'alert');
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <div class="flex-grow-1">
+                        <strong>Guideline Not Found</strong>
+                        <p class="mb-0">The guideline "9.9.9" does not exist. Please select a guideline from the sidebar.</p>
+                    </div>
+                    <button type="button" class="btn-close" aria-label="Close notification" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            const mainContentElement = document.getElementById('testContainer');
+            if (mainContentElement) {
+                mainContentElement.insertBefore(notification, mainContentElement.firstChild);
+                
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Show landing page
+            const landingPage = document.getElementById('landingPage');
+            if (landingPage) {
+                landingPage.style.display = 'block';
+            }
+        }
+
+        function clearStates() {
+            console.log('Clearing all states...');
+            
+            const loadingIndicator = document.getElementById('wcagLoadingIndicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+            
+            const errorContainer = document.getElementById('wcagErrorContainer');
+            if (errorContainer) {
+                errorContainer.style.display = 'none';
+            }
+            
+            const notifications = document.querySelectorAll('.wcag-notification');
+            notifications.forEach(n => n.remove());
+            
+            const landingPage = document.getElementById('landingPage');
+            if (landingPage) {
+                landingPage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

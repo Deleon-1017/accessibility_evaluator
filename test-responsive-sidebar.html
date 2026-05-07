@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="wcag-sidebar-layout.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .test-header {
+            background: #0d6efd;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 76px;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .test-content {
+            margin-top: 76px;
+        }
+        .test-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 2000;
+            font-size: 0.875rem;
+        }
+        .test-info strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Test Header (simulating navbar) -->
+    <header class="test-header">
+        <h1 style="margin: 0; font-size: 1.5rem;">Responsive Sidebar Test</h1>
+        <div id="viewportInfo" style="font-size: 0.875rem;"></div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="test-content">
+        <div class="wcag-layout-container">
+            <!-- Sidebar -->
+            <aside class="wcag-sidebar" id="wcagSidebar" role="navigation" aria-label="Test Navigation">
+                <!-- Mobile Toggle Button -->
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
+                
+                <!-- Sidebar Header -->
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">Test Sidebar</h2>
+                </div>
+                
+                <!-- Sidebar Content -->
+                <nav class="sidebar-nav">
+                    <div class="principle-group" data-principle="Test">
+                        <button class="principle-header" aria-expanded="true">
+                            <span class="principle-icon perceivable">
+                                <i class="bi bi-eye"></i>
+                            </span>
+                            <span class="principle-name">Test Section</span>
+                            <i class="bi bi-chevron-down expand-icon"></i>
+                        </button>
+                        <ul class="guideline-list" style="display: block;">
+                            <li class="guideline-item">
+                                <a href="#" class="guideline-link" data-guideline-id="1.1.1">
+                                    <span class="guideline-id">1.1.1</span>
+                                    <span class="guideline-title">Test Item 1</span>
+                                    <span class="level-badge level-A">A</span>
+                                </a>
+                            </li>
+                            <li class="guideline-item">
+                                <a href="#" class="guideline-link" data-guideline-id="1.1.2">
+                                    <span class="guideline-id">1.1.2</span>
+                                    <span class="guideline-title">Test Item 2</span>
+                                    <span class="level-badge level-AA">AA</span>
+                                </a>
+                            </li>
+                            <li class="guideline-item">
+                                <a href="#" class="guideline-link" data-guideline-id="1.1.3">
+                                    <span class="guideline-id">1.1.3</span>
+                                    <span class="guideline-title">Test Item 3</span>
+                                    <span class="level-badge level-AAA">AAA</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="wcag-main-content" id="wcagMainContent" role="main">
+                <div class="landing-page">
+                    <div class="wcag-hero">
+                        <h1>Responsive Sidebar Test</h1>
+                        <p class="lead">This page tests the responsive behavior of the sidebar layout.</p>
+                        <p class="text-muted">Resize your browser window to test different breakpoints.</p>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3>Test Instructions</h3>
+                            <ol>
+                                <li><strong>Desktop (> 768px):</strong> Sidebar should be visible on the left</li>
+                                <li><strong>Tablet (≤ 768px):</strong> Sidebar should collapse, toggle button should appear</li>
+                                <li><strong>Mobile (≤ 576px):</strong> Sidebar should be full-width when opened</li>
+                                <li><strong>Toggle Button:</strong> Click to open/close sidebar on mobile</li>
+                                <li><strong>Overlay:</strong> Click overlay backdrop to close sidebar</li>
+                                <li><strong>Escape Key:</strong> Press Escape to close sidebar</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3>Expected Behavior</h3>
+                            <ul>
+                                <li>✓ Sidebar visible by default on desktop</li>
+                                <li>✓ Sidebar hidden by default on tablet/mobile</li>
+                                <li>✓ Toggle button appears on tablet/mobile</li>
+                                <li>✓ Sidebar slides in from left when opened</li>
+                                <li>✓ Overlay backdrop appears when sidebar is open</li>
+                                <li>✓ Clicking overlay closes sidebar</li>
+                                <li>✓ Pressing Escape closes sidebar</li>
+                                <li>✓ Body scroll locked when sidebar is open on mobile</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Viewport Info Display -->
+    <div class="test-info">
+        <strong>Current Viewport:</strong>
+        <div id="viewportSize"></div>
+        <div id="breakpoint"></div>
+        <div id="sidebarState"></div>
+    </div>
+
+    <script>
+        // Simple sidebar toggle implementation for testing
+        class TestSidebar {
+            constructor() {
+                this.sidebar = document.getElementById('wcagSidebar');
+                this.toggleButton = document.getElementById('sidebarToggle');
+                this.init();
+            }
+
+            init() {
+                // Toggle button click
+                this.toggleButton.addEventListener('click', () => {
+                    this.toggleSidebar();
+                });
+
+                // Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.sidebar.classList.contains('sidebar-open')) {
+                        this.toggleSidebar();
+                    }
+                });
+
+                // Update viewport info
+                this.updateViewportInfo();
+                window.addEventListener('resize', () => {
+                    this.updateViewportInfo();
+                });
+            }
+
+            toggleSidebar() {
+                this.sidebar.classList.toggle('sidebar-open');
+                const isOpen = this.sidebar.classList.contains('sidebar-open');
+                
+                this.toggleButton.setAttribute('aria-expanded', isOpen.toString());
+                this.toggleOverlay(isOpen);
+                
+                if (isOpen) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+
+                this.updateViewportInfo();
+            }
+
+            toggleOverlay(show) {
+                let overlay = document.getElementById('sidebarOverlay');
+                
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.id = 'sidebarOverlay';
+                    overlay.className = 'sidebar-overlay';
+                    overlay.setAttribute('aria-hidden', 'true');
+                    
+                    overlay.addEventListener('click', () => {
+                        if (this.sidebar.classList.contains('sidebar-open')) {
+                            this.toggleSidebar();
+                        }
+                    });
+                    
+                    document.body.appendChild(overlay);
+                }
+                
+                if (show) {
+                    overlay.classList.add('active');
+                } else {
+                    overlay.classList.remove('active');
+                }
+            }
+
+            updateViewportInfo() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const isOpen = this.sidebar.classList.contains('sidebar-open');
+                
+                let breakpoint = 'Desktop';
+                if (width <= 576) {
+                    breakpoint = 'Mobile (≤ 576px)';
+                } else if (width <= 768) {
+                    breakpoint = 'Tablet (≤ 768px)';
+                }
+
+                document.getElementById('viewportInfo').textContent = `${width}px × ${height}px`;
+                document.getElementById('viewportSize').textContent = `Width: ${width}px, Height: ${height}px`;
+                document.getElementById('breakpoint').textContent = `Breakpoint: ${breakpoint}`;
+                document.getElementById('sidebarState').textContent = `Sidebar: ${isOpen ? 'Open' : 'Closed'}`;
+            }
+        }
+
+        // Initialize test sidebar
+        document.addEventListener('DOMContentLoaded', () => {
+            new TestSidebar();
+        });
+    </script>
+</body>
+</html>

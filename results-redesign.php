@@ -499,12 +499,13 @@ $percentage = round($score);
         }
 
         .results-table tbody tr.issue-row {
-            transition: background 0.2s ease;
             cursor: pointer;
         }
 
         .results-table tbody tr.issue-row:hover {
-            background: #F0F7FF;
+            background: transparent !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         /* Expandable Row Details */
@@ -593,17 +594,8 @@ $percentage = round($score);
             box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
         }
 
-        .issue-row:hover .expand-icon {
-            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
-            transform: translateY(-1px);
-        }
-
         .expand-icon.rotated {
             transform: rotate(180deg);
-        }
-
-        .issue-row:hover .expand-icon.rotated {
-            transform: rotate(180deg) translateY(1px);
         }
 
         /* Badge Styles */

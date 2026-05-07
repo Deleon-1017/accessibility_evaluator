@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +13,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=20260326poppins">
+    <link rel="stylesheet" href="wcag-modal-redesign.css">
+    <link rel="stylesheet" href="wcag-sidebar-layout.css">
+    <link rel="stylesheet" href="wcag-landing-redesign.css">
 </head>
 
 <body class="wcag-page">
-
     <!-- Skip to Content Link for Accessibility -->
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
@@ -25,7 +26,7 @@
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php"><img src="logo.png" alt="Logo" width="60" height="60"
-                        class="mx-5 me-3">Web Accessibility Evaluator</a>
+                        class="mx-3 me-3">Web Accessibility Evaluator</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,171 +59,92 @@
         </nav>
     </header>
 
-    <main id="main-content" class="wcag-guidelines pt-5 mt-5">
-        <div class="container-fluid px-4 px-lg-5">
-            <!-- Hero Section -->
-            <div class="wcag-hero">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <h1>WCAG 2.1 Guidelines</h1>
-                        <p class="lead">Web Content Accessibility Guidelines (WCAG) 2.1 defines how to make web content
-                            more
-                            accessible to people with disabilities.</p>
-                        <p class="text-muted">These guidelines are organized around four principles: Perceivable,
-                            Operable, Understandable, and Robust.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="filter-guidelines-card">
-                            <h2>Filter Guidelines</h2>
-                            <div class="mb-3">
-                                <label for="levelFilter" class="form-label">Conformance Level</label>
-                                <select id="levelFilter" class="form-select" aria-label="Filter by conformance level">
-                                    <option value="all">All Levels</option>
-                                    <option value="A">Level A</option>
-                                    <option value="AA">Level AA</option>
-                                    <option value="AAA">Level AAA</option>
-                                </select>
+    <div id="main-content" class="wcag-layout-container" tabindex="-1">
+        <!-- WCAG Sidebar Navigation -->
+        <aside class="wcag-sidebar" id="wcagSidebar" role="navigation" aria-label="WCAG Guidelines Navigation">
+            <!-- Sidebar Header with Toggle -->
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Guidelines</h2>
+                <button class="sidebar-toggle-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar width">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            
+            <!-- Sidebar Content -->
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Principle groups and guideline lists will be populated by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="wcag-main-content" id="wcagMainContent" role="main">
+            <!-- Landing Page (Default View) -->
+            <div class="landing-page" id="landingPage">
+                <!-- Hero Section -->
+                <section class="hero-ultra" aria-labelledby="hero-heading">
+                    <h1 id="hero-heading" tabindex="-1">WCAG 2.1 Guidelines</h1>
+                    <p class="hero-lead">Web Content Accessibility Guidelines (WCAG) 2.1 defines how to make web content more accessible to people with disabilities.</p>
+                    <p class="hero-note">These guidelines are organized around four principles: Perceivable, Operable, Understandable, and Robust.</p>
+                </section>
+
+                <!-- Conformance Levels Section -->
+                <section class="levels-ultra" aria-labelledby="conformance-heading">
+                    <h2 id="conformance-heading">Understanding Conformance Levels</h2>
+                    <p class="levels-note">WCAG 2.1 defines three levels of conformance</p>
+                    
+                    <div class="levels-wrap">
+                        <!-- Level A -->
+                        <article class="level-item item-a">
+                            <div class="item-header">
+                                <span class="level-mark mark-a">LEVEL A</span>
                             </div>
-                            <div class="mb-3">
-                                <label for="principleFilter" class="form-label">Principle</label>
-                                <select id="principleFilter" class="form-select" aria-label="Filter by principle">
-                                    <option value="all">All Principles</option>
-                                    <option value="Perceivable">Perceivable</option>
-                                    <option value="Operable">Operable</option>
-                                    <option value="Understandable">Understandable</option>
-                                    <option value="Robust">Robust</option>
-                                </select>
+                            <h3>Essential Foundation</h3>
+                            <p>Basic requirements that must be satisfied. Essential for some users to be able to use web content.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i>Required for all websites</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Minimum legal compliance</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Critical barriers removed</li>
+                            </ul>
+                        </article>
+
+                        <!-- Level AA (Recommended) -->
+                        <article class="level-item item-aa is-recommended">
+                            <div class="item-header">
+                                <span class="level-mark mark-aa">LEVEL AA</span>
+                                <span class="rec-label">RECOMMENDED</span>
                             </div>
-                            <button id="resetFilters" class="btn btn-outline-primary w-100">
-                                Reset Filters
-                            </button>
-                        </div>
+                            <h3>Industry Standard</h3>
+                            <p>Addresses major barriers for disabled users. Required for most accessibility regulations worldwide.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i>Target for most organizations</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Legal requirement</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Comprehensive accessibility</li>
+                            </ul>
+                        </article>
+
+                        <!-- Level AAA -->
+                        <article class="level-item item-aaa">
+                            <div class="item-header">
+                                <span class="level-mark mark-aaa">LEVEL AAA</span>
+                            </div>
+                            <h3>Excellence Level</h3>
+                            <p>Enhanced accessibility features. The highest level of compliance for specialized applications.</p>
+                            <ul>
+                                <li><i class="bi bi-check-circle-fill"></i>Enhanced accessibility</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Specialized applications</li>
+                                <li><i class="bi bi-check-circle-fill"></i>Maximum inclusivity</li>
+                            </ul>
+                        </article>
                     </div>
-                </div>
+                </section>
             </div>
 
-            <!-- Results Info Bar -->
-            <div class="results-info-bar">
-                <div class="results-info-content">
-                    <div class="result-count">
-                        <span class="count-number" id="resultCount">0</span>
-                    </div>
-                    <div class="result-text">
-                        <p class="result-label">Guidelines Available</p>
-                        <p class="result-hint">Select any guideline below to explore examples</p>
-                    </div>
-                </div>
+            <!-- Guideline Detail View (Initially Hidden) -->
+            <div class="guideline-detail-view" id="guidelineDetailView" style="display: none;" aria-live="polite">
+                <!-- Content will be populated dynamically by JavaScript -->
             </div>
-
-            <!-- Loading Indicator -->
-            <div id="loadingIndicator" class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading guidelines...</span>
-                </div>
-                <p class="mt-3 text-muted">Loading WCAG guidelines from database...</p>
-            </div>
-
-            <!-- Error Message -->
-            <div id="errorMessage" class="alert alert-danger d-none" role="alert">
-                <h4 class="alert-heading">Error Loading Guidelines</h4>
-                <p id="errorText"></p>
-            </div>
-
-            <!-- Guidelines Table -->
-            <div class="guidelines-table-wrapper" id="guidelinesTableWrapper" style="display: none;">
-                <table class="wcag-guidelines-table" id="wcagTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Principle</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Success Criteria</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Techniques</th>
-                        </tr>
-                    </thead>
-                    <tbody id="wcagTableBody">
-                        <!-- Table rows will be populated by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Conformance Levels Section -->
-            <div class="conformance-levels-section">
-                <div class="text-center mb-5">
-                    <h2>Understanding Conformance Levels</h2>
-                    <p>WCAG 2.1 defines three levels of conformance</p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="conformance-card level-a-card">
-                            <div class="conformance-header">
-                                <div>
-                                    <span class="level-badge level-A">Level A</span>
-                                </div>
-                            </div>
-                            <div class="conformance-body">
-                                <h3>Essential Foundation</h3>
-                                <p>Basic requirements that must be satisfied. Essential for some users to be able to use
-                                    web content.</p>
-                                <ul class="conformance-features">
-                                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Required for all
-                                        websites</li>
-                                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Minimum legal
-                                        compliance</li>
-                                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Critical barriers
-                                        removed</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="conformance-card level-aa-card featured">
-                            <div class="recommended-badge">Recommended</div>
-                            <div class="conformance-header">
-                                <div>
-                                    <span class="level-badge level-AA">Level AA</span>
-                                </div>
-                            </div>
-                            <div class="conformance-body">
-                                <h3>Industry Standard</h3>
-                                <p>Addresses major barriers for disabled users. Required for most accessibility
-                                    regulations worldwide.</p>
-                                <ul class="conformance-features">
-                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Target for most
-                                        organizations</li>
-                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Legal requirement</li>
-                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Comprehensive
-                                        accessibility</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="conformance-card level-aaa-card">
-                            <div class="conformance-header">
-                                <div>
-                                    <span class="level-badge level-AAA">Level AAA</span>
-                                </div>
-                            </div>
-                            <div class="conformance-body">
-                                <h3>Excellence Level</h3>
-                                <p>Enhanced accessibility features. The highest level of compliance for specialized
-                                    applications.</p>
-                                <ul class="conformance-features">
-                                    <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Enhanced accessibility
-                                    </li>
-                                    <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Specialized
-                                        applications</li>
-                                    <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Maximum inclusivity
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <footer class="bg-white shadow-mt-auto">
         <div class="container py-5">
@@ -293,113 +215,66 @@
         </div>
     </div>
 
-    <!-- WCAG Script - Modified to fetch from database -->
+    <!-- WCAG Sidebar Application -->
+    <script src="wcag-sidebar-app.js"></script>
     <script>
-        console.log('[WCAG] Script loaded');
+        console.log('[WCAG Sidebar] Initializing sidebar application');
         
-        // Global variable to store guidelines data
-        let wcagGuidelines = [];
-        
-        // Fetch guidelines from database on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('[WCAG] DOM Content Loaded, starting fetch');
-            fetchWcagGuidelines();
+        // Remove focus from any focused element on page load to prevent focus rectangle
+        window.addEventListener('load', function() {
+            // Small delay to ensure all elements are loaded
+            setTimeout(function() {
+                if (document.activeElement && document.activeElement !== document.body) {
+                    document.activeElement.blur();
+                    document.body.focus();
+                    document.body.blur();
+                }
+            }, 100);
         });
         
-        async function fetchWcagGuidelines() {
-            console.log('[WCAG] fetchWcagGuidelines called');
+        // Also handle on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainContent = document.getElementById('main-content');
+            const heroHeading = document.getElementById('hero-heading');
             
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const errorMessage = document.getElementById('errorMessage');
-            const tableWrapper = document.getElementById('guidelinesTableWrapper');
+            // Remove focus from main content
+            if (mainContent && document.activeElement === mainContent) {
+                mainContent.blur();
+            }
             
-            console.log('[WCAG] Elements found:', {
-                loadingIndicator: !!loadingIndicator,
-                errorMessage: !!errorMessage,
-                tableWrapper: !!tableWrapper
-            });
+            // Remove focus from hero heading
+            if (heroHeading && document.activeElement === heroHeading) {
+                heroHeading.blur();
+            }
             
+            // Remove focus from any other focused element
+            if (document.activeElement && document.activeElement !== document.body) {
+                document.activeElement.blur();
+            }
+        });
+        
+        // Initialize the WCAG Sidebar Application using WCAGApp controller
+        document.addEventListener('DOMContentLoaded', async function() {
             try {
-                // Get filter parameters from URL if present
-                const urlParams = new URLSearchParams(window.location.search);
-                const level = urlParams.get('level');
-                const principle = urlParams.get('principle');
+                console.log('[WCAG Sidebar] DOM loaded, starting initialization');
                 
-                // Build API URL with filters
-                let apiUrl = 'api/get-wcag-guidelines.php';
-                const params = [];
-                if (level) params.push(`level=${encodeURIComponent(level)}`);
-                if (principle) params.push(`principle=${encodeURIComponent(principle)}`);
-                if (params.length > 0) {
-                    apiUrl += '?' + params.join('&');
-                }
-                
-                console.log('[WCAG] Fetching from:', apiUrl);
-                const response = await fetch(apiUrl);
-                console.log('[WCAG] Response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                console.log('[WCAG] Result:', {
-                    success: result.success,
-                    count: result.count,
-                    dataLength: result.data ? result.data.length : 0
+                // Create and initialize the WCAGApp controller
+                const app = new WCAGApp({
+                    apiEndpoint: 'api/get-wcag-guidelines.php',
+                    sidebarElementId: 'wcagSidebar',
+                    mainContentElementId: 'wcagMainContent',
+                    sidebarToggleId: 'sidebarToggle'
                 });
                 
-                if (!result.success) {
-                    throw new Error(result.error || 'Failed to load guidelines');
-                }
+                // Initialize the application
+                await app.init();
                 
-                wcagGuidelines = result.data;
-                console.log('[WCAG] Guidelines stored:', wcagGuidelines.length);
-                
-                // Hide loading, show table
-                loadingIndicator.style.display = 'none';
-                tableWrapper.style.display = 'block';
-                console.log('[WCAG] UI updated: loading hidden, table shown');
-                
-                // Set filter values from URL
-                if (level) document.getElementById('levelFilter').value = level;
-                if (principle) document.getElementById('principleFilter').value = principle;
-                
-                // Trigger custom event to notify that data is loaded
-                console.log('[WCAG] Dispatching wcagDataLoaded event');
-                const event = new CustomEvent('wcagDataLoaded');
-                window.dispatchEvent(event);
-                console.log('[WCAG] Event dispatched successfully');
-                
-                // Also try direct call as fallback
-                setTimeout(() => {
-                    console.log('[WCAG] Timeout fallback - checking if table was rendered');
-                    const tbody = document.getElementById('wcagTableBody');
-                    if (tbody && tbody.children.length === 0) {
-                        console.warn('[WCAG] Table not rendered, trying direct approach');
-                        // Dispatch again
-                        window.dispatchEvent(new CustomEvent('wcagDataLoaded'));
-                    }
-                }, 1000);
+                console.log('[WCAG Sidebar] Application initialized successfully');
                 
             } catch (error) {
-                console.error('[WCAG] Error fetching WCAG guidelines:', error);
-                console.error('[WCAG] Error details:', error.stack);
-                loadingIndicator.style.display = 'none';
-                errorMessage.classList.remove('d-none');
-                document.getElementById('errorText').textContent = error.message;
+                console.error('[WCAG Sidebar] Initialization error:', error);
             }
-        }
-    </script>
-
-    <!-- WCAG Table Script -->
-    <script>
-        console.log('[WCAG] About to load wcag-script.js');
-        console.log('[WCAG] Bootstrap available:', typeof bootstrap !== 'undefined');
-    </script>
-    <script src="wcag-script.js?v=20260409debug"></script>
-    <script>
-        console.log('[WCAG] wcag-script.js should be loaded now');
+        });
     </script>
 </body>
 

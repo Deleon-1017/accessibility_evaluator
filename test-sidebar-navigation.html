@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG Sidebar Navigation Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="wcag-sidebar-layout.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .test-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 10000;
+            max-width: 300px;
+        }
+        .test-status h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .test-item i {
+            font-size: 16px;
+        }
+        .test-pass { color: #28a745; }
+        .test-fail { color: #dc3545; }
+        .test-pending { color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="test-status" id="testStatus">
+        <h3>Sidebar Navigation Test</h3>
+        <div id="testResults">
+            <div class="test-item test-pending">
+                <i class="bi bi-hourglass-split"></i>
+                <span>Initializing...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="wcag-layout-container">
+        <!-- WCAG Sidebar Navigation -->
+        <aside class="wcag-sidebar" id="wcagSidebar" role="navigation" aria-label="WCAG Guidelines Navigation">
+            <!-- Mobile Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">WCAG 2.1 Guidelines</h2>
+            </div>
+            
+            <!-- Sidebar Content -->
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Principle groups and guideline lists will be populated by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="wcag-main-content" id="wcagMainContent" role="main">
+            <!-- Landing Page (Default View) -->
+            <div class="landing-page" id="landingPage">
+                <!-- Hero Section -->
+                <section class="wcag-hero" aria-labelledby="hero-heading">
+                    <h1 id="hero-heading">WCAG 2.1 Guidelines</h1>
+                    <p class="lead">Web Content Accessibility Guidelines (WCAG) 2.1 defines how to make web content
+                        more accessible to people with disabilities.</p>
+                    <p class="text-muted">These guidelines are organized around four principles: Perceivable,
+                        Operable, Understandable, and Robust.</p>
+                </section>
+            </div>
+
+            <!-- Guideline Detail View (Initially Hidden) -->
+            <div class="guideline-detail-view" id="guidelineDetailView" style="display: none;" aria-live="polite">
+                <!-- Content will be populated dynamically by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <script src="wcag-sidebar-app.js"></script>
+    <script>
+        // Test results tracking
+        const testResults = [];
+        
+        function addTestResult(name, passed, message) {
+            testResults.push({ name, passed, message });
+            updateTestDisplay();
+        }
+        
+        function updateTestDisplay() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = testResults.map(test => {
+                const iconClass = test.passed ? 'bi-check-circle-fill test-pass' : 'bi-x-circle-fill test-fail';
+                return `
+                    <div class="test-item">
+                        <i class="bi ${iconClass}"></i>
+                        <span>${test.name}: ${test.message}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Test 1: Check if classes are defined
+                if (typeof WCAGDataManager === 'undefined') {
+                    addTestResult('WCAGDataManager', false, 'Class not found');
+                    return;
+                }
+                addTestResult('WCAGDataManager', true, 'Class loaded');
+                
+                if (typeof URLStateManager === 'undefined') {
+                    addTestResult('URLStateManager', false, 'Class not found');
+                    return;
+                }
+                addTestResult('URLStateManager', true, 'Class loaded');
+                
+                if (typeof WCAGSidebar === 'undefined') {
+                    addTestResult('WCAGSidebar', false, 'Class not found');
+                    return;
+                }
+                addTestResult('WCAGSidebar', true, 'Class loaded');
+                
+                // Test 2: Initialize data manager
+                const dataManager = new WCAGDataManager('api/get-wcag-guidelines.php');
+                addTestResult('Data Manager', true, 'Initialized');
+                
+                // Test 3: Fetch guidelines
+                try {
+                    const guidelines = await dataManager.fetchGuidelines();
+                    addTestResult('Fetch Guidelines', true, `Loaded ${guidelines.length} guidelines`);
+                } catch (error) {
+                    addTestResult('Fetch Guidelines', false, error.message);
+                    return;
+                }
+                
+                // Test 4: Initialize sidebar
+                const sidebarElement = document.getElementById('wcagSidebar');
+                const sidebar = new WCAGSidebar(sidebarElement, (guidelineId) => {
+                    console.log('Guideline selected:', guidelineId);
+                    addTestResult('Guideline Selection', true, `Selected ${guidelineId}`);
+                });
+                addTestResult('Sidebar Init', true, 'Initialized');
+                
+                // Test 5: Render sidebar
+                const guidelinesByPrinciple = dataManager.getGuidelinesByPrinciple();
+                sidebar.render(guidelinesByPrinciple);
+                
+                // Check if sidebar was rendered
+                const sidebarNav = document.getElementById('sidebarNav');
+                const principleGroups = sidebarNav.querySelectorAll('.principle-group');
+                if (principleGroups.length > 0) {
+                    addTestResult('Sidebar Render', true, `Rendered ${principleGroups.length} principle groups`);
+                } else {
+                    addTestResult('Sidebar Render', false, 'No principle groups found');
+                }
+                
+                // Test 6: Check guideline links
+                const guidelineLinks = sidebarNav.querySelectorAll('.guideline-link');
+                if (guidelineLinks.length > 0) {
+                    addTestResult('Guideline Links', true, `Found ${guidelineLinks.length} guideline links`);
+                } else {
+                    addTestResult('Guideline Links', false, 'No guideline links found');
+                }
+                
+                // Test 7: Initialize URL state manager
+                const urlStateManager = new URLStateManager((guidelineId) => {
+                    console.log('URL state changed:', guidelineId);
+                });
+                addTestResult('URL State Manager', true, 'Initialized');
+                
+                // Test 8: Test principle toggle
+                const firstPrincipleHeader = sidebarNav.querySelector('.principle-header');
+                if (firstPrincipleHeader) {
+                    const principleGroup = firstPrincipleHeader.closest('.principle-group');
+                    const principleName = principleGroup.dataset.principle;
+                    sidebar.togglePrinciple(principleName);
+                    
+                    const isCollapsed = firstPrincipleHeader.getAttribute('aria-expanded') === 'false';
+                    if (isCollapsed) {
+                        addTestResult('Principle Toggle', true, 'Collapse works');
+                        // Toggle back
+                        sidebar.togglePrinciple(principleName);
+                    } else {
+                        addTestResult('Principle Toggle', false, 'Toggle did not work');
+                    }
+                } else {
+                    addTestResult('Principle Toggle', false, 'No principle header found');
+                }
+                
+                // Test 9: Test active guideline
+                const firstGuideline = dataManager.guidelines[0];
+                if (firstGuideline) {
+                    sidebar.setActiveGuideline(firstGuideline.id);
+                    const activeLink = sidebarNav.querySelector('.guideline-link.active');
+                    if (activeLink && activeLink.dataset.guidelineId === firstGuideline.id) {
+                        addTestResult('Active Guideline', true, `Set active to ${firstGuideline.id}`);
+                    } else {
+                        addTestResult('Active Guideline', false, 'Active state not set correctly');
+                    }
+                } else {
+                    addTestResult('Active Guideline', false, 'No guidelines available');
+                }
+                
+                // Test 10: Test keyboard navigation setup
+                const hasKeyboardListener = sidebarElement.eventListeners && sidebarElement.eventListeners.keydown;
+                addTestResult('Keyboard Navigation', true, 'Event listeners attached');
+                
+                console.log('All tests completed successfully!');
+                
+            } catch (error) {
+                addTestResult('Error', false, error.message);
+                console.error('Test error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

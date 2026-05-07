@@ -1,0 +1,450 @@
+/* ============================================
+   WCAG Landing Page - Ultra Minimal
+   Maximum cleanliness and simplicity
+   ============================================ */
+
+/* ══════════════════════════════════════════════════════════
+   HERO SECTION
+   ══════════════════════════════════════════════════════════ */
+.hero-ultra {
+    text-align: center;
+    padding: 1.5rem 1rem 3rem;
+    margin-bottom: 2rem;
+}
+
+.hero-ultra h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    outline: none !important;
+}
+
+.hero-ultra h1:focus {
+    outline: none !important;
+}
+
+.hero-lead {
+    font-size: 1rem;
+    color: #4a4a4a;
+    margin: 0 auto 0.75rem;
+    line-height: 1.6;
+    max-width: 650px;
+}
+
+.hero-note {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin: 0 auto;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONFORMANCE SECTION
+   ══════════════════════════════════════════════════════════ */
+.levels-ultra {
+    padding: 0 1rem 3rem;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.levels-ultra h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.levels-note {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin: 0 0 2.5rem;
+    text-align: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEVELS GRID
+   ══════════════════════════════════════════════════════════ */
+.levels-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEVEL CARDS
+   ══════════════════════════════════════════════════════════ */
+.level-item {
+    background: transparent;
+    border: 1px solid var(--color-border, #dee2e6);
+    border-radius: 8px;
+    padding: 0;
+    position: relative;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.level-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
+
+.item-a {
+    border-color: #0d6efd;
+}
+
+.item-a::before {
+    background: #0d6efd;
+}
+
+.item-aa {
+    border-color: #198754;
+}
+
+.item-aa::before {
+    background: #198754;
+}
+
+.item-aaa {
+    border-color: #ffc107;
+}
+
+.item-aaa::before {
+    background: #ffc107;
+}
+
+.level-item:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.item-a:hover {
+    border-color: #0a58ca;
+}
+
+.item-aa:hover {
+    border-color: #146c43;
+}
+
+.item-aaa:hover {
+    border-color: #cc9a06;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD HEADER - Clean Top Area
+   ══════════════════════════════════════════════════════════ */
+.item-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.25rem 1.25rem 0.75rem;
+    position: relative;
+}
+
+/* Recommended Label */
+.rec-label {
+    background: #198754;
+    color: #ffffff;
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEVEL CONTENT
+   ══════════════════════════════════════════════════════════ */
+.level-mark {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    border-radius: 6px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.mark-a {
+    background: #e7f1ff;
+    color: #0d6efd;
+}
+
+.mark-aa {
+    background: #d1f4e0;
+    color: #198754;
+}
+
+.mark-aaa {
+    background: #fff3cd;
+    color: #cc8800;
+}
+
+.level-item h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    line-height: 1.3;
+    padding: 0 1.25rem;
+}
+
+.level-item p {
+    font-size: 0.8125rem;
+    color: #6c757d;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    text-align: center;
+    padding: 0 1.25rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEVEL LIST
+   ══════════════════════════════════════════════════════════ */
+.level-item ul {
+    list-style: none;
+    padding: 0 1.25rem 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.level-item li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #495057;
+    line-height: 1.5;
+}
+
+.level-item i {
+    font-size: 0.875rem;
+    margin-top: 0.0625rem;
+    flex-shrink: 0;
+}
+
+.item-a i {
+    color: #0d6efd;
+}
+
+.item-aa i {
+    color: #198754;
+}
+
+.item-aaa i {
+    color: #ffc107;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 992px) {
+    .levels-wrap {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-ultra {
+        padding: 2rem 1rem 1.75rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .hero-ultra h1 {
+        font-size: 2rem;
+    }
+
+    .levels-ultra h2 {
+        font-size: 1.625rem;
+    }
+
+    .levels-ultra {
+        padding: 0 1rem 2.5rem;
+    }
+
+    .levels-note {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-ultra {
+        padding: 1.75rem 0.875rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-ultra h1 {
+        font-size: 1.625rem;
+    }
+
+    .hero-lead {
+        font-size: 0.9375rem;
+    }
+
+    .hero-note {
+        font-size: 0.8125rem;
+    }
+
+    .levels-ultra h2 {
+        font-size: 1.375rem;
+    }
+
+    .levels-note {
+        font-size: 0.8125rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .levels-ultra {
+        padding: 0 0.75rem 2rem;
+    }
+
+    .levels-wrap {
+        gap: 1rem;
+    }
+
+    .item-header {
+        padding: 1rem 1rem 0.625rem;
+    }
+
+    .level-item h3 {
+        font-size: 1.0625rem;
+        padding: 0 1rem;
+    }
+
+    .level-item p {
+        font-size: 0.75rem;
+        padding: 0 1rem;
+    }
+
+    .level-item ul {
+        padding: 0 1rem 1.25rem;
+    }
+
+    .level-item li {
+        font-size: 0.6875rem;
+    }
+
+    .rec-label {
+        padding: 0.1875rem 0.5rem;
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-ultra h1 {
+        font-size: 1.375rem;
+    }
+
+    .levels-ultra h2 {
+        font-size: 1.25rem;
+    }
+
+    .item-header {
+        padding: 0.875rem 0.875rem 0.5rem;
+    }
+
+    .level-item h3 {
+        font-size: 1rem;
+        padding: 0 0.875rem;
+    }
+
+    .level-item p {
+        padding: 0 0.875rem;
+    }
+
+    .level-item ul {
+        padding: 0 0.875rem 1rem;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ══════════════════════════════════════════════════════════ */
+
+/* Override global focus-visible for landing page elements */
+.landing-page *:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Remove focus outline from main-content div when not using keyboard */
+#main-content:focus {
+    outline: none !important;
+}
+
+/* Only show focus outline when using keyboard navigation */
+#main-content:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+/* Remove default focus outline from hero section */
+.hero-ultra:focus,
+.hero-ultra h1:focus,
+.hero-ultra p:focus {
+    outline: none !important;
+}
+
+/* Only show focus outline for keyboard navigation in hero */
+.hero-ultra h1:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 4px;
+}
+
+/* Remove default focus outline from levels section */
+.levels-ultra:focus,
+.levels-ultra h2:focus,
+.levels-ultra p:focus {
+    outline: none !important;
+}
+
+/* Remove default focus outline, only show on keyboard navigation */
+.hero-ultra *:focus:not(:focus-visible),
+.levels-ultra *:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Show focus outline only for keyboard navigation */
+.hero-ultra *:focus-visible,
+.levels-ultra *:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+.level-item:focus-within {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+@media (prefers-contrast: high) {
+    .level-item {
+        border: 2px solid currentColor;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .level-item {
+        transition: none;
+    }
+}
+
+@media print {
+    .level-item {
+        border: 1px solid #000;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+}
