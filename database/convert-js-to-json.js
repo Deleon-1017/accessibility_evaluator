@@ -33,9 +33,7 @@ let wcagTechniqueDetails;
 try {
     // Create a minimal browser-like environment
     const window = {};
-    
-    eval(jsContent);
-    
+    eval(jsContent.replace('const wcagGuidelines =', 'wcagGuidelines ='));
     if (typeof wcagGuidelines === 'undefined') {
         throw new Error('wcagGuidelines not found in file');
     }

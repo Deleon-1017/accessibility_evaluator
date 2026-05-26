@@ -2342,7 +2342,7 @@ h2 {
     font-size: 13px;
     line-height: 1.6;
     color: #1a1a1a;
-    overflow-x: auto;
+    overflow-x: hidden;
     max-height: none;
     overflow-y: visible;
     background: white;
@@ -2362,7 +2362,8 @@ h2 {
 
 .wcag-modal-line-code {
     flex: 1;
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* Output Box */
@@ -2370,13 +2371,11 @@ h2 {
     border: 2px solid #d0d0d0;
     border-radius: 8px;
     overflow: hidden;
-    background: #fafafa;
+    background: #ffffff;
 }
 
 .wcag-modal-output-header {
-    background: #f0f0f0;
-    padding: 12px 16px;
-    border-bottom: 1px solid #d0d0d0;
+    display: none;
 }
 
 .wcag-modal-output-label {
@@ -2388,12 +2387,12 @@ h2 {
 }
 
 .wcag-modal-output-content {
-    padding: 20px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 150px;
-    background: white;
+    background: #ffffff;
 }
 
 .wcag-modal-output-preview {
@@ -2413,7 +2412,7 @@ h2 {
     min-height: 150px;
     border: none;
     border-radius: 4px;
-    background: white;
+    background: transparent;
     display: block;
     overflow: hidden;
 }
@@ -3342,4 +3341,55 @@ h2 {
     .conformance-card {
         padding: calc(var(--spacing-unit) * 3);
     }
+}
+
+/* Results Page: Scoped Hover/Button Overrides */
+body.results-page .results-table tbody tr.issue-row:hover {
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+body.results-page .results-table tbody tr.issue-details-row:hover {
+    background: #F8F9FA !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+body.results-page #quick-actions-widget .btn {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+body.results-page #quick-actions-widget .btn::before {
+    display: none !important;
+}
+
+body.results-page #quick-actions-widget .btn-primary {
+    background-color: #0d6efd;
+    border: 2px solid #0d6efd;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+body.results-page #quick-actions-widget .btn-primary:hover {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca !important;
+    color: white !important;
+}
+
+body.results-page #quick-actions-widget .btn-outline-primary {
+    background-color: transparent;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    transition: all 0.2s ease-in-out;
+}
+
+body.results-page #quick-actions-widget .btn-outline-primary:hover {
+    background-color: rgba(13, 110, 253, 0.08) !important;
+    color: #0a58ca !important;
+    border-color: #0a58ca !important;
 }

@@ -317,15 +317,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return '';
         }
 
+        const labelSeed = Date.now();
+        const beforeOutputLabelId = `wcag-before-output-label-${labelSeed}`;
+        const afterOutputLabelId = `wcag-after-output-label-${labelSeed}`;
+
         return `
             <!-- Visual Output Comparison -->
             <div class="wcag-modal-comparison-grid">
                 ${before?.html ? `
-                <div class="wcag-modal-output-box">
-                    <div class="wcag-modal-output-header">
-                        <span class="wcag-modal-output-label">Before: Output</span>
-                    </div>
+                <div class="wcag-modal-output-box" role="group" aria-labelledby="${beforeOutputLabelId}">
                     <div class="wcag-modal-output-content">
+                        <span id="${beforeOutputLabelId}" class="visually-hidden">Before output preview</span>
                         <div class="wcag-modal-output-preview">
                             ${renderVisualPreview(before.html, before.css, before.js, 'before')}
                         </div>
@@ -334,11 +336,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 ` : ''}
 
                 ${after?.html ? `
-                <div class="wcag-modal-output-box">
-                    <div class="wcag-modal-output-header">
-                        <span class="wcag-modal-output-label">After: Output</span>
-                    </div>
+                <div class="wcag-modal-output-box" role="group" aria-labelledby="${afterOutputLabelId}">
                     <div class="wcag-modal-output-content">
+                        <span id="${afterOutputLabelId}" class="visually-hidden">After output preview</span>
                         <div class="wcag-modal-output-preview">
                             ${renderVisualPreview(after.html, after.css, after.js, 'after')}
                         </div>

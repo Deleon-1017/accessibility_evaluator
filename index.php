@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Start session to store form data
 session_start();
 
@@ -39,6 +39,28 @@ if (isset($_SESSION['scan_error'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/default.min.css">
     <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
+    <style>
+        .btn.no-hover {
+            transform: none !important;
+        }
+        .btn.no-hover:hover, .btn.no-hover:focus {
+            transform: none !important;
+        }
+        .btn-primary.no-hover:hover, .btn-primary.no-hover:focus {
+            background: #0d6efd !important;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3) !important;
+        }
+        .btn-success.no-hover:hover, .btn-success.no-hover:focus {
+            background: #1e7e34 !important;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.3) !important;
+        }
+        .btn.no-hover::before {
+            display: none !important;
+        }
+        .btn.no-hover:hover i {
+            transform: none !important;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -133,7 +155,7 @@ endif; ?>
                             <div id="urlHelp" class="form-text mb-4">
                                 Enter the full URL starting with https://
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 py-2">
+                            <button type="submit" class="btn btn-primary w-100 py-2 no-hover">
                                 <i class="bi bi-search me-2"></i>Scan Website
                             </button>
                         </div>
@@ -154,7 +176,7 @@ endif; ?>
                                 <div id="html-editor" class="html-editor-container"></div>
                                 <i class="bi bi-file-earmark-code position-absolute top-0 end-0 m-3 text-muted editor-icon"></i>
                             </div>
-                            <button type="submit" class="btn btn-success w-100 py-2">
+                            <button type="submit" class="btn btn-success w-100 py-2 no-hover">
                                 <i class="bi bi-play-circle me-2"></i>Analyze HTML
                             </button>
                         </div>

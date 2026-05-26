@@ -59,7 +59,13 @@ $warningCount = (int)($summary['warning_count'] ?? 0);
 $infoCount = (int)($summary['info_count'] ?? 0);
 $totalIssues = $errorCount + $warningCount + $infoCount;
 
-$scanTargetLabel = !empty($results['source_url']) ? 'Live URL Scan' : 'Local File Scan';
+$hasSourceUrl = !empty($results['source_url']);
+$showLineNumbers = array_key_exists('showLineNumbers', $results)
+    ? (bool)$results['showLineNumbers']
+    : !$hasSourceUrl;
+$issueDetailsColspan = 6 + ($showLineNumbers ? 1 : 0);
+
+$scanTargetLabel = $hasSourceUrl ? 'Live URL Scan' : 'Local File Scan';
 $timestampRaw = (string)($results['timestamp'] ?? '');
 $scanTimestampDisplay = $timestampRaw !== '' ? $timestampRaw : 'Timestamp not available';
 $scanTimestampAttr = $timestampRaw;
@@ -540,12 +546,6 @@ if ($percentage >= 80) {
             border-bottom: 1px solid var(--gray-200);
         }
 
-        .results-table tbody tr.issue-row:hover {
-            background: transparent !important;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
         .results-table tbody tr.issue-row:last-child {
             border-bottom: none;
         }
@@ -746,6 +746,43 @@ if ($percentage >= 80) {
             margin-bottom: 0.75rem;
         }
 
+        .detail-box-title.with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .code-wrap-toggle {
+            text-transform: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .modal-body {
+            overflow-x: visible;
+        }
+
+        .modal .detail-box {
+            overflow-x: visible;
+        }
+
+        .modal .modal-code-snippet {
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: pre;
+            word-break: normal;
+            overflow-wrap: normal;
+        }
+
+        .modal .modal-code-snippet.is-wrapped {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .dashboard-hero {
@@ -821,7 +858,7 @@ if ($percentage >= 80) {
         }
     </style>
 </head>
-<body>
+<body class="results-page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <!-- Navbar -->
@@ -867,7 +904,7 @@ if ($percentage >= 80) {
         <div class="dashboard-hero">
             <div class="row align-items-stretch g-3">
                 <!-- Left: Website Info -->
-                <div class="col-lg-8">
+                <div class="col-lg-4">
                     <section class="hero-info-panel" aria-label="Scan target details">
                         <div class="website-info-card">
                             <div class="website-logo-dash">
@@ -929,7 +966,7 @@ if ($percentage >= 80) {
                     </section>
                 </div>
                 
-                <!-- Right: Accessibility Score Circle -->
+                <!-- Middle: Accessibility Score Circle -->
                 <div class="col-lg-4">
                     <section class="hero-score-panel" aria-label="Accessibility score summary">
                         <div class="score-dashboard-card">
@@ -965,16 +1002,134 @@ if ($percentage >= 80) {
                         </div>
                     </section>
                 </div>
+
+                <!-- Right: Scan Summary Widget -->
+                <div class="col-lg-4">
+                    <div class="dashboard-widget h-100">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="bi bi-bar-chart-fill me-2"></i>
+                            Scan Summary
+                        </h3>
+                    </div>
+                    <div class="widget-body">
+                        <?php
+                        // Calculate principles affected by each issue type
+                        $issueTypePrinciples = [
+                            'error' => [],
+                            'warning' => [],
+                            'info' => []
+                        ];
+                        
+                        foreach (($results['issues'] ?? []) as $issue) {
+                            $type = strtolower((string)($issue['type'] ?? ''));
+                            if (!isset($issueTypePrinciples[$type])) {
+                                continue;
+                            }
+
+                            $principle = trim((string)($issue['principle'] ?? ''));
+                            if ($principle === '') {
+                                continue;
+                            }
+
+                            if (!in_array($principle, $issueTypePrinciples[$type], true)) {
+                                $issueTypePrinciples[$type][] = $principle;
+                            }
+                        }
+                        ?>
+                        
+                        <div class="summary-stat">
+                            <span class="summary-label">Total Issues</span>
+                            <span class="summary-value"><?php echo $totalIssues; ?></span>
+                            <span></span>
+                        </div>
+                        
+                        <!-- Errors with Dropdown -->
+                        <div class="summary-stat-interactive">
+                            <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#errorPrinciples" aria-expanded="false" aria-controls="errorPrinciples">
+                                <span class="summary-label text-danger">
+                                    <i class="bi bi-x-circle-fill me-1"></i>Errors
+                                </span>
+                                <span class="summary-value text-danger"><?php echo $errorCount; ?></span>
+                                <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                            </button>
+                            <div class="collapse" id="errorPrinciples">
+                                <div class="principles-dropdown-content">
+                                    <div class="principles-label">Affected WCAG Principles:</div>
+                                    <?php if (!empty($issueTypePrinciples['error'])): ?>
+                                        <?php foreach ($issueTypePrinciples['error'] as $principle): ?>
+                                            <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                <?php echo htmlspecialchars($principle); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted small">No errors found</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Warnings with Dropdown -->
+                        <div class="summary-stat-interactive">
+                            <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#warningPrinciples" aria-expanded="false" aria-controls="warningPrinciples">
+                                <span class="summary-label text-warning">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Warnings
+                                </span>
+                                <span class="summary-value text-warning"><?php echo $warningCount; ?></span>
+                                <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                            </button>
+                            <div class="collapse" id="warningPrinciples">
+                                <div class="principles-dropdown-content">
+                                    <div class="principles-label">Affected WCAG Principles:</div>
+                                    <?php if (!empty($issueTypePrinciples['warning'])): ?>
+                                        <?php foreach ($issueTypePrinciples['warning'] as $principle): ?>
+                                            <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                <?php echo htmlspecialchars($principle); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted small">No warnings found</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Info with Dropdown -->
+                        <div class="summary-stat-interactive">
+                            <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#infoPrinciples" aria-expanded="false" aria-controls="infoPrinciples">
+                                <span class="summary-label text-info">
+                                    <i class="bi bi-info-circle-fill me-1"></i>Info
+                                </span>
+                                <span class="summary-value text-info"><?php echo $infoCount; ?></span>
+                                <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
+                            </button>
+                            <div class="collapse" id="infoPrinciples">
+                                <div class="principles-dropdown-content">
+                                    <div class="principles-label">Affected WCAG Principles:</div>
+                                    <?php if (!empty($issueTypePrinciples['info'])): ?>
+                                        <?php foreach ($issueTypePrinciples['info'] as $principle): ?>
+                                            <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
+                                                <?php echo htmlspecialchars($principle); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted small">No info items found</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
 
 
         <!-- Main Dashboard Content: 2-Column Layout -->
-        <div class="dashboard-content">
+        <div class="dashboard-content mt-4">
             <div class="row g-4">
-                <!-- Left Column: Issues Table -->
-                <div class="col-lg-8">
+                <!-- Full Width: Issues Table -->
+                <div class="col-lg-12">
                     <div class="dashboard-card">
                         <div class="card-header-dash">
                             <h2 class="card-title-dash">
@@ -996,12 +1151,13 @@ if ($percentage >= 80) {
                                             <tr>
                                                 <th scope="col" style="width: 13%;">Type</th>
                                                 <th scope="col" style="width: 10%;">WCAG</th>
-                                                <?php if (!$results['source_url']): ?>
+                                                <?php if ($showLineNumbers): ?>
                                                 <th scope="col" style="width: 7%;">Line</th>
                                                 <?php endif; ?>
                                                 <th scope="col" style="width: 18%;">Principle</th>
-                                                <th scope="col">Issue Description</th>
-                                                <th scope="col" style="width: 10%;"></th>
+                                                <th scope="col" style="width: 25%;">Issue Description</th>
+                                                <th scope="col" style="width: 25%;">How to Fix</th>
+                                                <th scope="col" style="width: 5%;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1013,7 +1169,7 @@ if ($percentage >= 80) {
                                                     </span>
                                                 </td>
                                                 <td><code><?php echo htmlspecialchars($issue['code']); ?></code></td>
-                                                <?php if (!$results['source_url']): ?>
+                                                <?php if ($showLineNumbers): ?>
                                                 <td>
                                                     <?php if (!empty($issue['line'])): ?>
                                                         <span class="badge bg-secondary"><?php echo intval($issue['line']); ?></span>
@@ -1031,12 +1187,15 @@ if ($percentage >= 80) {
                                                     <strong><?php echo htmlspecialchars($issue['title']); ?></strong>
                                                     <div class="small text-muted mt-1"><?php echo htmlspecialchars($issue['description']); ?></div>
                                                 </td>
+                                                <td>
+                                                    <div class="small text-muted"><?php echo htmlspecialchars((string)($issue['recommendation'] ?? 'No recommendation provided.')); ?></div>
+                                                </td>
                                                 <td class="text-center">
                                                     <span class="expand-icon"></span>
                                                 </td>
                                             </tr>
                                             <tr class="issue-details-row" id="details-<?php echo $index; ?>">
-                                                <td colspan="<?php echo $results['source_url'] ? '5' : '6'; ?>">
+                                                <td colspan="<?php echo $issueDetailsColspan; ?>">
                                                     <div class="issue-details-content">
                                                         <div class="row g-3">
                                                             <?php if (!empty($issue['element'])): ?>
@@ -1063,16 +1222,7 @@ if ($percentage >= 80) {
                                                                 </div>
                                                             </div>
                                                             
-                                                            <div class="col-12">
-                                                                <div class="detail-section">
-                                                                    <div class="detail-section-title">
-                                                                        <i class="bi bi-lightbulb"></i> HOW TO FIX
-                                                                    </div>
-                                                                    <div class="detail-section-content">
-                                                                        <?php echo htmlspecialchars($issue['recommendation']); ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -1086,117 +1236,16 @@ if ($percentage >= 80) {
                     </div>
                 </div>
 
-                <!-- Right Column: Dashboard Widgets -->
-                <div class="col-lg-4">
-                    <!-- Scan Summary Widget -->
-                    <div class="dashboard-widget mb-4">
-                        <div class="widget-header">
-                            <h3 class="widget-title">
-                                <i class="bi bi-bar-chart-fill me-2"></i>
-                                Scan Summary
-                            </h3>
-                        </div>
-                        <div class="widget-body">
-                            <?php
-                            // Calculate principles affected by each issue type
-                            $issueTypePrinciples = [
-                                'error' => [],
-                                'warning' => [],
-                                'info' => []
-                            ];
-                            
-                            foreach ($results['issues'] as $issue) {
-                                $type = strtolower($issue['type']);
-                                $principle = $issue['principle'];
-                                if (!in_array($principle, $issueTypePrinciples[$type])) {
-                                    $issueTypePrinciples[$type][] = $principle;
-                                }
-                            }
-                            ?>
-                            
-                            <div class="summary-stat">
-                                <span class="summary-label">Total Issues</span>
-                                <span class="summary-value"><?php echo $totalIssues; ?></span>
-                                <span></span>
-                            </div>
-                            
-                            <!-- Errors with Dropdown -->
-                            <div class="summary-stat-interactive">
-                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#errorPrinciples" aria-expanded="false" aria-controls="errorPrinciples">
-                                    <span class="summary-label text-danger">
-                                        <i class="bi bi-x-circle-fill me-1"></i>Errors
-                                    </span>
-                                    <span class="summary-value text-danger"><?php echo $errorCount; ?></span>
-                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
-                                </button>
-                                <div class="collapse" id="errorPrinciples">
-                                    <div class="principles-dropdown-content">
-                                        <div class="principles-label">Affected WCAG Principles:</div>
-                                        <?php if (!empty($issueTypePrinciples['error'])): ?>
-                                            <?php foreach ($issueTypePrinciples['error'] as $principle): ?>
-                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
-                                                    <?php echo htmlspecialchars($principle); ?>
-                                                </span>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <span class="text-muted small">No errors found</span>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Warnings with Dropdown -->
-                            <div class="summary-stat-interactive">
-                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#warningPrinciples" aria-expanded="false" aria-controls="warningPrinciples">
-                                    <span class="summary-label text-warning">
-                                        <i class="bi bi-exclamation-triangle-fill me-1"></i>Warnings
-                                    </span>
-                                    <span class="summary-value text-warning"><?php echo $warningCount; ?></span>
-                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
-                                </button>
-                                <div class="collapse" id="warningPrinciples">
-                                    <div class="principles-dropdown-content">
-                                        <div class="principles-label">Affected WCAG Principles:</div>
-                                        <?php if (!empty($issueTypePrinciples['warning'])): ?>
-                                            <?php foreach ($issueTypePrinciples['warning'] as $principle): ?>
-                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
-                                                    <?php echo htmlspecialchars($principle); ?>
-                                                </span>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <span class="text-muted small">No warnings found</span>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Info with Dropdown -->
-                            <div class="summary-stat-interactive">
-                                <button class="summary-stat-header" type="button" data-bs-toggle="collapse" data-bs-target="#infoPrinciples" aria-expanded="false" aria-controls="infoPrinciples">
-                                    <span class="summary-label text-info">
-                                        <i class="bi bi-info-circle-fill me-1"></i>Info
-                                    </span>
-                                    <span class="summary-value text-info"><?php echo $infoCount; ?></span>
-                                    <i class="bi bi-chevron-down dropdown-toggle-icon"></i>
-                                </button>
-                                <div class="collapse" id="infoPrinciples">
-                                    <div class="principles-dropdown-content">
-                                        <div class="principles-label">Affected WCAG Principles:</div>
-                                        <?php if (!empty($issueTypePrinciples['info'])): ?>
-                                            <?php foreach ($issueTypePrinciples['info'] as $principle): ?>
-                                                <span class="principle-badge principle-<?php echo strtolower($principle); ?>">
-                                                    <?php echo htmlspecialchars($principle); ?>
-                                                </span>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <span class="text-muted small">No info items found</span>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
+            </div>
+        </div>
+
+
+
+        <!-- Bottom Dashboard Widgets: 2-Column Layout -->
+        <div class="dashboard-content mt-4">
+            <div class="row g-4">
+                <div class="col-md-6">
                     <!-- Accessibility Insights Widget -->
                     <div class="dashboard-widget mb-4">
                         <div class="widget-header">
@@ -1221,9 +1270,10 @@ if ($percentage >= 80) {
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="col-md-6">
                     <!-- Quick Actions Widget -->
-                    <div class="dashboard-widget">
+                    <div class="dashboard-widget" id="quick-actions-widget">
                         <div class="widget-header">
                             <h3 class="widget-title">
                                 <i class="bi bi-lightning-fill me-2"></i>
@@ -1244,7 +1294,6 @@ if ($percentage >= 80) {
                 </div>
             </div>
         </div>
-
 
     </main>
 
@@ -1311,14 +1360,17 @@ if ($percentage >= 80) {
 
                     <?php if (!empty($issue['element'])): ?>
                     <div class="detail-box">
-                        <div class="detail-box-title">
-                            <i class="bi bi-code me-2"></i>HTML Element
+                        <div class="detail-box-title with-actions">
+                            <span><i class="bi bi-code me-2"></i>HTML Element</span>
+                            <button type="button" class="btn btn-outline-secondary btn-sm code-wrap-toggle" aria-pressed="false">
+                                Wrap code
+                            </button>
                         </div>
-                        <pre class="code-snippet"><code><?php echo htmlspecialchars($issue['element']); ?></code></pre>
+                        <pre class="code-snippet modal-code-snippet"><code><?php echo htmlspecialchars($issue['element']); ?></code></pre>
                     </div>
                     <?php endif; ?>
 
-                    <?php if (!$results['source_url'] && !empty($issue['line'])): ?>
+                    <?php if ($showLineNumbers && !empty($issue['line'])): ?>
                     <div class="detail-box">
                         <div class="detail-box-title">
                             <i class="bi bi-file-code me-2"></i>Location
@@ -1331,7 +1383,7 @@ if ($percentage >= 80) {
                         <div class="detail-box-title">
                             <i class="bi bi-lightbulb me-2"></i>How to Fix
                         </div>
-                        <p><?php echo htmlspecialchars($issue['recommendation']); ?></p>
+                        <p><?php echo htmlspecialchars((string)($issue['recommendation'] ?? 'No recommendation provided.')); ?></p>
                     </div>
 
                     <div class="row mt-3">
@@ -1426,6 +1478,25 @@ if ($percentage >= 80) {
                         button.setAttribute('aria-expanded', 'false');
                     });
                 }
+            });
+
+            const wrapToggleButtons = document.querySelectorAll('.code-wrap-toggle');
+            wrapToggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const detailBox = this.closest('.detail-box');
+                    if (!detailBox) {
+                        return;
+                    }
+
+                    const codeSnippet = detailBox.querySelector('.modal-code-snippet');
+                    if (!codeSnippet) {
+                        return;
+                    }
+
+                    const isWrapped = codeSnippet.classList.toggle('is-wrapped');
+                    this.setAttribute('aria-pressed', isWrapped ? 'true' : 'false');
+                    this.textContent = isWrapped ? 'Unwrap code' : 'Wrap code';
+                });
             });
         });
     </script>

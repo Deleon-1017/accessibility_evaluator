@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,6 +14,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+            transform: none !important;
+        }
+        .btn:hover, .btn:focus {
+            transform: none !important;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background: #0d6efd !important;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3) !important;
+        }
+        .btn-outline-secondary:hover, .btn-outline-secondary:focus {
+            background: white !important;
+            border-color: var(--color-border) !important;
+            color: var(--color-text-secondary) !important;
+            box-shadow: none !important;
+        }
+        .btn::before {
+            display: none !important;
+        }
+        .btn:hover i {
+            transform: none !important;
+        }
+    </style>
 </head>
 
 <body class="about-page">

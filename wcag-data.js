@@ -3537,185 +3537,74 @@ intervalId = setInterval(updateNews, 5000);`,
         description: "A mechanism is available to bypass blocks of content that are repeated on multiple Web pages.",
         techniques: ["G1", "G123", "G124", "H69", "ARIA11"],
         before: `<nav>
-  [50 navigation links...]
+  <a href="/home">Home</a>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/contact">Contact</a>
 </nav>
 <main>Page content</main>`,
         after: `<a href="#main" class="skip-link">
   Skip to Main Content
 </a>
-<nav>[other navigation]</nav>
+<nav>
+  <a href="/home">Home</a>
+  <a href="/about">About</a>
+  <a href="/services">Services</a>
+  <a href="/contact">Contact</a>
+</nav>
 <main id="main">Page content</main>`,
         explanation: "Provide skip links to bypass repetitive navigation. Keyboard and screen reader users shouldn't have to tab through dozens of links on every page. Skip links should be the first focusable element and become visible on keyboard focus.",
         examples: {
             before: {
                 html: `<header class="site-header">
-  <div class="logo">
-    <a href="/">TechBlog</a>
-  </div>
+  <div class="logo">MySite</div>
   <nav class="main-nav">
     <a href="/">Home</a>
-    <a href="/articles">Articles</a>
-    <a href="/tutorials">Tutorials</a>
-    <a href="/reviews">Reviews</a>
     <a href="/about">About</a>
+    <a href="/services">Services</a>
     <a href="/contact">Contact</a>
   </nav>
-  <div class="search">
-    <input type="search" placeholder="Search articles...">
-    <button>Search</button>
-  </div>
 </header>
 
-<aside class="sidebar">
-  <h3>Categories</h3>
-  <ul>
-    <li><a href="/category/javascript">JavaScript</a></li>
-    <li><a href="/category/python">Python</a></li>
-    <li><a href="/category/css">CSS</a></li>
-    <li><a href="/category/html">HTML</a></li>
-    <li><a href="/category/react">React</a></li>
-    <li><a href="/category/nodejs">Node.js</a></li>
-  </ul>
-  
-  <h3>Recent Posts</h3>
-  <ul>
-    <li><a href="/post1">Getting Started with React Hooks</a></li>
-    <li><a href="/post2">CSS Grid Layout Guide</a></li>
-    <li><a href="/post3">Python Best Practices</a></li>
-  </ul>
-</aside>
-
 <main class="content">
-  <article>
-    <h1>Understanding JavaScript Closures</h1>
-    <p class="meta">Published on March 4, 2026 by John Doe</p>
-    <p>Closures are one of the most powerful features in JavaScript...</p>
-  </article>
+  <h1>Main Article</h1>
+  <p>Here is the primary content that users want to read without tabbing through navigation first.</p>
 </main>`,
                 css: `.site-header {
   background: #1f2937;
   color: white;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-.logo a {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
-}
-.main-nav {
+  padding: 15px;
   display: flex;
   gap: 20px;
-  flex: 1;
 }
 .main-nav a {
   color: white;
   text-decoration: none;
-  padding: 8px 12px;
-}
-.search {
-  display: flex;
-  gap: 8px;
-}
-.search input {
-  padding: 8px;
-  border-radius: 4px;
-  border: none;
-}
-.search button {
-  padding: 8px 16px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.sidebar {
-  float: left;
-  width: 250px;
-  padding: 20px;
-  background: #f9fafb;
-}
-.sidebar h3 {
-  margin-top: 0;
-  color: #1f2937;
-}
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-.sidebar li {
-  margin-bottom: 10px;
-}
-.sidebar a {
-  color: #3b82f6;
-  text-decoration: none;
+  padding: 0 10px;
 }
 .content {
-  margin-left: 290px;
-  padding: 30px;
-}
-.content h1 {
-  color: #1f2937;
-  margin-top: 0;
-}
-.meta {
-  color: #6b7280;
-  font-size: 14px;
+  padding: 20px;
 }`,
                 js: "",
-                context: "This blog page has no skip link. Keyboard users must tab through all navigation elements before reaching the article content: 1 logo link, 6 main navigation links, 1 search input, 1 search button, 6 category links, and 3 recent post links = 18 focusable elements. On every article page, keyboard users must navigate through this same repetitive structure. Screen reader users hear all these navigation announcements repeatedly before getting to the article they want to read. This is tedious and time-consuming, especially for users who read multiple articles."
+                context: "This page has no skip link. Keyboard users must tab through all navigation elements before reaching the article content. This is tedious and time-consuming, especially for users who read multiple pages on the site."
             },
             after: {
                 html: `<!-- Skip link should be the FIRST focusable element -->
 <a href="#main-content" class="skip-link">Skip to Main Content</a>
 
 <header class="site-header">
-  <div class="logo">
-    <a href="/">TechBlog</a>
-  </div>
+  <div class="logo">MySite</div>
   <nav class="main-nav" aria-label="Main navigation">
     <a href="/">Home</a>
-    <a href="/articles">Articles</a>
-    <a href="/tutorials">Tutorials</a>
-    <a href="/reviews">Reviews</a>
     <a href="/about">About</a>
+    <a href="/services">Services</a>
     <a href="/contact">Contact</a>
   </nav>
-  <div class="search">
-    <input type="search" placeholder="Search articles..." aria-label="Search articles">
-    <button>Search</button>
-  </div>
 </header>
 
-<aside class="sidebar">
-  <h3>Categories</h3>
-  <ul>
-    <li><a href="/category/javascript">JavaScript</a></li>
-    <li><a href="/category/python">Python</a></li>
-    <li><a href="/category/css">CSS</a></li>
-    <li><a href="/category/html">HTML</a></li>
-    <li><a href="/category/react">React</a></li>
-    <li><a href="/category/nodejs">Node.js</a></li>
-  </ul>
-  
-  <h3>Recent Posts</h3>
-  <ul>
-    <li><a href="/post1">Getting Started with React Hooks</a></li>
-    <li><a href="/post2">CSS Grid Layout Guide</a></li>
-    <li><a href="/post3">Python Best Practices</a></li>
-  </ul>
-</aside>
-
 <main class="content" id="main-content" tabindex="-1">
-  <article>
-    <h1>Understanding JavaScript Closures</h1>
-    <p class="meta">Published on March 4, 2026 by John Doe</p>
-    <p>Closures are one of the most powerful features in JavaScript...</p>
-  </article>
+  <h1>Main Article</h1>
+  <p>Here is the primary content that users want to read without tabbing through navigation first.</p>
 </main>`,
                 css: `/* Skip link - hidden by default, visible on focus */
 .skip-link {
@@ -3738,83 +3627,24 @@ intervalId = setInterval(updateNews, 5000);`,
 .site-header {
   background: #1f2937;
   color: white;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-.logo a {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
-}
-.main-nav {
+  padding: 15px;
   display: flex;
   gap: 20px;
-  flex: 1;
 }
 .main-nav a {
   color: white;
   text-decoration: none;
-  padding: 8px 12px;
-}
-.search {
-  display: flex;
-  gap: 8px;
-}
-.search input {
-  padding: 8px;
-  border-radius: 4px;
-  border: none;
-}
-.search button {
-  padding: 8px 16px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.sidebar {
-  float: left;
-  width: 250px;
-  padding: 20px;
-  background: #f9fafb;
-}
-.sidebar h3 {
-  margin-top: 0;
-  color: #1f2937;
-}
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-.sidebar li {
-  margin-bottom: 10px;
-}
-.sidebar a {
-  color: #3b82f6;
-  text-decoration: none;
+  padding: 0 10px;
 }
 .content {
-  margin-left: 290px;
-  padding: 30px;
+  padding: 20px;
 }
 /* Ensure skip link target can receive focus */
 .content:focus {
   outline: none;
-}
-.content h1 {
-  color: #1f2937;
-  margin-top: 0;
-}
-.meta {
-  color: #6b7280;
-  font-size: 14px;
 }`,
                 js: "",
-                context: "The page now includes a skip link as the very first focusable element. The link is visually hidden (positioned off-screen) but becomes visible when focused with the keyboard. When a keyboard user presses Tab, the skip link appears at the top of the page. Pressing Enter activates it and jumps directly to the main content (the article), bypassing all 18 navigation elements. The main element has id='main-content' and tabindex='-1' to receive focus programmatically. This saves significant time and effort for keyboard and screen reader users, especially when reading multiple articles on the site."
+                context: "The page now includes a skip link as the very first focusable element. The link is visually hidden but becomes visible when focused with the keyboard. When a keyboard user presses Tab, the skip link appears at the top of the page. Pressing Enter activates it and jumps directly to the main content, bypassing the navigation elements."
             },
             interactive: {
                 enabled: false
