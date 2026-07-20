@@ -1,4 +1,4 @@
-﻿// WCAG 2.1 Guidelines Data with Before/After Examples
+// WCAG 2.1 Guidelines Data with Before/After Examples
 const wcagGuidelines = [
     {
         id: "1.1.1",
@@ -35,7 +35,7 @@ const wcagGuidelines = [
   </div>
   
   <button class="share-btn">
-    <img src="share-icon.svg" width="20" height="20">
+    Share Article
   </button>
 </article>`,
                 css: `.blog-post {
@@ -103,10 +103,6 @@ const wcagGuidelines = [
   </div>
   
   <button class="share-btn">
-    <img src="share-icon.svg" 
-         alt="" 
-         width="20" 
-         height="20">
     Share Article
   </button>
 </article>`,

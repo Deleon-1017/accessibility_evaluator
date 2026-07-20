@@ -822,10 +822,12 @@ class WCAGMainContent {
     const labelSeed = Date.now();
     const beforeOutputLabelId = `wcag-before-output-label-${labelSeed}`;
     const afterOutputLabelId = `wcag-after-output-label-${labelSeed}`;
+    // Shared group ID so both iframes can be equalized after loading
+    const pairGroupId = `output-pair-${labelSeed}`;
 
     return `
       <!-- Visual Output Comparison -->
-      <div class="wcag-modal-comparison-grid">
+      <div class="wcag-modal-comparison-grid" data-iframe-group="${pairGroupId}">
         ${before?.html ? `
         <div class="wcag-modal-output-box" role="group" aria-labelledby="${beforeOutputLabelId}">
           <div class="wcag-modal-output-header">
@@ -834,7 +836,7 @@ class WCAGMainContent {
           <div class="wcag-modal-output-content">
             <span id="${beforeOutputLabelId}" class="visually-hidden">Before output preview</span>
             <div class="wcag-modal-output-preview">
-              ${this.renderVisualPreview(before.html, before.css, before.js, 'before')}
+              ${this.renderVisualPreview(before.html, before.css, before.js, 'before', pairGroupId)}
             </div>
           </div>
         </div>
@@ -848,7 +850,7 @@ class WCAGMainContent {
           <div class="wcag-modal-output-content">
             <span id="${afterOutputLabelId}" class="visually-hidden">After output preview</span>
             <div class="wcag-modal-output-preview">
-              ${this.renderVisualPreview(after.html, after.css, after.js, 'after')}
+              ${this.renderVisualPreview(after.html, after.css, after.js, 'after', pairGroupId)}
             </div>
           </div>
         </div>
@@ -866,7 +868,7 @@ class WCAGMainContent {
    * @returns {string} HTML string for iframe preview
    * @private
    */
-  renderVisualPreview(html, css, js, type) {
+  renderVisualPreview(html, css, js, type, pairGroupId) {
     // Create a unique ID for this preview
     const previewId = `preview-${type}-${Date.now()}`;
     
@@ -881,14 +883,14 @@ class WCAGMainContent {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="${baseUrl}">
     <style>
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+        }
+        body {
             padding: 20px;
+            box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100px;
         }
         ${css || ''}
     </style>
@@ -897,21 +899,24 @@ class WCAGMainContent {
     ${html}
     ${js ? `<script>${js}<\/script>` : ''}
     <script>
-      // Auto-resize iframe to fit content
-      window.addEventListener('load', function() {
-        const height = Math.max(
-          document.body.scrollHeight,
-          document.body.offsetHeight,
-          document.documentElement.clientHeight,
-          document.documentElement.scrollHeight,
-          document.documentElement.offsetHeight
-        );
+      // Report natural content height to parent for equalization
+      function reportHeight() {
+        // Reset any forced height before measuring
+        document.documentElement.style.height = 'auto';
+        document.body.style.height = 'auto';
+        const height = document.body.scrollHeight || document.body.offsetHeight;
         window.parent.postMessage({
           type: 'resize-iframe',
           id: '${previewId}',
+          groupId: '${pairGroupId || ''}',
           height: height
         }, '*');
-      });
+      }
+      if (document.readyState === 'complete') {
+        reportHeight();
+      } else {
+        window.addEventListener('load', reportHeight);
+      }
     <\/script>
 </body>
 </html>`;
@@ -929,7 +934,7 @@ class WCAGMainContent {
         sandbox="allow-same-origin allow-scripts"
         title="${type === 'before' ? 'Before code output preview' : 'After code output preview'}"
         srcdoc="${escapedContent}"
-        style="width: 100%; min-height: 150px; border: none; border-radius: 4px; background: white;">
+        style="width: 100%; border: none; display: block; background: white;">
       </iframe>
     `;
   }
@@ -1446,14 +1451,40 @@ class WCAGApp {
    * @private
    */
   setupIframeResizeListener() {
+    // Track heights reported per group so we can equalize once both iframes report in
+    const groupHeights = {};
+
     window.addEventListener('message', (event) => {
-      // Check if this is a resize message
       if (event.data && event.data.type === 'resize-iframe') {
-        const iframe = document.getElementById(event.data.id);
-        if (iframe) {
-          // Set the iframe height to match its content
-          iframe.style.height = event.data.height + 'px';
-          console.log(`[WCAGApp] Resized iframe ${event.data.id} to ${event.data.height}px`);
+        const { id, groupId, height } = event.data;
+        const iframe = document.getElementById(id);
+        if (!iframe) return;
+
+        if (groupId) {
+          // Store this iframe's natural height in the group tracker
+          if (!groupHeights[groupId]) groupHeights[groupId] = {};
+          groupHeights[groupId][id] = height;
+
+          // Once we have heights for all iframes in this group, equalize them
+          const group = groupHeights[groupId];
+          const ids = Object.keys(group);
+          // Find all iframes belonging to this group via the parent grid element
+          const grid = document.querySelector(`[data-iframe-group="${groupId}"]`);
+          if (grid) {
+            const groupIframes = grid.querySelectorAll('.wcag-visual-preview-iframe');
+            if (ids.length >= groupIframes.length) {
+              // All iframes reported — find the max height and apply to all
+              const maxHeight = Math.max(...Object.values(group));
+              groupIframes.forEach(el => {
+                el.style.height = maxHeight + 'px';
+              });
+              console.log(`[WCAGApp] Equalized iframe group ${groupId} to ${maxHeight}px`);
+            }
+          }
+        } else {
+          // No group — just resize this iframe to its content height
+          iframe.style.height = height + 'px';
+          console.log(`[WCAGApp] Resized iframe ${id} to ${height}px`);
         }
       }
     });

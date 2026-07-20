@@ -856,6 +856,69 @@ if ($percentage >= 80) {
                 height: 124px;
             }
         }
+
+        /* Export PDF button */
+        .btn-export-pdf {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #ef4444;
+            background-color: #ffffff;
+            border: 2px solid #ef4444;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .btn-export-pdf:hover {
+            transform: translateY(-2px);
+            background-color: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-export-pdf:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-export-pdf:focus {
+            outline: 2px solid #ef4444;
+            outline-offset: 3px;
+        }
+
+        /* Print / PDF export styles */
+        @media print {
+            body { 
+                padding-top: 0 !important; 
+                background: white !important; 
+            }
+            body > *:not(#main-content) { 
+                display: none !important; 
+            }
+            
+            #main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            
+            #quick-actions-widget { display: none !important; }
+            .btn-export-pdf { display: none !important; }
+            .dropdown-toggle-icon { display: none !important; }
+            .expand-icon { display: none !important; }
+            a[href]::after { content: none !important; }
+        }
     </style>
 </head>
 <body class="results-page">
@@ -1129,13 +1192,17 @@ if ($percentage >= 80) {
         <div class="dashboard-content mt-4">
             <div class="row g-4">
                 <!-- Full Width: Issues Table -->
-                <div class="col-lg-12">
+                <div class="col-lg-12" id="print-issues-section">
                     <div class="dashboard-card">
-                        <div class="card-header-dash">
+                        <div class="card-header-dash d-flex justify-content-between align-items-center">
                             <h2 class="card-title-dash">
                                 <i class="bi bi-exclamation-triangle me-2"></i>
                                 Accessibility Issues
                             </h2>
+                            <button type="button" class="btn-export-pdf" id="export-issues-pdf-btn" onclick="exportIssuesToPDF()" aria-label="Export Accessibility Issues into PDF">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                                Export into PDF
+                            </button>
                         </div>
                         <div class="card-body-dash">
                             <?php if (empty($results['issues'])): ?>
@@ -1499,6 +1566,11 @@ if ($percentage >= 80) {
                 });
             });
         });
+
+        // Export Accessibility Issues section to PDF via browser print
+        function exportIssuesToPDF() {
+            window.print();
+        }
     </script>
 </body>
 </html>
