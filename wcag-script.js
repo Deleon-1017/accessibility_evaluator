@@ -368,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             justify-content: center;
             min-height: 100px;
+            overflow: hidden;
         }
         ${css || ''}
     </style>
