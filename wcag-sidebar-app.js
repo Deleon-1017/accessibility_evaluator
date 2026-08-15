@@ -7,6 +7,452 @@
  */
 
 /**
+ * AccessibilityScorer
+ *
+ * Performs heuristic HTML analysis to produce an accessibility score out of 100.
+ * Uses a detached document so no live DOM is mutated.
+ */
+class LegacyAccessibilityScorer {
+  /**
+   * Score definition: each entry has a name, description, max points, and checker.
+   * @private
+   */
+  static get CHECKS() {
+    return [
+      {
+        id: 'alt-text',
+        name: 'Alt text on images',
+        description: 'Images have meaningful alt attributes',
+        maxPoints: 15,
+        check(doc) {
+          const imgs = Array.from(doc.querySelectorAll('img'));
+          if (imgs.length === 0) return 15; // no images → not applicable, full credit
+          const allPass = imgs.every(img => img.hasAttribute('alt'));
+          const anyMeaningful = imgs.some(img => {
+            const alt = img.getAttribute('alt');
+            return alt !== null && alt.trim().length > 0;
+          });
+          if (allPass && anyMeaningful) return 15;
+          if (anyMeaningful) return 8;
+          if (allPass) return 5; // all empty alt (decorative only)
+          return 0;
+        }
+      },
+      {
+        id: 'form-labels',
+        name: 'Form labels',
+        description: 'Inputs have associated labels or aria-label',
+        maxPoints: 12,
+        check(doc) {
+          const inputs = Array.from(doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), select, textarea'));
+          if (inputs.length === 0) return 12;
+          const labels = Array.from(doc.querySelectorAll('label'));
+          const labelledIds = new Set(labels.map(l => l.getAttribute('for')).filter(Boolean));
+          const passing = inputs.filter(input => {
+            const id = input.getAttribute('id');
+            return (id && labelledIds.has(id))
+              || input.hasAttribute('aria-label')
+              || input.hasAttribute('aria-labelledby')
+              || input.closest('label') !== null;
+          });
+          if (passing.length === inputs.length) return 12;
+          if (passing.length > 0) return Math.round((passing.length / inputs.length) * 12);
+          return 0;
+        }
+      },
+      {
+        id: 'heading-hierarchy',
+        name: 'Heading hierarchy',
+        description: 'Heading levels are not skipped',
+        maxPoints: 10,
+        check(doc) {
+          const headings = Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6'));
+          if (headings.length === 0) return 10;
+          let prevLevel = 0;
+          let skipped = false;
+          for (const h of headings) {
+            const level = parseInt(h.tagName[1], 10);
+            if (prevLevel > 0 && level > prevLevel + 1) { skipped = true; break; }
+            prevLevel = level;
+          }
+          return skipped ? 4 : 10;
+        }
+      },
+      {
+        id: 'button-link-purpose',
+        name: 'Button & link purpose',
+        description: 'Interactive elements have descriptive labels',
+        maxPoints: 10,
+        check(doc) {
+          const interactives = Array.from(doc.querySelectorAll('a, button'));
+          if (interactives.length === 0) return 10;
+          const passing = interactives.filter(el => {
+            const text = el.textContent.trim();
+            const label = el.getAttribute('aria-label') || el.getAttribute('title') || '';
+            const hasImg = el.querySelector('img[alt]');
+            return text.length > 0 || label.length > 0 || hasImg;
+          });
+          if (passing.length === interactives.length) return 10;
+          if (passing.length > 0) return Math.round((passing.length / interactives.length) * 10);
+          return 0;
+        }
+      },
+      {
+        id: 'aria-attributes',
+        name: 'ARIA attributes',
+        description: 'ARIA roles and attributes are used meaningfully',
+        maxPoints: 10,
+        check(doc) {
+          const ariaEls = Array.from(doc.querySelectorAll('[role],[aria-label],[aria-labelledby],[aria-describedby],[aria-hidden],[aria-live],[aria-expanded],[aria-controls],[aria-required],[aria-invalid]'));
+          // Bonus if meaningful ARIA is present
+          const hasRole = doc.querySelector('[role]');
+          const hasLabel = doc.querySelector('[aria-label],[aria-labelledby]');
+          const hasDescribe = doc.querySelector('[aria-describedby]');
+          if (ariaEls.length === 0) {
+            // No ARIA at all — check if ARIA is even needed (no form, no interactive)
+            const needsAria = doc.querySelector('input,select,textarea,button,a,video,audio');
+            return needsAria ? 4 : 10;
+          }
+          let pts = 4;
+          if (hasRole) pts += 2;
+          if (hasLabel) pts += 2;
+          if (hasDescribe) pts += 2;
+          return pts;
+        }
+      },
+      {
+        id: 'semantic-structure',
+        name: 'Semantic HTML',
+        description: 'Semantic elements used for structure',
+        maxPoints: 8,
+        check(doc) {
+          const semanticTags = ['main','nav','header','footer','article','section','aside','figure','figcaption','time','mark','address'];
+          const divSpanCount = doc.querySelectorAll('div,span').length;
+          const semanticCount = semanticTags.reduce((n, tag) => n + doc.querySelectorAll(tag).length, 0);
+          if (semanticCount >= 2) return 8;
+          if (semanticCount === 1) return 5;
+          if (divSpanCount === 0) return 8; // Minimal markup — ok
+          return 2;
+        }
+      },
+      {
+        id: 'keyboard-focus',
+        name: 'Keyboard accessibility',
+        description: 'No positive tabindex or focus traps',
+        maxPoints: 8,
+        check(doc) {
+          const badTabindex = Array.from(doc.querySelectorAll('[tabindex]')).filter(el => {
+            const val = parseInt(el.getAttribute('tabindex'), 10);
+            return val > 0;
+          });
+          const onclickDivs = Array.from(doc.querySelectorAll('div[onclick],span[onclick]'));
+          if (badTabindex.length === 0 && onclickDivs.length === 0) return 8;
+          if (badTabindex.length > 0 && onclickDivs.length > 0) return 0;
+          return 3;
+        }
+      },
+      {
+        id: 'media-captions',
+        name: 'Media captions',
+        description: 'Video/audio has captions or transcript',
+        maxPoints: 8,
+        check(doc) {
+          const mediaEls = doc.querySelectorAll('video,audio');
+          if (mediaEls.length === 0) return 8;
+          const hasTracks = doc.querySelectorAll('track[kind="captions"],track[kind="subtitles"]').length > 0;
+          const hasTranscriptLink = Array.from(doc.querySelectorAll('a')).some(a => {
+            const text = (a.textContent + a.getAttribute('href')).toLowerCase();
+            return text.includes('transcript') || text.includes('caption') || text.includes('.vtt') || text.includes('.srt');
+          });
+          if (hasTracks || hasTranscriptLink) return 8;
+          return 0;
+        }
+      },
+      {
+        id: 'table-headers',
+        name: 'Table structure',
+        description: 'Tables have appropriate headers',
+        maxPoints: 8,
+        check(doc) {
+          const tables = doc.querySelectorAll('table');
+          if (tables.length === 0) return 8;
+          const allHaveHeaders = Array.from(tables).every(t => t.querySelector('th') !== null);
+          const hasCaption = Array.from(tables).some(t => t.querySelector('caption') !== null);
+          if (allHaveHeaders && hasCaption) return 8;
+          if (allHaveHeaders) return 6;
+          return 0;
+        }
+      },
+      {
+        id: 'color-contrast',
+        name: 'Color contrast',
+        description: 'No very low contrast inline styles',
+        maxPoints: 6,
+        check(doc) {
+          // Heuristic: penalize elements with very light inline color on white/light bg
+          const lightColors = ['#fff','#ffffff','white','#eee','#eeeeee','#f9fafb','#f5f5f5','#fafafa'];
+          const withStyle = Array.from(doc.querySelectorAll('[style]'));
+          const lowContrast = withStyle.filter(el => {
+            const s = el.getAttribute('style').toLowerCase();
+            return lightColors.some(c => s.includes(`color:${c}`) || s.includes(`color: ${c}`));
+          });
+          return lowContrast.length > 0 ? 0 : 6;
+        }
+      },
+      {
+        id: 'skip-links',
+        name: 'Skip navigation',
+        description: 'Skip to content links provided',
+        maxPoints: 5,
+        check(doc) {
+          const links = Array.from(doc.querySelectorAll('a'));
+          const hasSkip = links.some(a => {
+            const text = a.textContent.toLowerCase();
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            return (text.includes('skip') && (text.includes('content') || text.includes('main'))) || href === '#main' || href === '#content' || href === '#main-content';
+          });
+          return hasSkip ? 5 : 0;
+        }
+      }
+    ];
+  }
+
+  /**
+   * Score an HTML snippet
+   * @param {string} html - Raw HTML string to analyze
+   * @returns {{ total: number, max: number, grade: string, color: string, checks: Array }}
+   */
+  static score(html) {
+    if (!html || typeof html !== 'string') {
+      return { total: 0, max: 100, grade: 'N/A', color: '#94a3b8', checks: [] };
+    }
+
+    // Parse into a detached DOM
+    const doc = document.createElement('div');
+    doc.innerHTML = html;
+
+    const checks = AccessibilityScorer.CHECKS;
+    let totalEarned = 0;
+    const maxPossible = checks.reduce((s, c) => s + c.maxPoints, 0);
+
+    const results = checks.map(check => {
+      let earned = 0;
+      try {
+        earned = Math.min(check.maxPoints, Math.max(0, check.check(doc)));
+      } catch (e) {
+        earned = 0;
+      }
+      totalEarned += earned;
+      return {
+        id: check.id,
+        name: check.name,
+        description: check.description,
+        maxPoints: check.maxPoints,
+        earned,
+        passed: earned >= check.maxPoints
+      };
+    });
+
+    // Normalize to 100
+    const total = Math.round((totalEarned / maxPossible) * 100);
+    const { grade, color } = AccessibilityScorer.getGrade(total);
+
+    return { total, max: 100, grade, color, checks: results };
+  }
+
+  /**
+   * Return grade label and color for a score
+   * @param {number} score
+   * @returns {{ grade: string, color: string }}
+   */
+  static getGrade(score) {
+    if (score >= 90) return { grade: 'Excellent', color: '#16a34a' };
+    if (score >= 75) return { grade: 'Good',      color: '#65a30d' };
+    if (score >= 55) return { grade: 'Fair',      color: '#d97706' };
+    if (score >= 30) return { grade: 'Poor',      color: '#ea580c' };
+    return                  { grade: 'Fail',      color: '#dc2626' };
+  }
+}
+
+/**
+ * Scan-compatible scorer for the educational code examples.
+ *
+ * The examples are fragments rather than full pages, so this keeps their
+ * focused checks while using the exact deduction formula from scan.php.
+ */
+class AccessibilityScorer {
+  static get DEDUCTIONS() {
+    return { error: 5, warning: 2, info: 1 };
+  }
+
+  // Database-backed scanner checks grouped by the WCAG success criterion they
+  // evaluate. The score remains scanner-compatible; this mapping controls
+  // which criteria are shown for a guideline's focused teaching example.
+  static get CHECK_IDS_BY_WCAG() {
+    return {
+      '1.1.1': ['img_missing_alt', 'image_input_no_alt'],
+      '1.2.1': ['audio_no_transcript'],
+      '1.2.2': ['video_no_captions'],
+      '1.2.3': ['video_no_audio_desc'],
+      '1.2.4': ['video_no_basic_attrs'],
+      '1.3.1': ['skipped_heading_level', 'table_no_headers', 'radio_no_fieldset', 'hidden_content_accessibility', 'bullets_not_lists'],
+      '1.3.2': ['css_reordering', 'layout_no_semantic'],
+      '1.4.1': ['color_only_info'],
+      '1.4.2': ['autoplay_media'],
+      '1.4.4': ['fixed_font_size', 'zoom_disabled', 'no_viewport_meta'],
+      '1.4.5': ['image_for_text'],
+      '2.1.1': ['non_semantic_clickable'],
+      '2.1.4': ['char_key_shortcuts'],
+      '2.2.1': ['meta_refresh'],
+      '2.2.2': ['marquee_element'],
+      '2.3.1': ['rapid_flashing'],
+      '2.4.1': ['no_skip_link', 'missing_main_landmark', 'missing_nav_landmark'],
+      '2.4.2': ['missing_page_title'],
+      '2.4.3': ['positive_tabindex'],
+      '2.4.4': ['link_no_accessible_name', 'placeholder_link', 'inconsistent_link_text', 'vague_link_text'],
+      '2.4.5': ['limited_navigation'],
+      '2.4.6': ['missing_h1', 'multiple_h1', 'empty_heading', 'generic_heading'],
+      '2.4.7': ['focus_outline_removed'],
+      '2.5.1': ['touch_no_fallback'],
+      '3.1.1': ['missing_lang_attr'],
+      '3.1.2': ['no_lang_markup_non_latin'],
+      '3.2.1': ['form_auto_submit'],
+      '3.3.1': ['required_no_error_structure'],
+      '3.3.2': ['form_control_no_label'],
+      '3.3.3': ['no_client_error_handling'],
+      '3.3.4': ['form_no_confirmation'],
+      '3.3.5': ['complex_input_no_help'],
+      '4.1.1': ['html_parsing_errors'],
+      '4.1.2': ['button_input_no_label', 'button_no_accessible_name', 'iframe_no_title', 'aria_role_no_name', 'form_no_aria'],
+      '4.1.3': ['no_aria_live_regions']
+    };
+  }
+
+  static get CHECKS() {
+    const hasName = element => Boolean(
+      (element.getAttribute('aria-label') || '').trim()
+      || (element.getAttribute('aria-labelledby') || '').trim()
+      || (element.getAttribute('title') || '').trim()
+      || element.textContent.trim()
+      || element.querySelector('img[alt]:not([alt=""])')
+    );
+    const check = (id, name, description, type, detect) => ({ id, name, description, type, detect });
+
+    // These checks mirror the conditions in scan-check-implementations.php.
+    // Keeping the rules here makes the educational comparison immediate while
+    // keeping its deductions consistent with scan.php.
+    return [
+      check('img_missing_alt', 'Image alternative text', 'Images with a source need alt text unless hidden or presentational.', 'error', doc => Array.from(doc.querySelectorAll('img')).filter(img => img.getAttribute('src') && !img.hasAttribute('alt') && img.getAttribute('aria-hidden') !== 'true' && !['presentation', 'none'].includes((img.getAttribute('role') || '').toLowerCase())).length),
+      check('missing_page_title', 'Page title', 'A document needs a non-empty title element.', 'error', doc => doc.querySelector('title')?.textContent.trim() ? 0 : 1),
+      check('missing_lang_attr', 'Document language', 'The html element needs a language declaration.', 'error', doc => doc.querySelector('html[lang]')?.getAttribute('lang')?.trim() ? 0 : 1),
+      check('missing_h1', 'Primary heading', 'A page needs an h1 heading.', 'warning', doc => doc.querySelector('h1') ? 0 : 1),
+      check('multiple_h1', 'Multiple primary headings', 'A page should use one primary heading.', 'info', doc => doc.querySelectorAll('h1').length > 1 ? 1 : 0),
+      check('skipped_heading_level', 'Skipped heading levels', 'Heading levels must not skip levels.', 'warning', doc => { let previous = 0; let issues = 0; doc.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => { const level = Number(h.tagName[1]); if (previous && level > previous + 1) issues++; previous = level; }); return issues; }),
+      check('link_no_accessible_name', 'Link accessible names', 'Links need text, an accessible name, or an image alternative.', 'error', doc => Array.from(doc.querySelectorAll('a')).filter(link => !hasName(link)).length),
+      check('placeholder_link', 'Placeholder links', 'Links must provide a real destination.', 'warning', doc => Array.from(doc.querySelectorAll('a[href]')).filter(link => /^(#|javascript:)/i.test(link.getAttribute('href').trim())).length),
+      check('form_control_no_label', 'Form control labels', 'Form controls need an associated label or accessible name.', 'error', doc => { const labels = new Set(Array.from(doc.querySelectorAll('label[for]')).map(label => label.getAttribute('for'))); return Array.from(doc.querySelectorAll('input,textarea,select')).filter(control => { const type = (control.getAttribute('type') || '').toLowerCase(); if (['hidden', 'submit', 'reset', 'button', 'image'].includes(type)) return false; return !(control.closest('label') || (control.id && labels.has(control.id)) || hasName(control)); }).length; }),
+      check('button_input_no_label', 'Button input labels', 'Button inputs need a value or accessible name.', 'error', doc => Array.from(doc.querySelectorAll('input[type="submit"],input[type="reset"],input[type="button"]')).filter(input => !(input.getAttribute('value') || '').trim() && !hasName(input)).length),
+      check('image_input_no_alt', 'Image input alternatives', 'Image buttons need alt text.', 'error', doc => Array.from(doc.querySelectorAll('input[type="image"]')).filter(input => !(input.getAttribute('alt') || '').trim()).length),
+      check('button_no_accessible_name', 'Button accessible names', 'Buttons need visible text or an accessible name.', 'error', doc => Array.from(doc.querySelectorAll('button')).filter(button => !hasName(button)).length),
+      check('iframe_no_title', 'Frame titles', 'Frames need descriptive titles.', 'error', doc => Array.from(doc.querySelectorAll('iframe')).filter(frame => !(frame.getAttribute('title') || '').trim()).length),
+      check('table_no_headers', 'Table headers', 'Data tables need headers or a caption.', 'warning', doc => Array.from(doc.querySelectorAll('table')).filter(table => !table.querySelector('th,caption')).length),
+      check('audio_no_transcript', 'Audio alternatives', 'Audio needs a transcript or track.', 'warning', doc => Array.from(doc.querySelectorAll('audio')).filter(audio => !audio.querySelector('track')).length),
+      check('video_no_captions', 'Video captions', 'Video needs captions or subtitles.', 'warning', doc => Array.from(doc.querySelectorAll('video')).filter(video => !video.querySelector('track[kind="captions"],track[kind="subtitles"]')).length),
+      check('autoplay_media', 'Autoplay controls', 'Autoplaying media must provide controls.', 'warning', doc => doc.querySelectorAll('audio[autoplay]:not([controls]),video[autoplay]:not([controls])').length),
+      check('meta_refresh', 'Timed refresh', 'Timed refresh redirects can disrupt users.', 'warning', doc => doc.querySelectorAll('meta[http-equiv="refresh"]').length),
+      check('no_skip_link', 'Skip navigation', 'A page needs a skip link.', 'info', doc => doc.querySelector('a[href="#main"],a[href="#content"],a[href="#maincontent"]') ? 0 : 1),
+      check('positive_tabindex', 'Positive tabindex', 'Positive tabindex disrupts focus order.', 'warning', doc => Array.from(doc.querySelectorAll('[tabindex]')).filter(el => Number(el.getAttribute('tabindex')) > 0).length),
+      check('required_no_error_structure', 'Required-field errors', 'Required fields need an error-message structure.', 'info', doc => Array.from(doc.querySelectorAll('[required],[aria-required="true"]')).filter(el => !el.hasAttribute('aria-describedby') && !el.hasAttribute('aria-invalid')).length),
+      check('no_lang_markup_non_latin', 'Language changes', 'Non-Latin text needs language markup.', 'info', (doc, source) => /[\u0400-\u04FF\u0600-\u06FF\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF]/u.test(source) && doc.querySelectorAll('[lang]').length < 2 ? 1 : 0),
+      check('radio_no_fieldset', 'Radio grouping', 'Related radio buttons need a fieldset.', 'warning', doc => { const groups = new Map(); doc.querySelectorAll('input[type="radio"][name]').forEach(radio => { const group = groups.get(radio.name) || []; group.push(radio); groups.set(radio.name, group); }); return Array.from(groups.values()).filter(group => group.length > 1 && !group[0].closest('fieldset')).length; }),
+      check('no_aria_live_regions', 'Form status messages', 'Forms need a live region for dynamic updates.', 'info', doc => doc.querySelector('form') && !doc.querySelector('[role="alert"],[aria-live]') ? 1 : 0),
+      check('empty_heading', 'Empty headings', 'Headings cannot be empty.', 'warning', doc => Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(h => !h.textContent.trim()).length),
+      check('generic_heading', 'Generic headings', 'Headings need descriptive text.', 'info', doc => Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(h => ['untitled', 'heading', 'title', 'header', 'section', 'content'].includes(h.textContent.trim().toLowerCase())).length),
+      check('hidden_content_accessibility', 'Hidden content', 'Hidden content may need an explicit screen-reader state.', 'info', doc => Array.from(doc.querySelectorAll('[hidden],[style*="display: none"],[style*="display:none"]')).filter(el => !el.hasAttribute('aria-hidden')).length),
+      check('aria_role_no_name', 'ARIA control names', 'Interactive ARIA roles need an accessible name.', 'error', doc => Array.from(doc.querySelectorAll('[role]')).filter(el => ['button', 'link', 'menuitem', 'tab', 'checkbox', 'radio', 'switch', 'textbox'].includes((el.getAttribute('role') || '').toLowerCase()) && !hasName(el)).length),
+      check('missing_main_landmark', 'Main landmark', 'A page needs a main landmark.', 'info', doc => doc.querySelector('main,[role="main"]') ? 0 : 1),
+      check('missing_nav_landmark', 'Navigation landmark', 'A page needs a navigation landmark.', 'info', doc => doc.querySelector('nav,[role="navigation"]') ? 0 : 1),
+      check('video_no_audio_desc', 'Video descriptions', 'Video needs an audio-description alternative.', 'info', doc => Array.from(doc.querySelectorAll('video')).filter(video => !video.querySelector('track[kind="descriptions"]')).length),
+      check('css_reordering', 'CSS reordering', 'CSS order properties can change reading order.', 'warning', doc => doc.querySelectorAll('[style*="flex-direction"],[style*="order"]').length),
+      check('color_only_info', 'Colour-only information', 'Colour alone cannot convey information.', 'info', doc => doc.querySelectorAll('[style*="color"],[style*="background-color"]').length > 3 ? 1 : 0),
+      check('image_for_text', 'Images of text', 'Avoid images used as text where practical.', 'info', doc => Array.from(doc.querySelectorAll('img[alt]')).filter(img => /text|heading|title|button|label|sign|banner/i.test(img.getAttribute('alt'))).length),
+      check('non_semantic_clickable', 'Non-semantic click targets', 'Clickable divs and spans need a role and tabindex.', 'warning', doc => Array.from(doc.querySelectorAll('div[onclick],span[onclick]')).filter(el => !el.hasAttribute('role') || !el.hasAttribute('tabindex')).length),
+      check('marquee_element', 'Marquee content', 'Marquee elements are inaccessible.', 'error', doc => doc.querySelectorAll('marquee').length),
+      check('rapid_flashing', 'Rapid flashing', 'Animations faster than three flashes per second are unsafe.', 'error', (doc, source) => /animation.*?(\d+)ms/i.test(source) && Number(RegExp.$1) < 333 ? 1 : 0),
+      check('focus_outline_removed', 'Focus indicator', 'Focus outlines must not be removed without a replacement.', 'error', (doc, source) => /:focus\s*\{[^}]*outline\s*:\s*(none|0)/i.test(source) ? 1 : 0),
+      check('limited_navigation', 'Navigation methods', 'Pages need more than one way to locate content.', 'info', doc => !doc.querySelector('input[type="search"],[role="search"]') && doc.querySelectorAll('nav,[role="navigation"]').length < 2 ? 1 : 0),
+      check('form_auto_submit', 'Automatic form submission', 'Changes must not automatically submit a form.', 'error', doc => Array.from(doc.querySelectorAll('select[onchange],input[onchange]')).filter(el => /submit|location/i.test(el.getAttribute('onchange'))).length),
+      check('form_no_confirmation', 'High-risk form confirmation', 'High-risk actions need a confirmation step.', 'warning', doc => Array.from(doc.querySelectorAll('form')).filter(form => /delete|remove|cancel|payment|purchase|transaction/i.test(form.innerHTML) && !/confirm|are you sure/i.test(form.innerHTML)).length),
+      check('no_client_error_handling', 'Form validation', 'Forms need client-side validation where appropriate.', 'info', doc => Array.from(doc.querySelectorAll('form')).filter(form => !form.querySelector('[required],[pattern],[min],[max],[minlength],[maxlength]')).length),
+      check('complex_input_no_help', 'Complex input help', 'Complex inputs need format instructions.', 'info', doc => Array.from(doc.querySelectorAll('input[pattern],input[type="date"],input[type="time"],input[type="tel"]')).filter(input => !input.hasAttribute('title') && !input.hasAttribute('placeholder') && !input.hasAttribute('aria-describedby')).length),
+      check('touch_no_fallback', 'Touch-only controls', 'Touch event handlers need a fallback.', 'warning', (doc, source) => /ontouchstart|ontouchmove|ontouchend/i.test(source) ? 1 : 0),
+      check('char_key_shortcuts', 'Character key shortcuts', 'Character shortcuts need a way to disable or remap them.', 'warning', (doc, source) => /onkeypress|addEventListener.*keypress/i.test(source) ? 1 : 0),
+      check('inconsistent_link_text', 'Consistent link text', 'The same destination should use consistent text.', 'info', doc => { const destinations = new Map(); doc.querySelectorAll('a[href]').forEach(link => { const href = link.getAttribute('href'); const texts = destinations.get(href) || new Set(); texts.add(link.textContent.trim()); destinations.set(href, texts); }); return Array.from(destinations.values()).filter(texts => texts.size > 1).length; }),
+      check('video_no_basic_attrs', 'Video controls and poster', 'Video needs controls and a poster image.', 'warning', doc => Array.from(doc.querySelectorAll('video')).filter(video => !video.hasAttribute('controls') || !video.hasAttribute('poster')).length),
+      check('fixed_font_size', 'Fixed text size', 'Body text should not use a fixed pixel size.', 'warning', (doc, source) => /(?:body|p)\s*\{[^}]*font-size\s*:\s*\d+px/i.test(source) ? 1 : 0),
+      check('layout_no_semantic', 'Semantic layout', 'Complex layouts need semantic structure.', 'info', doc => doc.querySelectorAll('[style*="position"],[style*="grid"],[style*="flex"]').length > 5 && doc.querySelectorAll('section,article,aside,header,footer,nav,main').length < 2 ? 1 : 0),
+      check('zoom_disabled', 'Zoom restriction', 'Users must be able to zoom content.', 'error', doc => Array.from(doc.querySelectorAll('meta[name="viewport"]')).filter(meta => /user-scalable=no|maximum-scale=1/i.test(meta.getAttribute('content') || '')).length),
+      check('no_viewport_meta', 'Viewport settings', 'Pages need a viewport meta tag.', 'info', doc => doc.querySelector('meta[name="viewport"]') ? 0 : 1),
+      check('form_no_aria', 'Form accessibility metadata', 'Large forms need accessible error/help metadata.', 'info', doc => Array.from(doc.querySelectorAll('form')).filter(form => form.querySelectorAll('input,textarea,select').length > 2 && !form.querySelector('[aria-label],[aria-describedby],[aria-invalid]')).length),
+      check('bullets_not_lists', 'List semantics', 'Bullet points should use list markup.', 'warning', (doc, source) => /[•\-*]\s+\w+/u.test(source) && !doc.querySelector('ul,ol') ? 1 : 0),
+      check('vague_link_text', 'Vague link text', 'Link text must describe its destination.', 'warning', doc => Array.from(doc.querySelectorAll('a')).filter(link => ['click here', 'here', 'more', 'read more', 'link', 'this', 'continue'].includes(link.textContent.trim().toLowerCase())).length),
+      // DOMParser recovers malformed markup, so browser-side examples cannot
+      // expose libxml's parser error count. scan.php reports this separately.
+      check('html_parsing_errors', 'HTML parsing', 'Invalid HTML can affect assistive technologies.', 'warning', () => 0)
+    ];
+  }
+
+  static score(html, css = '', js = '') {
+    if (!html || typeof html !== 'string') {
+      return { total: 0, max: 100, grade: 'N/A', color: '#94a3b8', checks: [] };
+    }
+
+    const exampleAssets = `<style>${css}</style><script>${js}</script>`;
+    const isDocument = /<!DOCTYPE\s+html|<html\s+/i.test(html);
+    // scan.php wraps submitted fragments with these document essentials before
+    // scanning. Do exactly the same so snippets are not penalised for metadata
+    // that is outside the teaching example's scope.
+    const source = isDocument
+      ? `${html}\n${exampleAssets}`
+      : `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Scanned Page</title>${exampleAssets}</head><body>${html}</body></html>`;
+    // DOMParser retains document-level elements (html, title, viewport), which
+    // are part of scan.php's checks and are discarded by a div fragment parser.
+    const doc = new DOMParser().parseFromString(source, 'text/html');
+
+    let totalDeduction = 0;
+    const checks = AccessibilityScorer.CHECKS.map(check => {
+      let issues = 0;
+      try {
+        issues = Math.max(0, check.detect(doc, source));
+      } catch (error) {
+        issues = 0;
+      }
+
+      const deduction = issues * AccessibilityScorer.DEDUCTIONS[check.type];
+      totalDeduction += deduction;
+      return {
+        ...check,
+        issues,
+        deduction,
+        passed: issues === 0
+      };
+    });
+
+    const total = Math.max(100 - Math.min(totalDeduction, 70), 0);
+    const { grade, color } = AccessibilityScorer.getGrade(total);
+    return { total, max: 100, grade, color, checks };
+  }
+
+  static getGrade(score) {
+    if (score >= 90) return { grade: 'Excellent', color: '#16a34a' };
+    if (score >= 75) return { grade: 'Good', color: '#65a30d' };
+    if (score >= 55) return { grade: 'Fair', color: '#d97706' };
+    if (score >= 30) return { grade: 'Poor', color: '#ea580c' };
+    return { grade: 'Fail', color: '#dc2626' };
+  }
+}
+
+/**
  * WCAGDataManager
  * 
  * Manages WCAG guidelines data fetching, caching, and retrieval.
@@ -710,6 +1156,8 @@ class WCAGMainContent {
 
         ${this.renderRedesignedExamples(guideline)}
 
+        ${this.renderUserExperienceImpact(guideline)}
+
         ${guideline.techniques && guideline.techniques.length > 0 ? this.renderTechniques(guideline.techniques) : ''}
 
         ${guideline.examples && guideline.examples.userGroups ? this.renderWhoBenefits(guideline.examples.userGroups) : ''}
@@ -718,10 +1166,167 @@ class WCAGMainContent {
     
     this.detailView.innerHTML = detailHTML;
     
-    // Attach copy button listeners
+    // Attach interactive listeners
     this.attachCopyButtonListeners();
+    this.attachCodeViewerListeners();
   }
   
+  /**
+   * Render accessibility score comparison section
+   * @param {Object} guideline - The guideline object
+   * @returns {string} HTML string for score section
+   * @private
+   */
+  renderAccessibilityScore(guideline) {
+    const beforeExample = guideline.examples?.before || {};
+    const afterExample = guideline.examples?.after || {};
+    const beforeHtml = beforeExample.html || '';
+    const afterHtml  = afterExample.html || '';
+
+    if (!beforeHtml && !afterHtml) return '';
+
+    // scan.php evaluates one complete source string. Include the companion CSS
+    // and JavaScript so style- and behaviour-related barriers affect the score.
+    const beforeScore = AccessibilityScorer.score(beforeHtml, beforeExample.css || '', beforeExample.js || '');
+    const afterScore  = AccessibilityScorer.score(afterHtml, afterExample.css || '', afterExample.js || '');
+    const relevantCheckIds = new Set(AccessibilityScorer.CHECK_IDS_BY_WCAG[guideline.id] || []);
+    const delta = afterScore.total - beforeScore.total;
+
+    const renderRing = (result, cardType, labelId) => {
+      const radius = 52;
+      const circumference = 2 * Math.PI * radius;
+      const isInaccessible = cardType === 'before';
+      const relevantChecks = result.checks.filter(check => relevantCheckIds.has(check.id));
+      // The label identifies the teaching example; the ring reflects its
+      // calculated scanner grade instead of always showing red for "before".
+      const ringColor = result.color;
+
+      return `
+        <div class="wcag-score-card wcag-score-card--${cardType}" role="group" aria-labelledby="${labelId}">
+          <div class="wcag-score-card-header">
+            <span class="wcag-score-card-badge wcag-score-card-badge--${cardType}">
+              ${isInaccessible
+                ? '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Inaccessible'
+                : '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Accessible'
+              }
+            </span>
+            <span class="wcag-score-example-label" id="${labelId}">${isInaccessible ? 'Before (Bad Code)' : 'After (Good Code)'}</span>
+          </div>
+
+          <div class="wcag-score-ring-wrap">
+            <svg class="wcag-score-ring-svg" viewBox="0 0 130 130" aria-hidden="true">
+              <!-- Track -->
+              <circle cx="65" cy="65" r="${radius}" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+              <!-- Progress ring (animated via JS) -->
+              <circle
+                class="wcag-score-ring-progress"
+                cx="65" cy="65" r="${radius}"
+                fill="none"
+                stroke="${ringColor}"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-dasharray="${circumference}"
+                stroke-dashoffset="${circumference}"
+                data-target-score="${result.total}"
+                data-circumference="${circumference}"
+                transform="rotate(-90 65 65)"
+              />
+            </svg>
+            <div class="wcag-score-center" aria-label="Score: ${result.total} out of 100">
+              <span class="wcag-score-number" data-final="${result.total}">0</span>
+              <span class="wcag-score-denom">/100</span>
+            </div>
+          </div>
+
+          <div class="wcag-score-grade" style="--grade-color: ${ringColor}">
+            <span class="wcag-score-grade-pill" style="background:${ringColor}20; color:${ringColor}; border-color:${ringColor}40">${result.grade}</span>
+          </div>
+
+          <div class="wcag-score-checks" aria-label="Check breakdown">
+            ${relevantChecks.map(c => `
+              <div class="wcag-score-check-pill wcag-score-check-pill--${c.passed ? 'pass' : 'fail'}" title="${this.escapeHtml(c.description)} (${c.issues} issue${c.issues === 1 ? '' : 's'}; −${c.deduction} points)">
+                <span class="wcag-score-check-icon" aria-hidden="true">${c.passed ? '✓' : '✗'}</span>
+                <span class="wcag-score-check-name">${this.escapeHtml(c.name)}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    };
+
+    const beforeLabelId = `score-label-before-${Date.now()}`;
+    const afterLabelId  = `score-label-after-${Date.now() + 1}`;
+
+    const deltaHtml = delta !== 0 ? `
+      <div class="wcag-score-delta" aria-label="Accessibility improvement: ${delta > 0 ? '+' : ''}${delta} points">
+        <span class="wcag-score-delta-icon" aria-hidden="true">${delta > 0 ? '▲' : '▼'}</span>
+        <span class="wcag-score-delta-value">${delta > 0 ? '+' : ''}${delta} pts improvement</span>
+      </div>
+    ` : '';
+
+    return `
+      <section class="wcag-score-section" aria-labelledby="score-section-heading">
+        <h3 class="wcag-modal-section-heading" id="score-section-heading">Accessibility Score</h3>
+        <p class="wcag-score-subtitle">Uses the same deduction model as the scanner: errors −5, warnings −2, and info issues −1 (up to 70 points).</p>
+        ${deltaHtml}
+        <div class="wcag-score-grid">
+          ${renderRing(beforeScore, 'before', beforeLabelId)}
+          ${renderRing(afterScore,  'after',  afterLabelId)}
+        </div>
+      </section>
+    `;
+  }
+
+  /**
+   * Attach and trigger score ring animations after content is inserted
+   * Animates the SVG ring stroke-dashoffset and the counter number
+   * @private
+   */
+  attachScoreAnimationListeners() {
+    const rings = this.detailView.querySelectorAll('.wcag-score-ring-progress');
+    const counters = this.detailView.querySelectorAll('.wcag-score-number');
+
+    const DURATION = 900; // ms
+    const EASING = t => 1 - Math.pow(1 - t, 3); // ease-out cubic
+
+    const startTime = performance.now();
+
+    const animate = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / DURATION, 1);
+      const eased = EASING(progress);
+
+      rings.forEach(ring => {
+        const circumference = parseFloat(ring.dataset.circumference);
+        const targetScore = parseInt(ring.dataset.targetScore, 10);
+        const offset = circumference - (eased * (targetScore / 100) * circumference);
+        ring.style.strokeDashoffset = offset;
+      });
+
+      counters.forEach(counter => {
+        const final = parseInt(counter.dataset.final, 10);
+        counter.textContent = Math.round(eased * final);
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        // Ensure exact final values
+        rings.forEach(ring => {
+          const circumference = parseFloat(ring.dataset.circumference);
+          const targetScore = parseInt(ring.dataset.targetScore, 10);
+          ring.style.strokeDashoffset = circumference - (targetScore / 100) * circumference;
+        });
+        counters.forEach(counter => {
+          counter.textContent = counter.dataset.final;
+        });
+      }
+    };
+
+    // Small delay so the DOM is painted before animation starts
+    setTimeout(() => requestAnimationFrame(animate), 80);
+  }
+
   /**
    * Render redesigned examples section
    * @param {Object} guideline - The guideline object
@@ -742,26 +1347,31 @@ class WCAGMainContent {
       
       <!-- Code Comparison -->
       <div class="wcag-modal-comparison-grid">
-        ${before && before.html ? `
-        <div class="wcag-modal-code-box">
-          <div class="wcag-modal-code-content">
-            ${this.formatCodeWithLineNumbers(before.html)}
-          </div>
-        </div>
-        ` : ''}
+        ${this.renderCodeViewer('Before: Code', before, 'before', guideline.id)}
 
-        ${after && after.html ? `
-        <div class="wcag-modal-code-box">
-          <div class="wcag-modal-code-content">
-            ${this.formatCodeWithLineNumbers(after.html)}
-          </div>
-        </div>
-        ` : ''}
+        ${this.renderCodeViewer('After: Code', after, 'after', guideline.id)}
       </div>
 
       <!-- Output Comparison (if available) -->
       ${this.renderOutputComparison(before, after)}
+    `;
+  }
 
+  /**
+   * Render user experience impact section
+   * @param {Object} guideline - The guideline object
+   * @returns {string} HTML string for UX impact section
+   * @private
+   */
+  renderUserExperienceImpact(guideline) {
+    if (!guideline.examples || (!guideline.examples.before && !guideline.examples.after)) {
+      return '';
+    }
+
+    const before = guideline.examples.before;
+    const after = guideline.examples.after;
+
+    return `
       <!-- Impact Comparison -->
       <div class="wcag-modal-impact-box full-width">
         <div class="wcag-modal-impact-header">
@@ -789,21 +1399,190 @@ class WCAGMainContent {
       ${this.renderKeySummary(guideline)}
     `;
   }
+
+  /**
+   * Render tabbed HTML/CSS code viewer
+   * @param {string} title - Visible title for the code viewer
+   * @param {Object} example - Example object with separated HTML/CSS code
+   * @param {string} variant - Variant identifier
+   * @param {string} guidelineId - Guideline ID for unique controls
+   * @returns {string} HTML string for the code viewer
+   * @private
+   */
+  renderCodeViewer(title, example, variant, guidelineId) {
+    if (!example?.html && !example?.css) {
+      return '';
+    }
+
+    const safeBaseId = this.createSafeId(`wcag-${guidelineId}-${variant}`);
+    const languages = [
+      { key: 'html', label: 'HTML', code: example.html || '' },
+      ...(example.css && example.css.trim() ? [{ key: 'css', label: 'CSS', code: example.css }] : [])
+    ].filter(language => language.code);
+
+    if (languages.length === 0) {
+      return '';
+    }
+
+    return `
+      <div class="wcag-modal-code-box wcag-code-viewer" data-code-viewer>
+        <div class="wcag-code-viewer-toolbar">
+          <span class="wcag-modal-code-label">${this.escapeHtml(title)}</span>
+          <div class="wcag-code-tabs" role="tablist" aria-label="${this.escapeHtml(title)} languages">
+            ${languages.map((language, index) => {
+              const tabId = `${safeBaseId}-${language.key}-tab`;
+              const panelId = `${safeBaseId}-${language.key}-panel`;
+              return `
+                <button
+                  type="button"
+                  class="wcag-code-tab${index === 0 ? ' active' : ''}"
+                  id="${tabId}"
+                  role="tab"
+                  aria-selected="${index === 0 ? 'true' : 'false'}"
+                  aria-controls="${panelId}"
+                  data-code-tab="${language.key}">
+                  ${language.label}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+        <div class="wcag-code-panels">
+          ${languages.map((language, index) => {
+            const tabId = `${safeBaseId}-${language.key}-tab`;
+            const panelId = `${safeBaseId}-${language.key}-panel`;
+            return `
+              <div
+                class="wcag-code-panel${index === 0 ? ' active' : ''}"
+                id="${panelId}"
+                role="tabpanel"
+                aria-labelledby="${tabId}"
+                data-code-panel="${language.key}"
+                ${index === 0 ? '' : 'hidden'}>
+                <div class="wcag-modal-code-content" tabindex="0" aria-label="${language.label} source code">
+                  ${this.formatCodeWithLineNumbers(language.code, language.key)}
+                </div>
+                <textarea class="wcag-code-source" data-code-source="${language.key}" hidden readonly>${this.escapeTextarea(language.code)}</textarea>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
   
   /**
    * Format code with line numbers
    * @param {string} code - The code to format
+   * @param {string} language - Code language
    * @returns {string} HTML string with line numbers
    * @private
    */
-  formatCodeWithLineNumbers(code) {
+  formatCodeWithLineNumbers(code, language = 'html') {
     const lines = code.trim().split('\n');
     return lines.map((line, index) => `
       <div class="wcag-modal-code-line">
         <span class="wcag-modal-line-number">${index + 1}</span>
-        <span class="wcag-modal-line-code">${this.escapeHtml(line)}</span>
+        <span class="wcag-modal-line-code">${this.highlightCodeLine(line, language)}</span>
       </div>
     `).join('');
+  }
+
+  /**
+   * Highlight a single line of code
+   * @param {string} line - Source line to highlight
+   * @param {string} language - Code language
+   * @returns {string} Highlighted HTML
+   * @private
+   */
+  highlightCodeLine(line, language) {
+    if (language === 'css') {
+      return this.highlightCssLine(line);
+    }
+
+    return this.highlightHtmlLine(line);
+  }
+
+  /**
+   * Highlight a line of HTML source
+   * @param {string} line - Source line to highlight
+   * @returns {string} Highlighted HTML
+   * @private
+   */
+  highlightHtmlLine(line) {
+    const tokenPattern = /(<!--.*?-->)|(<\/?)([A-Za-z][\w:-]*)|(\s+)([A-Za-z_:][\w:.-]*)(=)("[^"]*"|'[^']*'|[^\s>]+)|(&[A-Za-z#0-9]+;)|([<>/=])/g;
+    return this.highlightWithPattern(line, tokenPattern, match => {
+      if (match[1]) {
+        return `<span class="wcag-code-token token-comment">${this.escapeHtml(match[1])}</span>`;
+      }
+
+      if (match[2] && match[3]) {
+        return `${this.escapeHtml(match[2])}<span class="wcag-code-token token-tag">${this.escapeHtml(match[3])}</span>`;
+      }
+
+      if (match[4] && match[5] && match[6]) {
+        const value = match[7] || '';
+        return `${this.escapeHtml(match[4])}<span class="wcag-code-token token-attr">${this.escapeHtml(match[5])}</span>${this.escapeHtml(match[6])}<span class="wcag-code-token token-string">${this.escapeHtml(value)}</span>`;
+      }
+
+      if (match[8]) {
+        return `<span class="wcag-code-token token-entity">${this.escapeHtml(match[8])}</span>`;
+      }
+
+      return `<span class="wcag-code-token token-punctuation">${this.escapeHtml(match[9])}</span>`;
+    });
+  }
+
+  /**
+   * Highlight a line of CSS source
+   * @param {string} line - Source line to highlight
+   * @returns {string} Highlighted HTML
+   * @private
+   */
+  highlightCssLine(line) {
+    const tokenPattern = /(\/\*.*?\*\/)|("(?:\\.|[^"])*"|'(?:\\.|[^'])*')|(#[0-9a-fA-F]{3,8})|(\b\d+(?:\.\d+)?(?:px|rem|em|%|vh|vw|s|ms)?\b)|(\b-?[_a-zA-Z][\w-]*)(?=\s*:)|([{}:;(),.])/g;
+    return this.highlightWithPattern(line, tokenPattern, match => {
+      if (match[1]) {
+        return `<span class="wcag-code-token token-comment">${this.escapeHtml(match[1])}</span>`;
+      }
+
+      if (match[2]) {
+        return `<span class="wcag-code-token token-string">${this.escapeHtml(match[2])}</span>`;
+      }
+
+      if (match[3] || match[4]) {
+        return `<span class="wcag-code-token token-value">${this.escapeHtml(match[3] || match[4])}</span>`;
+      }
+
+      if (match[5]) {
+        return `<span class="wcag-code-token token-property">${this.escapeHtml(match[5])}</span>`;
+      }
+
+      return `<span class="wcag-code-token token-punctuation">${this.escapeHtml(match[6])}</span>`;
+    });
+  }
+
+  /**
+   * Apply syntax highlighting with a token pattern
+   * @param {string} line - Source line to highlight
+   * @param {RegExp} pattern - Token pattern
+   * @param {Function} renderToken - Token renderer
+   * @returns {string} Highlighted HTML
+   * @private
+   */
+  highlightWithPattern(line, pattern, renderToken) {
+    let highlighted = '';
+    let lastIndex = 0;
+    let match;
+
+    while ((match = pattern.exec(line)) !== null) {
+      highlighted += this.escapeHtml(line.slice(lastIndex, match.index));
+      highlighted += renderToken(match);
+      lastIndex = pattern.lastIndex;
+    }
+
+    highlighted += this.escapeHtml(line.slice(lastIndex));
+    return highlighted;
   }
   
   /**
@@ -1095,6 +1874,67 @@ class WCAGMainContent {
       });
     });
   }
+
+  /**
+   * Attach tab switching listeners for code viewers
+   * @private
+   */
+  attachCodeViewerListeners() {
+    const viewers = this.detailView.querySelectorAll('[data-code-viewer]');
+
+    viewers.forEach(viewer => {
+      const tabs = Array.from(viewer.querySelectorAll('[data-code-tab]'));
+      const panels = Array.from(viewer.querySelectorAll('[data-code-panel]'));
+
+      const activateTab = selectedTab => {
+        const selectedLanguage = selectedTab.getAttribute('data-code-tab');
+
+        tabs.forEach(tab => {
+          const isSelected = tab === selectedTab;
+          tab.classList.toggle('active', isSelected);
+          tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+          tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+        });
+
+        panels.forEach(panel => {
+          const isSelected = panel.getAttribute('data-code-panel') === selectedLanguage;
+          panel.classList.toggle('active', isSelected);
+          panel.hidden = !isSelected;
+        });
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.setAttribute('tabindex', index === 0 ? '0' : '-1');
+
+        tab.addEventListener('click', () => {
+          activateTab(tab);
+        });
+
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+            return;
+          }
+
+          event.preventDefault();
+          const currentIndex = tabs.indexOf(tab);
+          let nextIndex = currentIndex;
+
+          if (event.key === 'ArrowRight') {
+            nextIndex = (currentIndex + 1) % tabs.length;
+          } else if (event.key === 'ArrowLeft') {
+            nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          } else if (event.key === 'Home') {
+            nextIndex = 0;
+          } else if (event.key === 'End') {
+            nextIndex = tabs.length - 1;
+          }
+
+          tabs[nextIndex].focus();
+          activateTab(tabs[nextIndex]);
+        });
+      });
+    });
+  }
   
   /**
    * Announce content change to screen readers
@@ -1129,6 +1969,26 @@ class WCAGMainContent {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  /**
+   * Escape code for hidden textarea storage
+   * @param {string} text - Text to escape
+   * @returns {string} Escaped textarea text
+   * @private
+   */
+  escapeTextarea(text) {
+    return this.escapeHtml(text);
+  }
+
+  /**
+   * Create a safe DOM id fragment
+   * @param {string} value - Source value
+   * @returns {string} Safe id
+   * @private
+   */
+  createSafeId(value) {
+    return String(value).toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
   }
 }
 
