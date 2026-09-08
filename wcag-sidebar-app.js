@@ -586,6 +586,14 @@ class URLStateManager {
    * @returns {string|null} The guideline ID or null if not present
    */
   getCurrentGuideline() {
+    const hash = window.location.hash.replace(/^#/, '').trim();
+    if (hash.startsWith('guideline-')) {
+      const guidelineId = hash.replace(/^guideline-/, '').replace(/-/g, '.');
+      if (guidelineId) {
+        return guidelineId;
+      }
+    }
+
     const params = new URLSearchParams(window.location.search);
     return params.get('guideline');
   }
@@ -1139,16 +1147,18 @@ class WCAGMainContent {
     }
     
     // Build detail HTML using the same format as the modal
+    const anchorId = `guideline-${guideline.id.replace(/\./g, '-')}`;
     const detailHTML = `
-      <div class="guideline-detail-header">
-        <h1 class="guideline-detail-title">WCAG ${guideline.id}: ${guideline.title}</h1>
-        <div class="guideline-detail-meta">
-          <span class="badge principle-badge principle-${guideline.principle.toLowerCase()}">${guideline.principle}</span>
-          <span class="level-badge level-${guideline.level}">Level ${guideline.level}</span>
+      <section id="${anchorId}" class="wcag-guideline-section">
+        <div class="guideline-detail-header">
+          <h1 class="guideline-detail-title">WCAG ${guideline.id}: ${guideline.title}</h1>
+          <div class="guideline-detail-meta">
+            <span class="badge principle-badge principle-${guideline.principle.toLowerCase()}">${guideline.principle}</span>
+            <span class="level-badge level-${guideline.level}">Level ${guideline.level}</span>
+          </div>
         </div>
-      </div>
       
-      <div class="guideline-details">
+        <div class="guideline-details">
         <!-- Description -->
         <div class="wcag-modal-description">
           <p>${guideline.description}</p>
@@ -1161,10 +1171,16 @@ class WCAGMainContent {
         ${guideline.techniques && guideline.techniques.length > 0 ? this.renderTechniques(guideline.techniques) : ''}
 
         ${guideline.examples && guideline.examples.userGroups ? this.renderWhoBenefits(guideline.examples.userGroups) : ''}
-      </div>
+        </div>
+      </section>
     `;
     
     this.detailView.innerHTML = detailHTML;
+    const targetSection = this.detailView.querySelector(`#${anchorId}`);
+    if (targetSection) {
+      targetSection.classList.add('guideline-highlight');
+      setTimeout(() => targetSection.classList.remove('guideline-highlight'), 2200);
+    }
     
     // Attach interactive listeners
     this.attachCopyButtonListeners();
@@ -1410,14 +1426,34 @@ class WCAGMainContent {
    * @private
    */
   renderCodeViewer(title, example, variant, guidelineId) {
-    if (!example?.html && !example?.css) {
+    const sourceCodeByGuideline = {
+      '1.2.2': `wcag-1-2-2-sample.mp4 (video/mp4)
+
+wcag-1-2-2-sample.vtt (text/vtt)
+WEBVTT
+
+NOTE WCAG 1.2.2 sample captions for prerecorded audio.
+
+00:00:00.000 --> 00:00:02.500
+[Audio track starts]
+A short sample video is playing.
+
+00:00:02.500 --> 00:00:05.000
+[Audio continues]
+Captions stay synchronized with the video timeline.`,
+      '1.4.2': 'js-variables-lesson.wav (audio/wav)'
+    };
+    const sourceCode = variant === 'after' ? sourceCodeByGuideline[guidelineId] || '' : '';
+
+    if (!example?.html && !example?.css && !sourceCode) {
       return '';
     }
 
     const safeBaseId = this.createSafeId(`wcag-${guidelineId}-${variant}`);
     const languages = [
       { key: 'html', label: 'HTML', code: example.html || '' },
-      ...(example.css && example.css.trim() ? [{ key: 'css', label: 'CSS', code: example.css }] : [])
+      ...(example.css && example.css.trim() ? [{ key: 'css', label: 'CSS', code: example.css }] : []),
+      ...(sourceCode ? [{ key: 'src', label: 'SRC', code: sourceCode }] : [])
     ].filter(language => language.code);
 
     if (languages.length === 0) {
@@ -1711,7 +1747,7 @@ class WCAGMainContent {
       <iframe 
         id="${previewId}"
         class="wcag-visual-preview-iframe"
-        sandbox="allow-same-origin allow-scripts"
+        sandbox="allow-same-origin allow-scripts allow-modals allow-forms"
         title="${type === 'before' ? 'Before code output preview' : 'After code output preview'}"
         srcdoc="${escapedContent}"
         style="width: 100%; border: none; display: block; background: white;">

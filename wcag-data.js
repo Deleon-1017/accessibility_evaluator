@@ -2382,11 +2382,6 @@ ticketList.addEventListener('keydown', (e) => {
   <h2>Ticket Queue (Before)</h2>
   <p class="shortcut-info warning"><strong>No keyboard archive:</strong> Archiving works only by mouse click in this example</p>
 
-  <label for="agent-note-before">Agent note</label>
-  <form id="note-form-before" class="note-form" novalidate>
-    <input id="agent-note-before" type="text" placeholder="Type a note here...">
-    <button type="submit" class="submit-btn">Submit note</button>
-  </form>
   <div id="ticket-list-before" class="ticket-list">
     <button type="button" class="ticket-row">
       <span class="ticket-row-title">Ticket #1421 - Billing issue</span>
@@ -2394,7 +2389,7 @@ ticketList.addEventListener('keydown', (e) => {
     </button>
   </div>
 
-  <p id="status-before" role="status" aria-live="polite" class="status warning">Submit a note to create a ticket. Keyboard archive does not work in this inaccessible example.</p>
+  <p id="status-before" role="status" aria-live="polite" class="status warning">Keyboard archive does not work in this inaccessible example.</p>
 </div>`,
                 css: `.shortcut-scope-demo {
   max-width: 640px;
@@ -2419,19 +2414,9 @@ ticketList.addEventListener('keydown', (e) => {
   background: #fee2e2;
   color: #991b1b;
 }
-.shortcut-scope-demo label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #334155;
-}
-.note-form {
-  margin-bottom: 8px;
-}
 .ticket-list {
   margin-bottom: 12px;
 }
-.shortcut-scope-demo input,
 .shortcut-scope-demo button {
   width: 100%;
   box-sizing: border-box;
@@ -2445,13 +2430,6 @@ ticketList.addEventListener('keydown', (e) => {
   background: #f8fafc;
   text-align: left;
   cursor: pointer;
-}
-.shortcut-scope-demo .submit-btn {
-  background: #2563eb;
-  border-color: #2563eb;
-  color: #ffffff;
-  text-align: center;
-  font-weight: 600;
 }
 .ticket-row {
   width: 100%;
@@ -2499,43 +2477,7 @@ kbd {
 }`,
                 js: `// PROBLEM: archive behavior is mouse-only in this example
 const statusBefore = document.getElementById('status-before');
-const noteFormBefore = document.getElementById('note-form-before');
-const noteInputBefore = document.getElementById('agent-note-before');
 const ticketListBefore = document.getElementById('ticket-list-before');
-let nextTicketBefore = 1422;
-
-function createBeforeTicket(noteText) {
-  const row = document.createElement('div');
-  row.className = 'ticket-row';
-
-  const title = document.createElement('span');
-  title.className = 'ticket-row-title';
-  title.textContent = 'Ticket #' + nextTicketBefore + ' - Billing issue';
-
-  const note = document.createElement('span');
-  note.className = 'ticket-row-note';
-  note.textContent = 'Agent note: ' + noteText;
-
-  row.appendChild(title);
-  row.appendChild(note);
-  nextTicketBefore += 1;
-  return row;
-}
-
-noteFormBefore.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const note = noteInputBefore.value.trim();
-  if (!note) {
-    statusBefore.textContent = 'Please type a note before submitting.';
-    return;
-  }
-
-  const newTicket = createBeforeTicket(note);
-  ticketListBefore.appendChild(newTicket);
-  statusBefore.textContent = 'New ticket created from submitted note.';
-  noteInputBefore.value = '';
-  noteInputBefore.focus();
-});
 
 document.addEventListener('keydown', (e) => {
   const hasCtrl = e.ctrlKey || e.metaKey;
@@ -2558,11 +2500,6 @@ ticketListBefore.addEventListener('click', (e) => {
   <h2>Ticket Queue (After)</h2>
   <p class="shortcut-info success"><strong>Shortcut requires Ctrl key:</strong> Focus ticket row, then press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to archive</p>
 
-  <label for="agent-note-after">Agent note</label>
-  <form id="note-form-after" class="note-form" novalidate>
-    <input id="agent-note-after" type="text" placeholder="Type a note here...">
-    <button type="submit" class="submit-btn">Submit note</button>
-  </form>
   <div id="ticket-list-after" class="ticket-list">
     <button id="ticket-row-after" type="button" class="ticket-row" aria-keyshortcuts="Control+Enter">
       <span class="ticket-row-title">Ticket #1421 - Billing issue</span>
@@ -2570,7 +2507,7 @@ ticketListBefore.addEventListener('click', (e) => {
     </button>
   </div>
 
-  <p id="status-after" role="status" aria-live="polite" class="status success">Submit note normally. Focus ticket row and press Ctrl+Enter to archive and remove it.</p>
+  <p id="status-after" role="status" aria-live="polite" class="status success">Focus the ticket row and press Ctrl+Enter to archive and remove it.</p>
 </div>`,
                 css: `.shortcut-scope-demo {
   max-width: 640px;
@@ -2595,19 +2532,9 @@ ticketListBefore.addEventListener('click', (e) => {
   background: #dcfce7;
   color: #166534;
 }
-.shortcut-scope-demo label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: #334155;
-}
-.note-form {
-  margin-bottom: 8px;
-}
 .ticket-list {
   margin-bottom: 12px;
 }
-.shortcut-scope-demo input,
 .shortcut-scope-demo button {
   width: 100%;
   box-sizing: border-box;
@@ -2621,13 +2548,6 @@ ticketListBefore.addEventListener('click', (e) => {
   background: #f8fafc;
   text-align: left;
   cursor: pointer;
-}
-.shortcut-scope-demo .submit-btn {
-  background: #2563eb;
-  border-color: #2563eb;
-  color: #ffffff;
-  text-align: center;
-  font-weight: 600;
 }
 .ticket-row {
   margin-bottom: 8px;
@@ -2667,47 +2587,9 @@ kbd {
   color: #ffffff;
   font-size: 0.78rem;
 }`,
-                js: `// SOLUTION: each submitted note becomes a new ticket and archive requires Ctrl+Enter
+                js: `// SOLUTION: archive requires Ctrl+Enter while the ticket button has focus
 const statusAfter = document.getElementById('status-after');
 const ticketListAfter = document.getElementById('ticket-list-after');
-const noteFormAfter = document.getElementById('note-form-after');
-const noteInputAfter = document.getElementById('agent-note-after');
-let nextTicketAfter = 1422;
-
-function createAfterTicket(noteText) {
-  const row = document.createElement('button');
-  row.type = 'button';
-  row.className = 'ticket-row';
-  row.setAttribute('aria-keyshortcuts', 'Control+Enter');
-
-  const title = document.createElement('span');
-  title.className = 'ticket-row-title';
-  title.textContent = 'Ticket #' + nextTicketAfter + ' - Billing issue';
-
-  const note = document.createElement('span');
-  note.className = 'ticket-row-note';
-  note.textContent = 'Agent note: ' + noteText;
-
-  row.appendChild(title);
-  row.appendChild(note);
-  nextTicketAfter += 1;
-  return row;
-}
-
-noteFormAfter.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const note = noteInputAfter.value.trim();
-  if (!note) {
-    statusAfter.textContent = 'Please type a note before submitting.';
-    return;
-  }
-
-  const newTicket = createAfterTicket(note);
-  ticketListAfter.appendChild(newTicket);
-  statusAfter.textContent = 'New ticket created from submitted note.';
-  noteInputAfter.value = '';
-  noteInputAfter.focus();
-});
 
 ticketListAfter.addEventListener('focusin', (e) => {
   const row = e.target.closest('.ticket-row');
@@ -2726,11 +2608,11 @@ ticketListAfter.addEventListener('keydown', (e) => {
   row.remove();
   statusAfter.textContent = 'Shortcut fired: ' + removedTitle + ' archived and removed (Ctrl+Enter).';
 });`,
-                context: "ACCESSIBLE SOLUTION: Each submitted note creates a new ticket row. Archiving requires Ctrl+Enter while focus is on a ticket row, so typing in the note field does not trigger accidental archive actions."
+                context: "ACCESSIBLE SOLUTION: The ticket button is keyboard accessible, and archiving requires Ctrl+Enter while focus is on that button."
             },
             interactive: {
                 enabled: true,
-                instructions: "BEFORE: Type a note and submit it to create a new ticket. Try Ctrl+Enter on tickets and notice keyboard archive does not work. You must click a ticket with mouse to archive. AFTER: Type a note and submit it to create a new ticket. Focus any ticket row and press Ctrl+Enter to archive and remove that ticket."
+                instructions: "BEFORE: Try Ctrl+Enter on the ticket button and notice keyboard archive does not work. You must click the ticket with a mouse to archive it. AFTER: Focus the ticket button and press Ctrl+Enter to archive and remove it."
             },
             userGroups: ["speech recognition users", "screen reader users", "keyboard-only users", "support agents"],
             keySummary: [
@@ -5136,6 +5018,9 @@ button {
     <input type="checkbox" id="pushNotif" name="pushNotif" onchange="this.form.submit()">
     <label for="pushNotif">Push notifications</label>
   </div>
+  <div id="autoSaveMsg" role="status" aria-live="assertive" style="display: none; margin-top: 12px; padding: 10px 14px; background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; border-radius: 6px; font-weight: 600;">
+    ⚠️ Settings automatically saved! (Unexpected context change)
+  </div>
 </form>`,
                 css: `form {
   padding: 20px;
@@ -5155,7 +5040,17 @@ input[type="checkbox"] {
 label {
   cursor: pointer;
 }`,
-                js: "",
+                js: `const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const autoSaveMsg = document.getElementById('autoSaveMsg');
+checkboxes.forEach(checkbox => {
+  checkbox.removeAttribute('onchange');
+  checkbox.addEventListener('change', function() {
+    autoSaveMsg.style.display = 'block';
+    setTimeout(() => {
+      autoSaveMsg.style.display = 'none';
+    }, 3000);
+  });
+});`,
                 context: "Each checkbox automatically submits the form when changed, causing immediate page reloads or navigation. Users who accidentally check/uncheck a box trigger unwanted submissions. Users exploring options with keyboard or screen readers will trigger multiple submissions. There's no way to review changes before saving, and no confirmation that settings were saved. This creates a confusing, error-prone experience."
             },
             after: {
@@ -5206,11 +5101,19 @@ button {
   cursor: pointer;
   font-size: 16px;
 }`,
-                js: "",
+                js: `const form = document.querySelector('form');
+const confirmation = document.getElementById('saveConfirmation');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  confirmation.style.display = 'block';
+  setTimeout(() => {
+    confirmation.style.display = 'none';
+  }, 3000);
+});`,
                 context: "Users can now check/uncheck multiple options and review their choices before clicking the \"Save Settings\" button. Accidental changes can be corrected before submission. The explicit save action gives users control and confidence. A confirmation message (with role='status' and aria-live='polite') announces the successful save to screen readers. This predictable, user-controlled behavior reduces errors and anxiety."
             },
             interactive: {
-                enabled: false
+                enabled: true
             },
             userGroups: ["users with cognitive disabilities", "users with motor disabilities", "keyboard users", "all users"],
             keySummary: [

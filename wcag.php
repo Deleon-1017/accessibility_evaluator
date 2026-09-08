@@ -47,7 +47,7 @@
                                     Guidelines</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-lg-3" href="contact.html">Contact</a>
+                                <a class="nav-link mx-lg-3" href="assessment.php">Assessment</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-lg-3" href="about.html">About</a>
