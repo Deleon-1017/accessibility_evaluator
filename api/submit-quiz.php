@@ -19,25 +19,36 @@ function normalizeAnswer($raw): string
     return strtoupper(trim((string) $raw));
 }
 
-function guidelineUrl(string $guidelineCode): string
+function resolveCriterionIdForGuideline(string $guidelineCode): string
 {
-    $mapping = [
-        '1.1' => 'wcag.php#guideline-1-1',
-        '1.2' => 'wcag.php#guideline-1-2',
-        '1.3' => 'wcag.php#guideline-1-3',
-        '1.4' => 'wcag.php#guideline-1-4',
-        '2.1' => 'wcag.php#guideline-2-1',
-        '2.2' => 'wcag.php#guideline-2-2',
-        '2.3' => 'wcag.php#guideline-2-3',
-        '2.4' => 'wcag.php#guideline-2-4',
-        '2.5' => 'wcag.php#guideline-2-5',
-        '3.1' => 'wcag.php#guideline-3-1',
-        '3.2' => 'wcag.php#guideline-3-2',
-        '3.3' => 'wcag.php#guideline-3-3',
-        '4.1' => 'wcag.php#guideline-4-1'
-    ];
+    $questions = getQuizQuestions();
 
-    return $mapping[$guidelineCode] ?? 'wcag.php';
+    foreach ($questions as $question) {
+        if ((string) $question['guideline_code'] !== $guidelineCode) {
+            continue;
+        }
+
+        if (preg_match('/\d+\.\d+\.\d+/', (string) $question['success_criterion'], $matches)) {
+            return $matches[0];
+        }
+    }
+
+    return $guidelineCode . '.1';
+}
+
+function guidelineUrl(string $guidelineCode, ?string $criterionId = null): string
+{
+    $targetCriterion = $criterionId;
+
+    if (empty($targetCriterion)) {
+        $targetCriterion = resolveCriterionIdForGuideline($guidelineCode);
+    }
+
+    if (preg_match('/^\d+\.\d+\.\d+$/', $targetCriterion)) {
+        return 'wcag.php#guideline-' . str_replace('.', '-', $targetCriterion);
+    }
+
+    return 'wcag.php';
 }
 
 function classifyAwareness(float $percentage): string
@@ -88,6 +99,10 @@ try {
             $principleScores[$question['principle']]['correct']++;
         }
 
+        $criterionId = preg_match('/\d+\.\d+\.\d+/', (string) $question['success_criterion'], $criterionMatches)
+            ? $criterionMatches[0]
+            : null;
+
         if (!isset($guidelineScores[$question['guideline_code']])) {
             $guidelineScores[$question['guideline_code']] = [
                 'guideline_code' => $question['guideline_code'],
@@ -96,8 +111,14 @@ try {
                 'total' => 0,
                 'incorrect' => 0,
                 'score' => 0,
-                'url' => guidelineUrl($question['guideline_code'])
+                'criterion_id' => $criterionId,
+                'url' => guidelineUrl($question['guideline_code'], $criterionId)
             ];
+        }
+
+        if ($criterionId && (!isset($guidelineScores[$question['guideline_code']]['criterion_id']) || $guidelineScores[$question['guideline_code']]['criterion_id'] === null)) {
+            $guidelineScores[$question['guideline_code']]['criterion_id'] = $criterionId;
+            $guidelineScores[$question['guideline_code']]['url'] = guidelineUrl($question['guideline_code'], $criterionId);
         }
 
         $guidelineScores[$question['guideline_code']]['total']++;
@@ -149,16 +170,29 @@ try {
         return $a['score'] <=> $b['score'];
     });
 
+    $hasPerfectPrincipleScore = array_reduce($principleResults, static function ($carry, $result) {
+        return $carry || ((int) ($result['percent'] ?? 0) === 100);
+    }, false);
+
     $recommendations = [];
-    foreach (array_slice($sortedGuidelines, 0, 3) as $guide) {
-        $recommendations[] = [
-            'guideline_code' => $guide['guideline_code'],
-            'guideline_name' => $guide['guideline_name'],
-            'score' => $guide['score'],
-            'incorrect' => $guide['incorrect'],
-            'message' => 'You answered several questions related to this guideline incorrectly.',
-            'url' => $guide['url']
-        ];
+    if (!$hasPerfectPrincipleScore) {
+        foreach (array_slice($sortedGuidelines, 0, 3) as $guide) {
+            $criterionId = $guide['criterion_id'] ?? $guide['guideline_code'];
+            $successCriterionLabel = $criterionId && preg_match('/^\d+\.\d+\.\d+$/', (string) $criterionId)
+                ? $criterionId . ' ' . $guide['guideline_name']
+                : $guide['guideline_name'];
+
+            $recommendations[] = [
+                'guideline_code' => $guide['guideline_code'],
+                'guideline_name' => $guide['guideline_name'],
+                'criterion_id' => $criterionId,
+                'success_criterion' => $successCriterionLabel,
+                'score' => $guide['score'],
+                'incorrect' => $guide['incorrect'],
+                'message' => 'You answered several questions related to this success criterion incorrectly.',
+                'url' => $guide['url']
+            ];
+        }
     }
 
     $weakestPrinciple = null;

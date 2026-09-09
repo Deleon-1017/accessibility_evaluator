@@ -527,7 +527,20 @@ class WCAGDataManager {
    * @returns {Object|undefined} The guideline object or undefined if not found
    */
   getGuideline(guidelineId) {
-    return this.guidelinesMap.get(guidelineId);
+    if (!guidelineId) {
+      return undefined;
+    }
+
+    if (this.guidelinesMap.has(guidelineId)) {
+      return this.guidelinesMap.get(guidelineId);
+    }
+
+    if (/^\d+\.\d+$/.test(guidelineId)) {
+      const candidate = Array.from(this.guidelinesMap.keys()).find(id => id.startsWith(`${guidelineId}.`));
+      return candidate ? this.guidelinesMap.get(candidate) : undefined;
+    }
+
+    return undefined;
   }
   
   /**

@@ -352,9 +352,9 @@
                 <div class="card-body p-4 p-md-5">
                     <h2 class="h4 mb-3">Review before submission</h2>
                     <p id="reviewSummary" class="mb-4"></p>
+                    <div id="reviewQuestionList" class="mb-4" aria-live="polite"></div>
                     <div class="button-row">
                         <button id="returnToQuizBtn" type="button" class="btn btn-outline-primary">Return to Quiz</button>
-                        <button id="reviewAnswersBtn" type="button" class="btn btn-outline-secondary">Review Answers</button>
                         <button id="submitQuizBtn" type="button" class="btn btn-primary">Submit Quiz</button>
                     </div>
                 </div>
@@ -475,9 +475,9 @@
             questionProgressPct: document.getElementById('questionProgressPct'),
             questionCard: document.getElementById('questionCard'),
             reviewSummary: document.getElementById('reviewSummary'),
+            reviewQuestionList: document.getElementById('reviewQuestionList'),
             submitQuizBtn: document.getElementById('submitQuizBtn'),
             returnToQuizBtn: document.getElementById('returnToQuizBtn'),
-            reviewAnswersBtn: document.getElementById('reviewAnswersBtn'),
             resultScore: document.getElementById('resultScore'),
             resultPercent: document.getElementById('resultPercent'),
             awarenessLevel: document.getElementById('awarenessLevel'),
@@ -627,10 +627,39 @@
             return text.replace(/[&<>"']/g, (char) => map[char]);
         }
 
+        function buildSuccessCriterionLabel(criterionId, criterionName) {
+            const id = criterionId || 'Unknown';
+            const name = criterionName ? String(criterionName).replace(new RegExp(`^${String(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*[-–:]?\\s*`), '').trim() : '';
+            return name ? `Success Criterion ${id} — ${name}` : `Success Criterion ${id}`;
+        }
+
+        function renderReviewQuestionList() {
+            ui.reviewQuestionList.innerHTML = quizState.questions.map((question, index) => {
+                const selected = quizState.answers[question.id];
+                const answerStatus = selected ? 'Answered' : 'Unanswered';
+                const answerText = selected
+                    ? `${selected} — ${escapeHtml(question[`option_${selected.toLowerCase()}`] || '')}`
+                    : 'Not answered';
+
+                return `
+                    <div class="review-row mb-3">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                            <h3 class="h6 mb-0">Question ${index + 1}</h3>
+                            <span class="result-badge ${selected ? 'correct' : 'incorrect'}">${answerStatus}</span>
+                        </div>
+                        <p class="mb-2"><strong>Question:</strong> ${escapeHtml(question.question)}</p>
+                        ${question.code_snippet ? `<pre class="code-snippet"><code>${escapeHtml(question.code_snippet)}</code></pre>` : ''}
+                        <p class="mb-0"><strong>Your answer:</strong> ${answerText}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function showReviewBeforeSubmit() {
             const answeredCount = Object.keys(quizState.answers).length;
             const unanswered = quizState.questions.length - answeredCount;
             ui.reviewSummary.textContent = `You have answered ${answeredCount} of ${quizState.questions.length} questions. ${unanswered} question${unanswered === 1 ? '' : 's'} remain${unanswered === 1 ? 's' : ''} unanswered.`;
+            renderReviewQuestionList();
 
             if (unanswered > 0) {
                 ui.submitQuizBtn.disabled = true;
@@ -745,17 +774,24 @@
                 ui.principleResults.appendChild(row);
             });
 
+            const recommendationsSection = ui.recommendations.closest('.mb-4');
             if (results.recommendations && results.recommendations.length > 0) {
-                ui.recommendations.innerHTML = results.recommendations.map((recommendation) => `
-                    <div class="weak-recommendation mb-3">
-                        <h4 class="h5 mb-1">Guideline ${recommendation.guideline_code} — ${escapeHtml(recommendation.guideline_name)}</h4>
-                        <p class="mb-1">Score: ${recommendation.score}%</p>
-                        <p class="mb-0">${escapeHtml(recommendation.message)}</p>
-                        <a class="guideline-link" href="${recommendation.url}">Review Guideline ${recommendation.guideline_code} — ${escapeHtml(recommendation.guideline_name)}</a>
-                    </div>
-                `).join('');
+                recommendationsSection.style.display = 'block';
+                ui.recommendations.innerHTML = results.recommendations.map((recommendation) => {
+                    const criterionId = recommendation.criterion_id || recommendation.guideline_code || 'Unknown';
+                    const criterionName = String(recommendation.success_criterion || recommendation.guideline_name || '').replace(new RegExp(`^${String(criterionId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*[-–:]?\\s*`), '').trim();
+                    const displayTitle = buildSuccessCriterionLabel(criterionId, criterionName || recommendation.guideline_name);
+                    return `
+                        <div class="weak-recommendation mb-3">
+                            <h4 class="h5 mb-1">${escapeHtml(displayTitle)}</h4>
+                            <p class="mb-1">Score: ${recommendation.score}%</p>
+                            <p class="mb-0">${escapeHtml(recommendation.message)}</p>
+                            <a class="guideline-link" href="${recommendation.url}">Review ${escapeHtml(displayTitle)}</a>
+                        </div>
+                    `;
+                }).join('');
             } else {
-                ui.recommendations.innerHTML = '<div class="weak-recommendation"><strong>Excellent Performance</strong><p class="mb-0">You demonstrated strong awareness across the WCAG 2.1 Principles covered by this quiz. Continue exploring the WCAG Guidelines and Success Criteria to deepen your accessibility knowledge.</p><a class="guideline-link" href="wcag.php">Explore WCAG Guidelines</a></div>';
+                recommendationsSection.style.display = 'none';
             }
 
             ui.reviewAnswersContainer.innerHTML = results.review_answers.map((entry) => {
@@ -812,7 +848,6 @@
         ui.startBtn.addEventListener('click', startQuiz);
         ui.submitQuizBtn.addEventListener('click', submitQuiz);
         ui.returnToQuizBtn.addEventListener('click', reviewAnswers);
-        ui.reviewAnswersBtn.addEventListener('click', reviewAnswers);
         ui.retakeQuizBtn.addEventListener('click', resetQuiz);
 
         loadQuizData();
