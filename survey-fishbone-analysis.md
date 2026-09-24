@@ -4,56 +4,60 @@ Based on survey results from 45 IT students and 24 professionals, this document 
 
 ---
 
-## Fishbone Diagram 1: Insufficient Practical Learning Resources
+## Fishbone Diagram 1: Learning Measure Difficulties
 
-**Problem Statement:** 42.2% report lack of practical examples as their primary difficulty, and 26.7% lack hands-on checking tools, indicating a critical shortage of applied learning resources.
+**Problem Statement:** Learning measure difficulties stem from inadequate instructional resources, including limited classroom discussion (40%) and lack of practical examples (42.2%), preventing students from developing essential accessibility evaluation skills.
 
 ```
                     Environment                                    People
                          |                                            |
                          |                                            |
-    No dedicated         |                        Unfamiliar with     |
-    accessibility  ──────┤                        accessibility  ────┤
-    lab/tools            |                        concepts (26.7%)    |
+    No accessibility     |                        Cannot self-assess  |
+    measurement/   ──────┤                        accessibility  ────┤
+    evaluation tools     |                        implementation      |
                          |                                            |
     Limited classroom    |                        Instructors lack    |
-    discussion     ──────┤                        practical      ────┤
-    (40%)                |                        expertise           |
+    discussion on  ──────┤                        assessment/    ────┤
+    measurement          |                        evaluation          |
+    techniques (40%)     |                        training            |
                          |                                            |
                          └────────────┐                  ┌────────────┘
                                       │                  │
                                       ▼                  ▼
-                                      ●──────────────────────────► INSUFFICIENT
-                                      ▲                  ▲          PRACTICAL LEARNING
-                         ┌────────────┘                  └────────────┐ RESOURCES
+                                      ●──────────────────────────► LEARNING MEASURE
+                                      ▲                  ▲          DIFFICULTIES
+                         ┌────────────┘                  └────────────┐
                          |                                            |
-    No automated         |                        No standardized     |
-    checking tools ──────┤                        examples aligned ──┤
-    available (26.7%)    |                        with WCAG           |
+    No guided            |                        No standardized     |
+    evaluation     ──────┤                        assessment     ────┤
+    workflow or          |                        criteria or         |
+    measurement process  |                        measurement rubrics |
                          |                                            |
-    Lack of practical    |                        Guidelines too      |
-    examples       ──────┤                        abstract/complex ──┤
-    (42.2% - highest)    |                        (24.4%)             |
+    Lack of evaluation   |                        No clear benchmarks|
+    examples showing ────┤                        for evaluating ────┤
+    how to measure       |                        compliance (24.4%)  |
+    accessibility        |                                            |
+    (42.2% - highest)    |                                            |
                          |                                            |
                       Process                                  Standardization
 ```
 
 ### Root Causes:
 1. **Environment Issues**
-   - No dedicated accessibility testing lab or tools
-   - Limited classroom discussion time (40%)
+   - No accessibility measurement/evaluation tools available for learning
+   - Limited classroom discussion on measurement techniques (40%)
    
 2. **People Factors**
-   - 26.7% unfamiliar with basic accessibility concepts
-   - Instructors lack practical implementation expertise
+   - Students cannot self-assess their accessibility implementation
+   - Instructors lack training in teaching assessment and evaluation skills
    
 3. **Process Gaps**
-   - No automated checking tools available (26.7% report this need)
-   - Lack of practical examples (42.2% - highest reported difficulty)
+   - No guided evaluation workflow or measurement process
+   - Lack of evaluation examples showing how to measure accessibility (42.2% - highest reported difficulty)
    
 4. **Standardization Problems**
-   - No standardized examples aligned with WCAG criteria
-   - Guidelines presented in abstract/complex manner (24.4%)
+   - No standardized assessment criteria or measurement rubrics
+   - No clear benchmarks for evaluating compliance (24.4%)
 
 ---
 

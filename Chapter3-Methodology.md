@@ -30,6 +30,7 @@ The functional requirements of this project serve as a roadmap for the developme
 | **Educational Content Module** | Delivers tutorials on accessibility guidelines organized by WCAG principle. Provides before-and-after examples demonstrating accessible versus non-accessible design. Includes short lessons explaining individual accessibility rules. |
 | **Results Visualization and Reporting Module** | Displays scan results in an organized, user-friendly format. Presents accessibility score with visual feedback. Categorizes issues by type, WCAG criterion, and principle. Provides "How to Fix" guidance for each issue. |
 | **WCAG Guidelines Reference Module** | Offers comprehensive information about WCAG 2.1 guidelines. Displays guideline details including principle, level, description, techniques, and user groups who benefit. Supports educational exploration of accessibility standards. |
+| **Web Accessibility Awareness Assessment Module** | Provides an interactive 40-question quiz distributed equally across the four WCAG principles (Perceivable, Operable, Understandable, Robust). Tests users' understanding through multiple-choice questions including practical code scenarios. Features principle-based navigation with color-coded tabs, real-time progress tracking, and pre-submission review interface. Generates comprehensive results showing overall score, performance by principle, awareness level classification (Unaware, Developing Awareness, Aware), personalized recommendations for weak areas, and detailed answer reviews with explanations. Supports iterative learning through retake functionality. |
 
 
 
@@ -100,7 +101,7 @@ The context diagram illustrates the high-level architecture and interaction flow
 
 At the top of the diagram, the **User** entity represents the primary actors who interact with the system—specifically, Information Technology students and instructors from Cavite State University. These users serve as both the input source and the output recipient of the system. Users initiate the evaluation process by providing input through two distinct methods: submitting a website URL for remote scanning or pasting HTML code directly for local evaluation. This dual-input approach addresses different learning scenarios, allowing students to evaluate both live websites and code they are actively developing. After the system completes its evaluation, users receive comprehensive accessibility results, access educational tutorials explaining WCAG principles, and obtain actionable recommendations for fixing detected issues.
 
-The central component, the **Web-Based Accessibility Evaluation Tool**, represents the core system that performs all accessibility evaluation functions. This system acts as the processing hub that orchestrates multiple operations including scanning websites for WCAG 2.1 compliance, analyzing HTML code structure to identify elements requiring accessibility checks, detecting accessibility violations across multiple criteria, generating plain-language feedback that translates technical WCAG terminology into beginner-friendly explanations, providing educational content to support learning, and displaying comprehensive WCAG guidelines reference materials. The system is designed with an educational focus, ensuring that all outputs prioritize learning and understanding over mere technical reporting.
+The central component, the **Web-Based Accessibility Evaluation Tool**, represents the core system that performs all accessibility evaluation functions. This system acts as the processing hub that orchestrates multiple operations including scanning websites for WCAG 2.1 compliance, analyzing HTML code structure to identify elements requiring accessibility checks, detecting accessibility violations across multiple criteria, generating plain-language feedback that translates technical WCAG terminology into beginner-friendly explanations, providing educational content to support learning, administering interactive assessments to measure web accessibility knowledge, and displaying comprehensive WCAG guidelines reference materials. The system is designed with an educational focus, ensuring that all outputs prioritize learning and understanding over mere technical reporting.
 
 The **Database (MySQL)** entity, positioned at the bottom left of the diagram, serves as the persistent storage layer for the system. The database maintains critical information required for system operation and historical tracking. It stores complete WCAG 2.1 criteria definitions including success criteria, conformance levels, and principle classifications. Additionally, it houses implementation techniques that provide guidance on how to meet each criterion, before-and-after code examples demonstrating accessible versus non-accessible implementations, user group information identifying who benefits from each accessibility feature, and scan history containing all previous evaluation results for tracking and analysis purposes. The bidirectional data flow between the system and database indicates that the system both retrieves WCAG criteria for evaluation purposes and stores scan results for future reference.
 
@@ -310,6 +311,8 @@ This use case diagram effectively communicates the functional requirements of th
 4. **View Accessibility Result**: User reviews detected accessibility issues with detailed information
 5. **View WCAG 2.1 Guidelines**: User explores accessibility standards and principles
 6. **Access Educational Content**: User learns about accessibility through various educational materials (extends View WCAG 2.1 Guidelines)
+7. **Take Web Accessibility Awareness Assessment**: User tests their understanding of WCAG 2.1 principles through an interactive 40-question quiz distributed across the four WCAG principles
+8. **Review Assessment Results**: User views comprehensive results including overall score, performance by principle, awareness level classification, personalized recommendations, and detailed answer explanations (included in Take Web Accessibility Awareness Assessment)
 
 **Included Use Cases (<<include>>):**
 - **Generate Evaluation**: Mandatory step that compiles evaluation findings into a structured report (included in View Accessibility Result)
@@ -581,9 +584,9 @@ The non-functional requirements define the quality attributes and constraints th
 
 ## System Design
 
-In order to create a Web-Based Accessibility Evaluation Tool for Inclusive Web Design, the researcher conducted planning and requirement analysis by gathering functional and non-functional requirements from students, instructors, and web development professionals. This provided guidance on adding features for the accessibility evaluation tool, which includes automated WCAG 2.1 compliance checking, plain-language feedback generation, educational content delivery, and comprehensive reporting. The researcher created wireframes that show a visual representation of the interfaces. Wireframes outline the structures of the given features that will help as a guide in creating the accessibility evaluation tool.
+In order to create a Web-Based Accessibility Evaluation Tool for Inclusive Web Design, the researcher conducted planning and requirement analysis by gathering functional and non-functional requirements from students, instructors, and web development professionals. This provided guidance on adding features for the accessibility evaluation tool, which includes automated WCAG 2.1 compliance checking, plain-language feedback generation, educational content delivery, comprehensive reporting, and an interactive assessment module for measuring web accessibility awareness. The researcher created wireframes that show a visual representation of the interfaces. Wireframes outline the structures of the given features that will help as a guide in creating the accessibility evaluation tool.
 
-In the development phase, a database will be set up using XAMPP and MySQL to store WCAG criteria, scan results, and educational content. The platform will be developed as a web application, using HTML, CSS, and JavaScript for the frontend and PHP for backend functionalities.
+In the development phase, a database will be set up using XAMPP and MySQL to store WCAG criteria, scan results, educational content, and quiz questions for the assessment module. The platform will be developed as a web application, using HTML, CSS, and JavaScript for the frontend and PHP for backend functionalities.
 
 **Figure 5. Wireframe of the Home Page**
 
@@ -601,9 +604,294 @@ This diagram showcases the wireframe of the system's WCAG guidelines page, which
 
 This diagram illustrates the wireframe of the WCAG 2.1 guidelines overview page, which is designed to introduce users to the Web Content Accessibility Guidelines and their conformance levels. It showcases the layout with a header explaining WCAG 2.1's purpose, followed by an "Understanding Conformance Levels" section featuring three cards that explain Level A (Essential Foundation), Level AA (Industry Standard), and Level AAA (Excellence Level). Each card provides a clear description of what the conformance level represents and its significance in web accessibility. By visualizing the overview page, the diagram emphasizes the importance of providing foundational knowledge about WCAG standards while ensuring users have a clear and accessible way to understand the different levels of compliance.
 
+**Figure 8a. Wireframe of the Web Accessibility Awareness Assessment Page - Introduction View**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                           HEADER / NAVIGATION                       │
+│  [Logo] Web Accessibility Evaluator                                 │
+│  [Home] [WCAG Guidelines] [Assessment] [About]                      │
+└─────────────────────────────────────────────────────────────────────┘
+│                                                                     │
+│                                                                     │
+│  ┌───────────────────────────────────────────────────────────────┐ │
+│  │                                                               │ │
+│  │   Web Accessibility Awareness Assessment                      │ │
+│  │                                                               │ │
+│  │   Test your understanding of WCAG 2.1 principles,            │ │
+│  │   guidelines, and success criteria through practical         │ │
+│  │   accessibility scenarios.                                   │ │
+│  │                                                               │ │
+│  └───────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+│                                                 ┌─────────────────┐ │
+│                                                 │  [Start Quiz]   │ │
+│                                                 └─────────────────┘ │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                                                                     │
+│                          FOOTER                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+This diagram showcases the wireframe of the Web Accessibility Awareness Assessment introduction page, which serves as the entry point for students and instructors to test their understanding of WCAG 2.1 principles, guidelines, and success criteria through practical accessibility scenarios. The layout features a clear heading "Web Accessibility Awareness Assessment" followed by a descriptive subtitle explaining that users will test their understanding of WCAG 2.1 through practical scenarios. The page includes a prominent "Start Quiz" button positioned on the right side to initiate the assessment. This introduction view establishes the educational purpose of the assessment and provides users with clear expectations before beginning the quiz.
+
+**Figure 8b. Wireframe of the Web Accessibility Awareness Assessment Page - Quiz Interface**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                           HEADER / NAVIGATION                       │
+│  [Logo] Web Accessibility Evaluator                                 │
+│  [Home] [WCAG Guidelines] [Assessment*] [About]                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐   │
+│  │  QUIZ INTERFACE CARD                                        │   │
+│  │                                                             │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │   │
+│  │  │Perceiv-  │ │Operable* │ │Understand│ │ Robust   │      │   │
+│  │  │able      │ │  (Active)│ │able      │ │          │      │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  Question 15 of 40                              38%        │   │
+│  │  [████████████████░░░░░░░░░░░░░░░░░░░░░░░░]               │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  Which WCAG success criterion requires that all           │   │
+│  │  functionality is available from a keyboard?               │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐ │   │
+│  │  │ // Code snippet example (if applicable)              │ │   │
+│  │  │ <button onclick="handleClick()">                     │ │   │
+│  │  │   Submit                                             │ │   │
+│  │  │ </button>                                            │ │   │
+│  │  └──────────────────────────────────────────────────────┘ │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐ │   │
+│  │  │ ○ A  Success Criterion 1.1.1 Non-text Content       │ │   │
+│  │  └──────────────────────────────────────────────────────┘ │   │
+│  │  ┌──────────────────────────────────────────────────────┐ │   │
+│  │  │ ● B  Success Criterion 2.1.1 Keyboard (Selected)    │ │   │
+│  │  └──────────────────────────────────────────────────────┘ │   │
+│  │  ┌──────────────────────────────────────────────────────┐ │   │
+│  │  │ ○ C  Success Criterion 3.2.1 On Focus               │ │   │
+│  │  └──────────────────────────────────────────────────────┘ │   │
+│  │  ┌──────────────────────────────────────────────────────┐ │   │
+│  │  │ ○ D  Success Criterion 4.1.2 Name, Role, Value      │ │   │
+│  │  └──────────────────────────────────────────────────────┘ │   │
+│  │                                                             │   │
+│  │  ┌──────────┐                           ┌──────────────┐  │   │
+│  │  │[Previous]│                           │    [Next]    │  │   │
+│  │  └──────────┘                           └──────────────┘  │   │
+│  │                                                             │   │
+│  └─────────────────────────────────────────────────────────────┘   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                          FOOTER                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+This diagram illustrates the wireframe of the active quiz interface where users answer questions about web accessibility. The interface is organized into several key components: at the top, principle tabs for the four WCAG principles (Perceivable, Operable, Understandable, Robust) allow users to see which principle they are currently being tested on, with active principle tabs visually highlighted using principle-specific colors. Below the tabs, a progress indicator displays the current question number (e.g., "Question 15 of 40"), percentage completion, and a visual progress bar showing overall quiz progress. The main content area presents the question text, which may include code snippets displayed in a dark-themed code block for enhanced readability when testing technical accessibility scenarios. Four multiple-choice options (A, B, C, D) are presented as selectable buttons with clear visual feedback for selected answers. Navigation buttons ("Previous" and "Next") are positioned at the bottom, with the "Next" button changing to "Review Answers" on the final question. The wireframe demonstrates how the quiz interface maintains accessibility by providing clear question counters, progress indicators with ARIA labels, and keyboard-navigable option buttons with proper focus indicators.
+
+**Figure 8c. Wireframe of the Web Accessibility Awareness Assessment Page - Review Before Submit**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                           HEADER / NAVIGATION                       │
+│  [Logo] Web Accessibility Evaluator                                 │
+│  [Home] [WCAG Guidelines] [Assessment*] [About]                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐   │
+│  │  REVIEW BEFORE SUBMISSION                                   │   │
+│  │                                                             │   │
+│  │  Review before submission                                   │   │
+│  │                                                             │   │
+│  │  You have answered 35 of 40 questions.                      │   │
+│  │  5 questions remain unanswered.                             │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Question 1                      [Answered ✓]         │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Question: What is the purpose of alt text?          │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Your answer: A - To provide text alternative...     │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Question 5                      [Unanswered ✗]      │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Question: Which element requires a label?           │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Your answer: Not answered                           │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Question 12                     [Answered ✓]         │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Question: What is keyboard navigation?              │  │   │
+│  │  │ // Code snippet shown here                          │  │   │
+│  │  │ Your answer: C - Navigating with Tab key...         │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ... (more questions)                                       │   │
+│  │                                                             │   │
+│  │  ┌────────────────┐  ┌─────────────────────────────────┐  │   │
+│  │  │[Return to Quiz]│  │ [Answer all questions to submit]│  │   │
+│  │  └────────────────┘  └─────────────────────────────────┘  │   │
+│  │                      (Submit button disabled until all     │   │
+│  │                       questions are answered)              │   │
+│  └─────────────────────────────────────────────────────────────┘   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                          FOOTER                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+This diagram presents the wireframe of the review interface that appears before final quiz submission. The layout includes a comprehensive review section titled "Review before submission" that displays a summary indicating how many questions have been answered (e.g., "You have answered 35 of 40 questions. 5 questions remain unanswered"). Below the summary, each question is listed in a card format showing the question number, question text, any associated code snippets, answer status (Answered/Unanswered) with visual badges, and the user's selected answer. This review interface allows users to verify their responses before submitting, supporting better decision-making and reducing submission errors. Two action buttons are provided: "Return to Quiz" allows users to go back and modify answers, while "Submit Quiz" completes the assessment. If questions remain unanswered, the submit button displays "Answer all questions to submit" and is disabled to ensure complete assessment data.
+
+**Figure 8d. Wireframe of the Web Accessibility Awareness Assessment Page - Results View**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                           HEADER / NAVIGATION                       │
+│  [Logo] Web Accessibility Evaluator                                 │
+│  [Home] [WCAG Guidelines] [Assessment*] [About]                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                                                                     │
+│  ┌─────────────────────────────────────────────────────────────┐   │
+│  │  WCAG 2.1 QUIZ RESULTS                                      │   │
+│  │                                                             │   │
+│  │                      ┌──────────────┐                       │   │
+│  │                      │              │                       │   │
+│  │                      │   32 / 40    │                       │   │
+│  │                      │              │                       │   │
+│  │                      │     80%      │                       │   │
+│  │                      │              │                       │   │
+│  │                      └──────────────┘                       │   │
+│  │                                                             │   │
+│  │            [Accessibility Awareness: Aware ✓]               │   │
+│  │                                                             │   │
+│  │  Your results indicate a good understanding of fundamental  │   │
+│  │  WCAG 2.1 accessibility principles and their application.   │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  Performance by Principle                                   │   │
+│  │                                                             │   │
+│  │  Perceivable           8 / 10 (80%)                         │   │
+│  │  [████████████████░░]                                       │   │
+│  │                                                             │   │
+│  │  Operable              7 / 10 (70%)                         │   │
+│  │  [██████████████░░░░]                                       │   │
+│  │                                                             │   │
+│  │  Understandable        9 / 10 (90%)                         │   │
+│  │  [██████████████████]                                       │   │
+│  │                                                             │   │
+│  │  Robust                8 / 10 (80%)                         │   │
+│  │  [████████████████░░]                                       │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  Recommended Topics to Review                               │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Success Criterion 2.1.1 — Keyboard                   │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Score: 60%                                           │  │   │
+│  │  │ Review this topic to improve keyboard accessibility  │  │   │
+│  │  │                                                      │  │   │
+│  │  │ [Review Success Criterion 2.1.1 →]                  │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Success Criterion 1.4.3 — Contrast (Minimum)         │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Score: 50%                                           │  │   │
+│  │  │ Review this topic to improve color contrast          │  │   │
+│  │  │                                                      │  │   │
+│  │  │ [Review Success Criterion 1.4.3 →]                  │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ────────────────────────────────────────────────────────  │   │
+│  │                                                             │   │
+│  │  Answer Review                                              │   │
+│  │                                                             │   │
+│  │  ┌──────────────────────────────────────────────────────┐  │   │
+│  │  │ Question 1                          [Correct ✓]      │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Principle: Perceivable                               │  │   │
+│  │  │ Guideline: 1.1 Text Alternatives                     │  │   │
+│  │  │ Success Criterion: 1.1.1 Non-text Content            │  │   │
+│  │  │                                                      │  │   │
+│  │  │ Question: What is the purpose of alt text for images?│  │   │
+│  │  │                                                      │  │   │
+│  │  │ Your answer: A - Provide text alternative           │  │   │
+│  │  │ Correct answer: A - Provide text alternative        │  │   │
+│  │  │                                                      │  │   │
+│  │  │ ℹ Explanation: Alt text provides a text alternative  │  │   │
+│  │  │   for images, allowing screen reader users to        │  │   │
+│  │  │   understand the content and function of images.     │  │   │
+│  │  └──────────────────────────────────────────────────────┘  │   │
+│  │                                                             │   │
+│  │  ... (all 40 questions reviewed)                            │   │
+│  │                                                             │   │
+│  │                    ┌────────────────┐                      │   │
+│  │                    │ [Retake Quiz]  │                      │   │
+│  │                    └────────────────┘                      │   │
+│  │                                                             │   │
+│  └─────────────────────────────────────────────────────────────┘   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+│                          FOOTER                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+This diagram showcases the wireframe of the comprehensive results page displayed after quiz submission. The results interface is designed to provide detailed feedback and educational recommendations organized into multiple sections. At the top, a prominent results summary displays the user's score (e.g., "32 / 40"), percentage achieved (e.g., "80%"), and an awareness level badge indicating their proficiency (e.g., "Accessibility Awareness: Aware"). The awareness levels are categorized as "Unaware" (below 40%), "Developing Awareness" (40-74%), and "Aware" (75% and above), each with color-coded badges. Below the summary, a description provides contextual feedback based on the awareness level achieved. The "Performance by Principle" section displays four progress bars showing the user's score for each WCAG principle (Perceivable, Operable, Understandable, Robust) with both numerical scores (e.g., "7 / 10") and percentages. The "Recommended Topics to Review" section identifies specific WCAG success criteria where the user scored poorly, providing targeted learning recommendations with direct links to the relevant guidelines (e.g., "Success Criterion 1.1.1 — Non-text Content" with a "Review Success Criterion 1.1.1" link). The "Answer Review" section provides a detailed breakdown of each question, showing whether the user answered correctly or incorrectly with visual badges, displaying the question text and any code snippets, revealing both the user's answer and the correct answer, and providing plain-language explanations for each question to support learning. At the bottom, a "Retake Quiz" button allows users to attempt the assessment again to improve their understanding. This comprehensive results view transforms the assessment from a simple test into an educational tool by providing actionable feedback and learning pathways.
+
+**Assessment Module Architecture and Functionality**
+
+The Web Accessibility Awareness Assessment module represents a significant educational feature that complements the evaluation tool by measuring and enhancing users' understanding of WCAG 2.1 concepts. This interactive assessment system consists of 40 carefully designed multiple-choice questions distributed equally across the four WCAG principles—10 questions each for Perceivable, Operable, Understandable, and Robust principles. Each question is linked to specific WCAG guidelines and success criteria, ensuring alignment with official accessibility standards.
+
+The assessment module implements a sophisticated quiz workflow managed entirely through client-side JavaScript with backend API support. When users initiate the quiz, the system fetches questions from the database via the `api/get-quiz-questions.php` endpoint, which retrieves 40 questions randomized by principle to ensure variety across assessment attempts. The quiz state management tracks the current question index, user answers stored in a key-value structure mapping question IDs to selected options, and results data received after submission. The interface organizes questions by principle using interactive principle tabs that allow users to navigate between different sections of the quiz, providing visual feedback through principle-specific color coding—blue for Perceivable, purple for Operable, green for Understandable, and orange for Robust.
+
+As users progress through the assessment, the interface provides real-time feedback through multiple indicators: a question counter displaying current position and total questions (e.g., "Question 5 of 40"), an overall progress bar showing percentage completion, and updated progress percentages. Questions may include practical code snippets displayed in accessible, syntax-highlighted code blocks to test users' ability to identify accessibility issues in real HTML implementations. Users select answers by clicking option buttons marked A, B, C, or D, with visual feedback indicating selected choices. Navigation is facilitated through "Previous" and "Next" buttons, with the final question's "Next" button changing to "Review Answers" to transition to the pre-submission review phase.
+
+The review interface presents a comprehensive summary before submission, listing all questions with their answer status (Answered/Unanswered) indicated by color-coded badges. Users can see exactly which questions remain unanswered and have the opportunity to return to the quiz to complete or modify their responses. The submit button remains disabled with explanatory text ("Answer all questions to submit") until all 40 questions have been answered, ensuring complete assessment data for accurate evaluation.
+
+Upon submission, the system sends the user's answers to the `api/submit-quiz.php` endpoint, which processes the responses by comparing them against correct answers stored in the database, calculating the overall score and percentage, determining performance for each WCAG principle separately, identifying weak areas where the user scored below 70% on specific success criteria, and generating detailed answer reviews with explanations. The results interface presents this information in an educational format designed to maximize learning outcomes.
+
+The results view categorizes user performance into three awareness levels based on percentage scores: "Unaware" (below 40%) indicates limited familiarity with WCAG concepts and recommends reviewing fundamental principles; "Developing Awareness" (40-74%) indicates partial understanding with several areas needing further study; and "Aware" (75% and above) indicates good understanding of fundamental WCAG principles with encouragement to continue deepening knowledge. Each awareness level includes tailored descriptive feedback that acknowledges current knowledge while providing constructive guidance for improvement.
+
+The performance by principle section visualizes scores for each of the four WCAG principles using progress bars and numerical indicators, allowing users to identify which principles they understand well and which require additional study. This breakdown supports targeted learning by directing users' attention to specific areas of weakness rather than treating accessibility knowledge as a monolithic concept.
+
+The recommendations section provides actionable learning pathways by identifying specific WCAG success criteria where the user struggled, displaying the success criterion ID and name (e.g., "Success Criterion 2.1.1 — Keyboard"), showing the user's score for questions related to that criterion, providing a brief message explaining why this topic is important, and offering a direct link to the detailed guideline explanation in the WCAG Guidelines section of the system. This personalized recommendation engine transforms raw quiz data into a customized learning plan that addresses each user's specific knowledge gaps.
+
+The answer review section provides the most detailed feedback by presenting every question with the user's answer, the correct answer, and a plain-language explanation of why the correct answer is right. This approach supports learning from mistakes by helping users understand not just what the correct answer is, but why it is correct according to WCAG principles. The review includes all original question context, including code snippets, ensuring users can revisit the scenario with full information.
+
+From a technical implementation perspective, the assessment module demonstrates several sophisticated frontend and backend patterns. The client-side JavaScript manages complex state including question data, current position, user answers, and results, with reactive rendering that updates the interface based on state changes. The principle tab navigation implements ARIA roles and attributes (role="tab", aria-selected) to ensure keyboard navigation and screen reader compatibility. Progress indicators include proper ARIA labels and live regions (aria-live="polite") to announce changes to assistive technology users. Option buttons implement proper focus management with visible focus indicators meeting WCAG 2.1 success criterion 2.4.7 (Focus Visible), and use aria-pressed attributes to communicate selection state.
+
+The backend API endpoints implement secure data handling through CSRF token validation using the X-Requested-With header to prevent cross-site request forgery, JSON payload validation to ensure data integrity, and prepared SQL statements to prevent injection attacks. The submission endpoint processes answers efficiently by loading correct answers for all questions in a single database query, calculating scores using array intersection and comparison operations, and generating recommendations by analyzing performance on a per-criterion basis with configurable thresholds.
+
+The assessment module integrates seamlessly with the existing system architecture by sharing the same navigation structure and visual design language, linking recommendation results to the WCAG Guidelines section for continuous learning, maintaining consistent accessibility standards throughout the quiz interface, and storing quiz results in the database for potential future analysis of learning patterns. This integration ensures that the assessment feels like a natural extension of the evaluation tool rather than a separate, disconnected feature.
+
+The educational value of the assessment module lies in its ability to transform passive learning into active knowledge testing, provide immediate, personalized feedback on knowledge gaps, connect abstract WCAG concepts to practical scenarios through code examples, support iterative learning through the retake functionality, and bridge the gap between theoretical guideline understanding and practical application skills. By incorporating this assessment module, the system addresses the survey findings that students lack confidence in implementing accessibility features and provides a low-stakes environment for testing and building that confidence through repeated practice and detailed feedback.
+
 **Figure 9. Entity-Relationship Diagram of the System**
 
-This diagram shows the entity-relationship structure of the accessibility evaluation tool's database, illustrating how different data entities are connected and organized. The database includes tables for storing WCAG criteria (wcag_criteria), implementation techniques (wcag_techniques), before/after code examples (wcag_examples), user groups who benefit from each criterion (wcag_user_groups), scan results metadata (scan_results), and individual accessibility issues detected during scans (accessibility_checks). The diagram demonstrates the relationships between these entities, showing how WCAG criteria serve as the foundation for techniques, examples, and user group information through one-to-many relationships, while scan results link to individual accessibility checks. This structure ensures efficient data storage, retrieval, and management of both educational content and evaluation results.
+This diagram shows the entity-relationship structure of the accessibility evaluation tool's database, illustrating how different data entities are connected and organized. The database includes tables for storing WCAG criteria (wcag_criteria), implementation techniques (wcag_techniques), before/after code examples (wcag_examples), user groups who benefit from each criterion (wcag_user_groups), scan results metadata (scan_results), individual accessibility issues detected during scans (accessibility_checks), quiz questions for the assessment module (quiz_questions), and quiz submission records (quiz_results). The diagram demonstrates the relationships between these entities, showing how WCAG criteria serve as the foundation for techniques, examples, and user group information through one-to-many relationships, while scan results link to individual accessibility checks, and quiz questions connect to specific WCAG guidelines and success criteria. This structure ensures efficient data storage, retrieval, and management of both educational content, evaluation results, and assessment data.
 
 
 
@@ -756,6 +1044,23 @@ The class diagram illustrates the object-oriented structure of the system, showi
 │  │                          │ + total_issues  │           │   │
 │  │                          └─────────────────┘           │   │
 │  │                                                         │   │
+│  │  ┌─────────────────┐     ┌─────────────────┐          │   │
+│  │  │ quiz_questions  │     │ quiz_results    │          │   │
+│  │  ├─────────────────┤     ├─────────────────┤          │   │
+│  │  │ + id: int       │──┐  │ + id: int       │          │   │
+│  │  │ + principle     │  │  │ + session_id    │          │   │
+│  │  │ + guideline_code│  │  │ + total_score   │          │   │
+│  │  │ + success_crit. │  │  │ + percentage    │          │   │
+│  │  │ + question      │  │  │ + awareness_lvl │          │   │
+│  │  │ + code_snippet  │  │  │ + submitted_at  │          │   │
+│  │  │ + option_a      │  │  └─────────────────┘          │   │
+│  │  │ + option_b      │                                   │   │
+│  │  │ + option_c      │                                   │   │
+│  │  │ + option_d      │                                   │   │
+│  │  │ + correct_answer│                                   │   │
+│  │  │ + explanation   │                                   │   │
+│  │  └─────────────────┘                                   │   │
+│  │                                                         │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                                                                   │
 └───────────────────────────────────────────────────────────────────┘
@@ -772,7 +1077,7 @@ The class diagram represents the complete object-oriented architecture of the We
 
 **Frontend Layer:**
 
-The Frontend Layer contains the presentation components that handle user interaction and display. The **UserInterface** class manages the primary user interface elements including the scan form where users input URLs or HTML code, the results panel that displays evaluation findings, and the navigation system that allows users to move between different sections of the application. Its methods include `displayHome()` for rendering the home page, `showResults()` for presenting scan results, and `showError()` for handling error messages. The **WCAGViewer** class is responsible for displaying WCAG guidelines and educational content. It maintains the guideline list, example viewer, and filter panel, with methods to load guidelines, filter by principle or level, and show before/after code examples. These frontend classes communicate with the backend through HTTP requests, sending user input and receiving processed data for display.
+The Frontend Layer contains the presentation components that handle user interaction and display. The **UserInterface** class manages the primary user interface elements including the scan form where users input URLs or HTML code, the results panel that displays evaluation findings, and the navigation system that allows users to move between different sections of the application. Its methods include `displayHome()` for rendering the home page, `showResults()` for presenting scan results, and `showError()` for handling error messages. The **WCAGViewer** class is responsible for displaying WCAG guidelines and educational content. It maintains the guideline list, example viewer, and filter panel, with methods to load guidelines, filter by principle or level, and show before/after code examples. The **AssessmentInterface** class manages the interactive quiz experience, handling principle tab navigation, progress tracking with visual feedback, question rendering with code snippets, answer selection and validation, review before submission, and comprehensive results display with performance analytics and personalized recommendations. These frontend classes communicate with the backend through HTTP requests, sending user input and receiving processed data for display.
 
 **Application Layer:**
 
@@ -780,7 +1085,7 @@ The Application Layer serves as the core business logic layer where all accessib
 
 **Data Layer:**
 
-The Data Layer manages all database interactions and data persistence. The **Database** class implements a connection pooling pattern to efficiently manage database connections. It maintains static properties for storing active connections and configuration, ensuring connections are reused rather than recreated for each query, which improves performance. The class provides methods to obtain read-write connections via `getWriteConnection()` and read-only connections via `getReadConnection()`, supporting a security pattern where read operations use limited-privilege connections. The `testConnection()` method verifies database connectivity, `closeAll()` properly closes connections, and `getInfo()` retrieves database metadata. The Database Tables section represents the underlying database schema with five primary entities. The **wcag_criteria** table serves as the foundation, storing WCAG 2.1 success criteria including principle classification, title, level, description, and explanation. This table has one-to-many relationships with several related tables. The **wcag_techniques** table stores implementation techniques for each criterion, linking via criterion_id foreign key. The **wcag_examples** table contains before-and-after code examples with HTML, CSS, and JavaScript code snippets, using a state field to distinguish between "before" (inaccessible) and "after" (accessible) examples. The **wcag_user_groups** table identifies which user groups benefit from each accessibility criterion. The **accessibility_checks** table stores the check configurations that the AccessibilityChecker loads at runtime, including the check key, WCAG code reference, principle, title, description, recommendation, severity level, CSS selector for element targeting, enabled flag, and priority. Finally, the **scan_results** table persists the results of each scan performed by users, storing metadata such as scan ID, scan type, source URL, timestamp, and total issue count.
+The Data Layer manages all database interactions and data persistence. The **Database** class implements a connection pooling pattern to efficiently manage database connections. It maintains static properties for storing active connections and configuration, ensuring connections are reused rather than recreated for each query, which improves performance. The class provides methods to obtain read-write connections via `getWriteConnection()` and read-only connections via `getReadConnection()`, supporting a security pattern where read operations use limited-privilege connections. The `testConnection()` method verifies database connectivity, `closeAll()` properly closes connections, and `getInfo()` retrieves database metadata. The Database Tables section represents the underlying database schema with seven primary entities. The **wcag_criteria** table serves as the foundation, storing WCAG 2.1 success criteria including principle classification, title, level, description, and explanation. This table has one-to-many relationships with several related tables. The **wcag_techniques** table stores implementation techniques for each criterion, linking via criterion_id foreign key. The **wcag_examples** table contains before-and-after code examples with HTML, CSS, and JavaScript code snippets, using a state field to distinguish between "before" (inaccessible) and "after" (accessible) examples. The **wcag_user_groups** table identifies which user groups benefit from each accessibility criterion. The **accessibility_checks** table stores the check configurations that the AccessibilityChecker loads at runtime, including the check key, WCAG code reference, principle, title, description, recommendation, severity level, CSS selector for element targeting, enabled flag, and priority. The **scan_results** table persists the results of each scan performed by users, storing metadata such as scan ID, scan type, source URL, timestamp, and total issue count. The **quiz_questions** table stores the 40 assessment questions distributed equally across the four WCAG principles, with each question containing the principle classification, guideline code, success criterion reference, question text, optional code snippet for practical scenarios, four multiple-choice options (A, B, C, D), correct answer designation, and detailed explanation for educational feedback. The **quiz_results** table records each quiz submission, storing the session ID, total score achieved, percentage score, awareness level classification (Unaware, Developing Awareness, Aware), and submission timestamp for tracking student progress over time.
 
 **Class Relationships:**
 
@@ -855,17 +1160,17 @@ To perform the Portability tests, the following procedures will be conducted:
 
 ## System Evaluation
 
-The system evaluation assures the quality of the Web-Based Accessibility Evaluation Tool, measuring its functionality and performance. Users, including students, instructors, and IT professionals, provide feedback through survey instruments, which allow them to rate how effective and user-friendly the accessibility evaluation tool is. This helps in determining its strengths and weaknesses.
+The system evaluation will assure the quality of the Web-Based Accessibility Evaluation Tool, measuring its functionality and performance. Users, including students, instructors, and IT professionals, will provide feedback through survey instruments, which will allow them to rate how effective and user-friendly the accessibility evaluation tool is. This will help in determining its strengths and weaknesses.
 
-The quality of the system is assessed using simple parameters—functionality, which ensures that the system works as intended; usability, which guarantees ease of navigation; and performance, which verifies that the system runs smoothly. Test cases result in step-by-step checks to detect and resolve any issues.
+The quality of the system will be assessed using simple parameters—functionality, which will ensure that the system works as intended; usability, which will guarantee ease of navigation; and performance, which will verify that the system runs smoothly. Test cases will result in step-by-step checks to detect and resolve any issues.
 
-Finally, an evaluation report is prepared, summarizing which aspects of the system are working well, which parts need improvement, and what requires further refinement.
+Finally, an evaluation report will be prepared, summarizing which aspects of the system are working well, which parts need improvement, and what requires further refinement.
 
-For system evaluation, the researcher used an assessment form based on ISO 25010. The following requirements are part of the standard: usability, security, maintainability, portability, compatibility, performance, functionality, and reliability. Technical and non-technical components contribute to the system evaluation. The system will be evaluated by 5 Technical Evaluators and 10 non-technical users. The system was rated by the respondents on a scale of 1 to 5. An outstanding rating of five indicates that the system fully fulfills or beyond the majority of expectations. The system fully satisfies all requirements and beyond many expectations with a 4 rating, which is considered very good. A score of three is considered good, indicating that the system satisfies all requirements.
+For system evaluation, the researcher will use an assessment form based on ISO 25010. The following requirements are part of the standard: usability, security, maintainability, portability, compatibility, performance, functionality, and reliability. Technical and non-technical components will contribute to the system evaluation. The system will be evaluated by 5 Technical Evaluators and 10 non-technical users. The system will be rated by the respondents on a scale of 1 to 5. An outstanding rating of five will indicate that the system fully fulfills or beyond the majority of expectations. The system will fully satisfy all requirements and beyond many expectations with a 4 rating, which will be considered very good. A score of three will be considered good, indicating that the system satisfies all requirements.
 
-The researcher from Cavite State University suggested in order to evaluate its effectiveness and identify areas for development. The study will be largely focused on key performance indicators such as user satisfaction, system utilization, system functionality, and user usability.
+The researcher from Cavite State University will conduct the evaluation in order to evaluate its effectiveness and identify areas for development. The study will be largely focused on key performance indicators such as user satisfaction, system utilization, system functionality, and user usability.
 
-In order to conduct an analysis of the information obtained during the evaluation, the following statistical methods were utilized. The conclusions reached through the use of statistical processes served as the basis for the respondents' overall interpretation of the systems. The researchers will use a pointing system to acquire the level of agreement of the respondents on the questions in the survey questionnaire. The points to be used are:
+In order to conduct an analysis of the information obtained during the evaluation, the following statistical methods will be utilized. The conclusions reached through the use of statistical processes will serve as the basis for the respondents' overall interpretation of the systems. The researchers will use a pointing system to acquire the level of agreement of the respondents on the questions in the survey questionnaire. The points to be used are:
 
 **Table 6. Options in each item of the questionnaire**
 
@@ -913,11 +1218,11 @@ Where:
 
 ## System Implementation
 
-The system implementation ensures the successful deployment and operation of the Web-Based Accessibility Evaluation Tool within the academic environment of Cavite State University's Department of Information Technology. After completing development and evaluation, the system is presented to the thesis adviser and panelists for final review and approval. This review process verifies that the system meets all educational objectives, technical requirements, and quality standards established during the planning phase. Upon receiving approval, the researcher proceeds with deployment using the university's available resources. For this implementation, the system is deployed locally using XAMPP as the development and hosting environment, which provides Apache web server, PHP runtime, and MySQL database capabilities on a single machine. The system files are organized in the XAMPP htdocs directory, the database is set up through phpMyAdmin with proper table structures and initial data, and local testing is conducted to ensure all functionalities work correctly before making the system accessible to users within the campus network.
+The system implementation will ensure the successful deployment and operation of the Web-Based Accessibility Evaluation Tool within the academic environment of Cavite State University's Department of Information Technology. After completing development and evaluation, the system will be presented to the thesis adviser and panelists for final review and approval. This review process will verify that the system meets all educational objectives, technical requirements, and quality standards established during the planning phase. Upon receiving approval, the researcher will proceed with deployment using the university's available resources. For this implementation, the system will be deployed locally using XAMPP as the development and hosting environment, which will provide Apache web server, PHP runtime, and MySQL database capabilities on a single machine. The system files will be organized in the XAMPP htdocs directory, the database will be set up through phpMyAdmin with proper table structures and initial data, and local testing will be conducted to ensure all functionalities work correctly before making the system accessible to users within the campus network.
 
-To facilitate effective utilization of the system, the researcher conducts demonstration sessions for faculty members and student volunteers from the Information Technology program. These demonstrations, typically lasting one to two hours, showcase the system's key features including URL-based scanning, HTML code input, accessibility report interpretation, and navigation through WCAG guidelines and educational content. Participants are encouraged to test the system with sample websites and provide immediate feedback on usability and functionality. A simple user guide is prepared and distributed in digital format (PDF), containing step-by-step instructions with screenshots that explain how to perform scans, understand the results, and access the educational resources. This documentation serves as a reference for users who wish to explore the system independently after the demonstration sessions.
+To facilitate effective utilization of the system, the researcher will conduct demonstration sessions for faculty members and student volunteers from the Information Technology program. These demonstrations, typically lasting one to two hours, will showcase the system's key features including URL-based scanning, HTML code input, accessibility report interpretation, and navigation through WCAG guidelines and educational content. Participants will be encouraged to test the system with sample websites and provide immediate feedback on usability and functionality. A simple user guide will be prepared and distributed in digital format (PDF), containing step-by-step instructions with screenshots that explain how to perform scans, understand the results, and access the educational resources. This documentation will serve as a reference for users who wish to explore the system independently after the demonstration sessions.
 
-Following the demonstrations, the system is made available for use by students and faculty within the Department of Information Technology. Access information, including the local network URL and basic usage instructions, is shared through the department's communication channels such as class announcements and faculty meetings. During the initial weeks of deployment, the researcher monitors system usage by reviewing scan logs stored in the database and observing how users interact with different features. Feedback is collected informally through conversations with users and formally through a brief feedback form accessible within the system. Any technical issues or bugs reported by users are documented and addressed promptly by the researcher. This implementation approach allows the system to serve its educational purpose within the university setting while remaining manageable for a student-developed thesis project, with the potential for future enhancement and expansion based on user feedback and institutional support.
+Following the demonstrations, the system will be made available for use by students and faculty within the Department of Information Technology. Access information, including the local network URL and basic usage instructions, will be shared through the department's communication channels such as class announcements and faculty meetings. During the initial weeks of deployment, the researcher will monitor system usage by reviewing scan logs stored in the database and observing how users interact with different features. Feedback will be collected informally through conversations with users and formally through a brief feedback form accessible within the system. Any technical issues or bugs reported by users will be documented and addressed promptly by the researcher. This implementation approach will allow the system to serve its educational purpose within the university setting while remaining manageable for a student-developed thesis project, with the potential for future enhancement and expansion based on user feedback and institutional support.
 
 
 

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WCAG 2.1 Accessibility Awareness Quiz | Web Accessibility Evaluator</title>
+    <title>Web Accessibility Awareness Assessment | Web Accessibility Evaluator</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -30,6 +30,16 @@
             --quiz-operable: #6f42c1;
             --quiz-understandable: #198754;
             --quiz-robust: #d97706;
+
+            /* Button dimension standards */
+            --quiz-btn-height-primary: 48px;
+            --quiz-btn-height-secondary: 44px;
+            --quiz-btn-height-sm: 36px;
+            --quiz-btn-border-width: 2px;
+
+            /* Option item states */
+            --quiz-option-selected-bg: #dbeafe;
+            --quiz-option-selected-border: #1d4ed8;
         }
 
         body {
@@ -65,10 +75,23 @@
             margin-bottom: 1.25rem;
         }
 
-        .quiz-page .card {
+        .quiz-page .card,
+        .quiz-page #quizPanel,
+        .quiz-page #reviewBeforeSubmit,
+        .quiz-page #resultsPanel {
             border: 1px solid var(--quiz-border);
             border-radius: 1rem;
             box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.08);
+            transform: none !important;
+            transition: none !important;
+        }
+
+        .quiz-page .card:hover,
+        .quiz-page #quizPanel:hover,
+        .quiz-page #reviewBeforeSubmit:hover,
+        .quiz-page #resultsPanel:hover {
+            transform: none !important;
+            box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.08) !important;
         }
 
         .quiz-header-panel {
@@ -81,15 +104,36 @@
             margin-bottom: 0;
         }
 
+        .quiz-header-panel p {
+            text-align: justify;
+            width: 100%;
+            overflow: hidden;
+            line-height: 2em;
+        }
+
         .principle-tab {
             border: 1px solid var(--quiz-border);
             background: #fff;
             color: var(--quiz-text);
-            padding: 0.7rem 1rem;
+            padding: 0.5rem 1rem;
             border-radius: 0.75rem;
             min-width: 140px;
+            min-height: var(--quiz-btn-height-secondary);
             font-weight: 600;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .principle-tab:not(.active):hover,
+        .principle-tab:not(.active):active,
+        .principle-tab:not(.active):focus {
+            background: #fff !important;
+            border-color: var(--quiz-border) !important;
+            color: var(--quiz-text) !important;
+            box-shadow: none !important;
+            transform: none !important;
         }
 
         .principle-tab.active {
@@ -98,28 +142,36 @@
             background: var(--quiz-primary-soft);
         }
 
-        .principle-tab[data-principle="Perceivable"].active {
-            background: rgba(13, 110, 253, 0.08);
-            border-color: var(--quiz-perceivable);
-            color: var(--quiz-perceivable);
+        .principle-tab[data-principle="Perceivable"].active,
+        .principle-tab[data-principle="Perceivable"].active:hover {
+            background: rgba(13, 110, 253, 0.08) !important;
+            border-color: var(--quiz-perceivable) !important;
+            color: var(--quiz-perceivable) !important;
+            transform: none !important;
         }
 
-        .principle-tab[data-principle="Operable"].active {
-            background: rgba(111, 66, 193, 0.08);
-            border-color: var(--quiz-operable);
-            color: var(--quiz-operable);
+        .principle-tab[data-principle="Operable"].active,
+        .principle-tab[data-principle="Operable"].active:hover {
+            background: rgba(111, 66, 193, 0.08) !important;
+            border-color: var(--quiz-operable) !important;
+            color: var(--quiz-operable) !important;
+            transform: none !important;
         }
 
-        .principle-tab[data-principle="Understandable"].active {
-            background: rgba(25, 135, 84, 0.08);
-            border-color: var(--quiz-understandable);
-            color: var(--quiz-understandable);
+        .principle-tab[data-principle="Understandable"].active,
+        .principle-tab[data-principle="Understandable"].active:hover {
+            background: rgba(25, 135, 84, 0.08) !important;
+            border-color: var(--quiz-understandable) !important;
+            color: var(--quiz-understandable) !important;
+            transform: none !important;
         }
 
-        .principle-tab[data-principle="Robust"].active {
-            background: rgba(217, 119, 6, 0.08);
-            border-color: var(--quiz-robust);
-            color: var(--quiz-robust);
+        .principle-tab[data-principle="Robust"].active,
+        .principle-tab[data-principle="Robust"].active:hover {
+            background: rgba(217, 119, 6, 0.08) !important;
+            border-color: var(--quiz-robust) !important;
+            color: var(--quiz-robust) !important;
+            transform: none !important;
         }
 
         .quiz-card {
@@ -154,18 +206,29 @@
             background: #fff;
             padding: 1rem 1rem;
             margin-bottom: 0.75rem;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: none !important;
+            box-shadow: none !important;
+            transform: none !important;
         }
 
-        .option-item:hover,
-        .option-item:focus-visible {
-            border-color: var(--quiz-primary);
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+        .option-item:not(.selected):hover,
+        .option-item:not(.selected):active,
+        .option-item:not(.selected):focus {
+            background: #fff !important;
+            border-color: var(--quiz-border) !important;
+            color: var(--quiz-text) !important;
+            box-shadow: none !important;
+            transform: none !important;
         }
 
-        .option-item.selected {
-            border-color: var(--quiz-primary);
-            background: var(--quiz-primary-soft);
+        .option-item.selected,
+        .option-item.selected:hover,
+        .option-item.selected:active {
+            border: var(--quiz-btn-border-width) solid var(--quiz-option-selected-border) !important;
+            background: var(--quiz-option-selected-bg) !important;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15) !important;
+            transform: none !important;
         }
 
         .option-label {
@@ -179,6 +242,13 @@
             color: var(--quiz-primary);
             font-weight: 700;
             margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* Filled label circle when option is selected */
+        .option-item.selected .option-label {
+            background: var(--quiz-option-selected-border);
+            color: #fff;
         }
 
         .result-badge {
@@ -262,19 +332,130 @@
             border-radius: 0.5rem;
         }
 
+        /* ── Complete removal of transitions, animations, and pseudo-elements on all buttons ── */
+        .quiz-page button,
+        .quiz-page .btn,
+        .quiz-page .btn::before,
+        .quiz-page .btn::after,
+        .quiz-page .btn:hover::before,
+        .quiz-page .btn:hover::after,
+        .quiz-page .btn i,
+        .quiz-page .btn:hover i {
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+
+        /* Neutralize ripple circle from style.css */
+        .quiz-page .btn::before,
+        .quiz-page .btn::after {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* ── Base button sizing & resets ── */
+        .quiz-page .btn {
+            font-weight: 600;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* ── Primary button overrides (strict no-hover, no color shift, no lift) ── */
+        .quiz-page .btn-primary,
+        .quiz-page .btn-primary:hover,
+        .quiz-page .btn-primary:active,
+        .quiz-page .btn-primary:focus {
+            background: var(--quiz-primary) !important;
+            background-color: var(--quiz-primary) !important;
+            border-color: var(--quiz-primary) !important;
+            color: #ffffff !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .quiz-page .btn-primary {
+            min-height: var(--quiz-btn-height-secondary);
+            padding-inline: 1.25rem;
+        }
+
+        /* Large primary buttons */
+        .quiz-page .btn-primary.btn-lg,
+        #startQuizBtn,
+        #retakeQuizBtn {
+            min-height: var(--quiz-btn-height-primary);
+            padding-inline: 1.75rem;
+        }
+
+        /* ── Outline primary button overrides (strict no-hover, no color shift, no lift) ── */
+        .quiz-page .btn-outline-primary,
+        .quiz-page .btn-outline-primary:hover,
+        .quiz-page .btn-outline-primary:active,
+        .quiz-page .btn-outline-primary:focus {
+            background: transparent !important;
+            background-color: transparent !important;
+            border-color: var(--quiz-primary) !important;
+            border-width: var(--quiz-btn-border-width) !important;
+            color: var(--quiz-primary) !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .quiz-page .btn-outline-primary {
+            min-height: var(--quiz-btn-height-secondary);
+            padding-inline: 1.25rem;
+        }
+
+        /* ── Outline secondary button overrides (strict no-hover, no color shift, no lift) ── */
+        .quiz-page .btn-outline-secondary,
+        .quiz-page .btn-outline-secondary:hover,
+        .quiz-page .btn-outline-secondary:active,
+        .quiz-page .btn-outline-secondary:focus {
+            background: #ffffff !important;
+            background-color: #ffffff !important;
+            border-color: var(--quiz-border) !important;
+            border-width: var(--quiz-btn-border-width) !important;
+            color: var(--quiz-muted) !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .quiz-page .btn-outline-secondary {
+            min-height: var(--quiz-btn-height-secondary);
+            padding-inline: 1.25rem;
+        }
+
+        /* ── Disabled state ── */
+        .quiz-page .btn:disabled,
+        .quiz-page .btn[disabled],
+        .quiz-page .btn:disabled:hover,
+        .quiz-page .btn[disabled]:hover,
+        .quiz-page .btn:disabled:active,
+        .quiz-page .btn[disabled]:active {
+            opacity: 0.55 !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* ── Button row ── */
         .button-row {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
+            align-items: center;
         }
 
+        /* ── Focus states ── */
         .form-check-input:focus,
         .btn:focus-visible,
         .principle-tab:focus-visible,
         .option-item:focus-visible,
         a:focus-visible {
-            outline: 3px solid rgba(13, 110, 253, 0.6);
+            outline: 3px solid rgba(13, 110, 253, 0.7);
             outline-offset: 3px;
+            box-shadow: none !important;
         }
 
         @media (max-width: 767px) {
@@ -285,6 +466,17 @@
 
             .quiz-header-panel {
                 padding: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-row {
+                flex-direction: column;
+            }
+
+            .button-row .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -322,8 +514,8 @@
         <div class="container">
             <section id="quizIntro" class="mb-4">
                 <div class="quiz-header-panel">
-                    <h1 class="mb-3">WCAG 2.1 Accessibility Awareness Quiz</h1>
-                    <p class="mb-0">Test your understanding of WCAG 2.1 principles, guidelines, and success criteria through practical accessibility scenarios.</p>
+                    <h1 class="mb-3">Web Accessibility Awareness Assessment</h1>
+                    <p class="mb-0">Test your understanding of WCAG 2.1 principles, guidelines, and success criteria through practical accessibility scenarios. This assessment explores real-world design and development challenges across the four foundational pillars: Perceivable, Operable, Understandable, and Robust. You will evaluate realistic user interface patterns, identify common digital barriers, and discover how accessible implementations benefit diverse users. Each question provides actionable insights to reinforce standard-compliant evaluation techniques. Take your time to review each scenario thoroughly and see how effectively you can apply accessibility best practices in web environments.</p>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
                     <button id="startQuizBtn" class="btn btn-primary btn-lg" type="button">Start Quiz</button>
@@ -581,7 +773,7 @@
                 </div>
 
                 <div class="button-row mt-4">
-                    <button type="button" id="previousQuestionBtn" class="btn btn-outline-secondary" ${quizState.currentIndex === 0 ? 'disabled' : ''}>Previous</button>
+                    ${quizState.currentIndex > 0 ? '<button type="button" id="previousQuestionBtn" class="btn btn-outline-secondary">Previous</button>' : ''}
                     <button type="button" id="nextQuestionBtn" class="btn btn-primary">${quizState.currentIndex === quizState.questions.length - 1 ? 'Review Answers' : 'Next'}</button>
                 </div>
             `;
