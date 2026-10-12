@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -294,10 +294,97 @@
         }
 
         .quiz-score {
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-size: 1rem;
             font-weight: 800;
-            line-height: 1;
-            margin: 0.4rem 0 0.75rem;
+            line-height: 1.4;
+            margin: 0.75rem 0;
+            color: var(--quiz-muted);
+        }
+
+        .results-grid-panel {
+            height: 100%;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid var(--quiz-border);
+            border-radius: 0.85rem;
+        }
+
+        .results-grid-panel h3 {
+            font-size: 1.1rem;
+            font-weight: 750;
+        }
+
+        .quiz-score-ring {
+            width: 190px;
+            height: 190px;
+            margin: 0 auto;
+        }
+
+        .quiz-score-ring svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 8px 18px rgba(15, 23, 42, 0.12));
+        }
+
+        .quiz-score-ring circle {
+            fill: none;
+            stroke-width: 15;
+        }
+
+        .quiz-score-ring .score-ring-track {
+            stroke: #e5e7eb;
+        }
+
+        .quiz-score-ring .score-ring-value {
+            stroke: var(--score-color, var(--quiz-primary));
+            stroke-linecap: round;
+            stroke-dasharray: 534.07;
+            stroke-dashoffset: calc(534.07 - (534.07 * var(--score-percent, 0) / 100));
+            transform: rotate(-90deg);
+            transform-origin: center;
+        }
+
+        .quiz-score-ring text {
+            fill: var(--score-color, var(--quiz-primary));
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .principle-result {
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--quiz-border);
+            border-left: 4px solid var(--principle-color, var(--quiz-primary));
+            border-radius: 0.65rem;
+            background: var(--principle-bg, #fff);
+        }
+
+        .principle-result .progress-bar {
+            background-color: var(--principle-color, var(--quiz-primary));
+        }
+
+        .principle-result.perceivable { --principle-color: #2563eb; --principle-bg: #eff6ff; }
+        .principle-result.operable { --principle-color: #059669; --principle-bg: #ecfdf5; }
+        .principle-result.understandable { --principle-color: #d97706; --principle-bg: #fffbeb; }
+        .principle-result.robust { --principle-color: #dc2626; --principle-bg: #fef2f2; }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        #reviewAnswersLink[hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 575px) {
+            .results-grid-panel { padding: 1.15rem; }
+            .quiz-score-ring { width: 170px; height: 170px; }
         }
 
         .weak-recommendation {
@@ -554,31 +641,41 @@
 
             <section id="resultsPanel" class="card d-none quiz-card" aria-live="polite">
                 <div class="card-body p-4 p-md-5">
-                    <div class="text-center mb-4">
-                        <h2 class="h1 mb-2">WCAG 2.1 Quiz Results</h2>
-                        <div id="resultScore" class="quiz-score"></div>
-                        <div id="resultPercent" class="fs-3 fw-bold mb-3"></div>
-                        <div id="awarenessLevel" class="result-badge"></div>
+                    <h2 class="h3 mb-4 text-center">WCAG 2.1 Quiz Results</h2>
+                    <div class="row g-4 align-items-stretch">
+                        <div class="col-lg-4">
+                            <section class="results-grid-panel text-center h-100" aria-labelledby="scorePanelTitle">
+                                <h3 id="scorePanelTitle" class="mb-3">Your Score</h3>
+                                <div class="quiz-score-ring" id="quizScoreRing" role="img" aria-label="Quiz score">
+                                    <svg viewBox="0 0 200 200" aria-hidden="true">
+                                        <circle class="score-ring-track" cx="100" cy="100" r="85"></circle>
+                                        <circle class="score-ring-value" cx="100" cy="100" r="85"></circle>
+                                        <text id="resultPercent" x="100" y="100">0%</text>
+                                    </svg>
+                                </div>
+                                <div id="resultScore" class="quiz-score"></div>
+                                <div id="awarenessLevel" class="result-badge mb-3"></div>
+                                <p id="awarenessDescription" class="small text-muted mb-0"></p>
+                            </section>
+                        </div>
+                        <div class="col-lg-4">
+                            <section class="results-grid-panel h-100" aria-labelledby="principleResultsTitle">
+                                <h3 id="principleResultsTitle" class="mb-3">Performance by Principle</h3>
+                                <div id="principleResults"></div>
+                            </section>
+                        </div>
+                        <div class="col-lg-4" id="recommendationsColumn">
+                            <section class="results-grid-panel h-100" aria-labelledby="recommendationsTitle">
+                                <h3 id="recommendationsTitle" class="mb-3">Recommended Topics to Review</h3>
+                                <div id="recommendations"></div>
+                            </section>
+                        </div>
                     </div>
 
-                    <div id="awarenessDescription" class="mb-4 text-center"></div>
-
-                    <div class="mb-4">
-                        <h3 class="h4 mb-3">Performance by Principle</h3>
-                        <div id="principleResults"></div>
-                    </div>
-
-                    <div class="mb-4">
-                        <h3 class="h4 mb-3">Recommended Topics to Review</h3>
-                        <div id="recommendations"></div>
-                    </div>
-
-                    <div class="mb-4">
-                        <h3 class="h4 mb-3">Answer Review</h3>
-                        <div id="reviewAnswersContainer"></div>
-                    </div>
-
-                    <div class="button-row justify-content-center">
+                    <div class="result-actions mt-4">
+                        <a id="reviewAnswersLink" class="btn btn-outline-primary" href="quiz-review.php" target="_blank" rel="noopener" hidden>
+                            <i class="bi bi-box-arrow-up-right me-2" aria-hidden="true"></i>Review Answers
+                        </a>
                         <button id="retakeQuizBtn" type="button" class="btn btn-primary btn-lg">Retake Quiz</button>
                     </div>
                 </div>
@@ -672,11 +769,13 @@
             returnToQuizBtn: document.getElementById('returnToQuizBtn'),
             resultScore: document.getElementById('resultScore'),
             resultPercent: document.getElementById('resultPercent'),
+            scoreRing: document.getElementById('quizScoreRing'),
             awarenessLevel: document.getElementById('awarenessLevel'),
             awarenessDescription: document.getElementById('awarenessDescription'),
             principleResults: document.getElementById('principleResults'),
             recommendations: document.getElementById('recommendations'),
-            reviewAnswersContainer: document.getElementById('reviewAnswersContainer'),
+            recommendationsColumn: document.getElementById('recommendationsColumn'),
+            reviewAnswersLink: document.getElementById('reviewAnswersLink'),
             retakeQuizBtn: document.getElementById('retakeQuizBtn')
         };
 
@@ -935,6 +1034,10 @@
 
             ui.resultScore.textContent = `${correct} / ${total}`;
             ui.resultPercent.textContent = `${Math.round(percentage)}%`;
+            const scoreColor = percentage >= 75 ? '#198754' : percentage >= 40 ? '#d97706' : '#dc3545';
+            ui.scoreRing.style.setProperty('--score-percent', String(percentage));
+            ui.scoreRing.style.setProperty('--score-color', scoreColor);
+            ui.scoreRing.setAttribute('aria-label', `Quiz score: ${Math.round(percentage)} percent`);
 
             const badgeClass = percentage >= 75 ? 'correct' : percentage >= 40 ? 'correct' : 'incorrect';
             ui.awarenessLevel.className = `result-badge ${badgeClass}`;
@@ -951,24 +1054,22 @@
             const principleOrder = ['Perceivable', 'Operable', 'Understandable', 'Robust'];
             principleOrder.forEach((principle) => {
                 const item = results.principle_scores[principle];
-                const width = item.percent;
                 const row = document.createElement('div');
-                row.className = 'mb-3';
+                row.className = `principle-result ${principle.toLowerCase()}`;
                 row.innerHTML = `
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="fw-semibold">${principle}</span>
-                        <span>${item.correct} / 10 (${item.percent}%)</span>
+                        <span>${item.correct} / ${item.total} (${item.percent}%)</span>
                     </div>
-                    <div class="progress" aria-label="${principle} score">
+                    <div class="progress" role="group" aria-label="${principle} score: ${item.percent}%">
                         <div class="progress-bar" role="progressbar" aria-valuenow="${item.percent}" aria-valuemin="0" aria-valuemax="100" style="width: ${item.percent}%"></div>
                     </div>
                 `;
                 ui.principleResults.appendChild(row);
             });
 
-            const recommendationsSection = ui.recommendations.closest('.mb-4');
             if (results.recommendations && results.recommendations.length > 0) {
-                recommendationsSection.style.display = 'block';
+                ui.recommendationsColumn.hidden = false;
                 ui.recommendations.innerHTML = results.recommendations.map((recommendation) => {
                     const criterionId = recommendation.criterion_id || recommendation.guideline_code || 'Unknown';
                     const criterionName = String(recommendation.success_criterion || recommendation.guideline_name || '').replace(new RegExp(`^${String(criterionId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*[-–:]?\\s*`), '').trim();
@@ -983,29 +1084,12 @@
                     `;
                 }).join('');
             } else {
-                recommendationsSection.style.display = 'none';
+                ui.recommendationsColumn.hidden = true;
+                ui.recommendations.innerHTML = '';
             }
 
-            ui.reviewAnswersContainer.innerHTML = results.review_answers.map((entry) => {
-                const status = entry.is_correct ? 'Correct' : 'Incorrect';
-                const statusClass = entry.is_correct ? 'correct' : 'incorrect';
-                return `
-                    <div class="review-row">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-                            <h4 class="h5 mb-0">Question ${entry.question_number}</h4>
-                            <span class="result-badge ${statusClass}">${status}</span>
-                        </div>
-                        <p class="mb-2"><strong>Principle:</strong> ${escapeHtml(entry.principle)}<br>
-                        <strong>Guideline:</strong> ${escapeHtml(entry.guideline_code)} — ${escapeHtml(entry.guideline_name)}<br>
-                        <strong>Success Criterion:</strong> ${escapeHtml(entry.success_criterion)}</p>
-                        <p class="mb-2"><strong>Question:</strong> ${escapeHtml(entry.question)}</p>
-                        ${entry.code_snippet ? `<pre class="code-snippet"><code>${escapeHtml(entry.code_snippet)}</code></pre>` : ''}
-                        <p class="mb-1"><strong>Your answer:</strong> ${escapeHtml(entry.user_answer || 'Not answered')}</p>
-                        <p class="mb-1"><strong>Correct answer:</strong> ${escapeHtml(entry.correct_answer)}</p>
-                        <div class="explanation-box"><strong>Explanation:</strong> ${escapeHtml(entry.explanation)}</div>
-                    </div>
-                `;
-            }).join('');
+            ui.reviewAnswersLink.href = `quiz-review.php?token=${encodeURIComponent(results.review_token)}`;
+            ui.reviewAnswersLink.hidden = !results.review_token;
         }
 
         function resetQuiz() {

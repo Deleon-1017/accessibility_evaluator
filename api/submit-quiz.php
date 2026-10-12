@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -137,6 +138,12 @@ try {
             'success_criterion' => $question['success_criterion'],
             'question' => $question['question'],
             'code_snippet' => $question['code_snippet'] ?? null,
+            'options' => [
+                'A' => $question['option_a'],
+                'B' => $question['option_b'],
+                'C' => $question['option_c'],
+                'D' => $question['option_d'],
+            ],
             'user_answer' => $userAnswer !== '' ? $userAnswer : 'Not answered',
             'correct_answer' => $correctAnswer,
             'explanation' => $question['explanation'],
@@ -170,12 +177,8 @@ try {
         return $a['score'] <=> $b['score'];
     });
 
-    $hasPerfectPrincipleScore = array_reduce($principleResults, static function ($carry, $result) {
-        return $carry || ((int) ($result['percent'] ?? 0) === 100);
-    }, false);
-
     $recommendations = [];
-    if (!$hasPerfectPrincipleScore) {
+    if ($correctCount < count($questions)) {
         foreach (array_slice($sortedGuidelines, 0, 3) as $guide) {
             $criterionId = $guide['criterion_id'] ?? $guide['guideline_code'];
             $successCriterionLabel = $criterionId && preg_match('/^\d+\.\d+\.\d+$/', (string) $criterionId)
@@ -204,6 +207,31 @@ try {
         }
     }
 
+    $now = time();
+    $reviewTokenLifetime = 1800;
+    $storedReviews = $_SESSION['quiz_review_tokens'] ?? [];
+    if (!is_array($storedReviews)) {
+        $storedReviews = [];
+    }
+    foreach ($storedReviews as $token => $storedReview) {
+        if (!is_array($storedReview) || ($now - (int) ($storedReview['created_at'] ?? 0)) > $reviewTokenLifetime) {
+            unset($storedReviews[$token]);
+        }
+    }
+    if (count($storedReviews) >= 10) {
+        uasort($storedReviews, static function ($left, $right) {
+            return (int) ($left['created_at'] ?? 0) <=> (int) ($right['created_at'] ?? 0);
+        });
+        $storedReviews = array_slice($storedReviews, -9, null, true);
+    }
+    $reviewToken = bin2hex(random_bytes(32));
+    $storedReviews[$reviewToken] = [
+        'created_at' => $now,
+        'review_answers' => $reviewAnswers,
+    ];
+    $_SESSION['quiz_review_tokens'] = $storedReviews;
+    session_write_close();
+
     $response = [
         'success' => true,
         'score' => $correctCount,
@@ -213,6 +241,7 @@ try {
         'guideline_scores' => $sortedGuidelines,
         'recommendations' => $recommendations,
         'weakest_principle' => $weakestPrinciple,
+        'review_token' => $reviewToken,
         'review_answers' => $reviewAnswers,
     ];
 

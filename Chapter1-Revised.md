@@ -2,7 +2,7 @@
 
 **DE LEON, GABRIEL IAN B.**
 
-An undergraduate capstone project outline submitted to the faculty of the Department of Information Technology, College of Engineering and Information Technology, Cavite State University, Indang, Cavite in partial fulfillment of the requirements for the degree of Bachelor of Science in Information Technology with Contribution No. _______. Prepared under the supervision of _______.
+An undergraduate capstone project outline submitted to the faculty of the Department of Information Technology, College of Engineering and Information Technology, Cavite State University, Indang, Cavite in partial fulfillment of the requirements for the degree of Bachelor of Science in Information Technology with Contribution No. **\_\_\_**. Prepared under the supervision of **\_\_\_**.
 
 ---
 
@@ -10,27 +10,22 @@ An undergraduate capstone project outline submitted to the faculty of the Depart
 
 ### Project Context
 
-The digital environment has evolved into the primary infrastructure for education, employment, business, and social interaction, with recent data indicating that approximately 5.5 billion people, or 68% of the global population, are now online. As the global population depends increasingly on this environment, it becomes critical to ensure that every individual has equal access to technology, particularly as internet usage in high-income countries has reached near-universality at 93% (International Telecommunication Union, 2024). However, a significant digital divide persists, where digital content often remains inaccessible to the 1.3 billion people—approximately 16% of the world's population—who live with significant disabilities. Websites serve as essential platforms for information dissemination, communication, and online services; thus, to implement this efficiently, web accessibility is necessary. By promoting accessible web design, this project supports a technology-driven approach to reducing digital disparity and ensuring that online services are inclusive, contributing to a more equitable digital society where every user can participate meaningfully regardless of physical limitations (World Health Organization, 2023).
+The internet has been a primary instrument for education, business, and social interaction, based on recent data indicating that approximately 5.5 billion people, or 68% of the global population are capable to access with internet. As the global population rapidly increases, it becomes critical to ensure that every individual has equal access to technology, particularly as internet usage in highly populated countries has reached at 93% (International Telecommunication Union, 2024). However, a significant digital divide persists, where digital content often remains inaccessible to the 1.3 billion people which approximately 16% of the world’s population who live with different disabilities. Websites facilitate as essential platforms for information dissemination, communication, and online services. In order to implement this effectively, web accessibility is required. By enforcing web accessibility, it promotes technological approach for reducing digital inequality and inclusivity of online content, contributing to a more equitable digital access among users, regardless of any disabilities or physical limitations (World Health Organization, 2023).
 
-This research is focused on developing an educational tool primarily aimed at assisting students and instructors in learning and implementing inclusive design practices within an academic setting. The assumed primary locale for deployment and as a key beneficiary is the Department of Information Technology, College of Engineering and Information Technology, Cavite State University. This organization can integrate the system into its curriculum to demonstrate the importance of building digital platforms that are inclusive and compliant with established standards. To establish the empirical foundation for this study, survey data was gathered from two distinct populations: 45 Information Technology students and 24 web development professionals. This dual-perspective approach provides comprehensive insights into both the educational needs of learners and the practical requirements of the professional field, ensuring that the proposed tool addresses real-world competency gaps while remaining pedagogically sound.
+This research is focused on developing an educational tool primarily aimed for assisting students and professionals in learning and implementing inclusive design practices. The primary locale for deployment and as a key beneficiary is the Department of Information Technology, College of Engineering and Information Technology, Cavite State University. It can integrate the system into its curriculum to demonstrate the importance of building digital platforms that are inclusive and compliant with established standards.
 
-Despite the existence of established standards, a persistent lack of accessible websites remains the primary problem addressed by this study. Inaccessible websites create barriers that exclude individuals with disabilities from vital online information, services, and opportunities, a critical issue given that companies with inaccessible sites are estimated to lose billions annually to competitors who prioritize inclusivity (accessiBe, 2025). To address this global need, the World Wide Web Consortium (W3C) established the Web Content Accessibility Guidelines (WCAG), currently in version 2.1, which serves as the global standard for building accessible digital content.
+Despite the existence of established standards, a persistent lack of accessible websites remains the primary problem addressed by this study. Inaccessible websites create barriers that exclude individuals with disabilities from vital online information, services, and opportunities, a critical issue given that organizations with inaccessible sites lose substantial market opportunities to competitors who prioritize inclusivity (accessiBe, 2025). To address this global need, the World Wide Web Consortium (W3C) established the Web Content Accessibility Guidelines (WCAG), currently in version 2.1, which serves as the international standard for building accessible digital content. However, systematic analysis of empirical data gathered from Information Technology students and web development professionals reveals that the persistence of inaccessible websites stems not from an absence of technical standards, but rather from interconnected educational and procedural deficiencies that prevent effective learning and implementation of accessibility principles.
 
-This problem is compounded because many students in academic programs lack the necessary tools or awareness to make their websites inclusive. Empirical data gathered from Information Technology students reveals a concerning disparity between awareness and competency in web accessibility. While approximately 64% of student respondents indicated familiarity with the concept of web accessibility, only 38% reported receiving formal instruction on designing accessible websites. This substantial gap between awareness and formal education suggests that students are encountering accessibility concepts informally or superficially without structured pedagogical support. Complementary data from web development professionals indicates that awareness of web accessibility exists in the professional field; however, the translation of this awareness into formal educational structures for students remains inadequate.
+Research findings from fishbone analysis and survey data* reveal three connected barriers that prevent effective web accessibility education and implementation. First, students and educators struggle because dedicated accessibility evaluation tools are not available in classroom settings. This problem is made worse by limited teaching on how to measure accessibility, and the absence of standardized rubrics, clear benchmarks, and guided workflows that would help learners check their own code. Most IT students have never received formal instruction in accessible web design. Students consistently point to three main obstacles: lack of hands-on checking tools, unfamiliarity with accessibility concepts, and insufficient classroom discussion. Second, teaching methods often lack step-by-step scaffolding. Learners are confronted with complex technical terms and comprehensive WCAG specifications without getting modular lessons or foundational knowledge first. Students identified lack of practical examples as their biggest learning difficulty and said that accessibility guidelines are hard to understand without context. They strongly prefer step-by-step explanations, side-by-side examples showing accessible versus non-accessible code, and plain-language descriptions. This teaching gap extends beyond schools into professional work, where web developers report ongoing knowledge gaps and find existing accessibility tools too complex to use. Third, the absence of automated validation during development limits effective learning. Without it, learners cannot receive immediate feedback on their syntax and accessibility errors, which eliminates opportunities to correct and improve their work iteratively. Instructors also cannot provide timely, individual code reviews for large numbers of students. Students expressed clear needs for actionable feedback on their work and automated accessibility checks. Professional developers echo these needs, prioritizing automated checking, actionable recommendations, and reports they can easily understand. These connected challenges show that web accessibility education needs a comprehensive solution that addresses evaluation tools, structured teaching, and real-time feedback to support effective learning and professional practice.
 
-More critically, confidence levels in creating accessible websites remain alarmingly low among students. When asked about their confidence in creating websites accessible to all users, only 6.7% expressed being very confident, while 17.8% reported being confident. The majority—51.1%—remained neutral, indicating uncertainty about their capabilities, while 22.2% admitted to not being confident, and 2.2% expressed no confidence at all. Cumulatively, over 75% of students lack strong confidence in their ability to implement accessibility features, underscoring a significant gap between awareness and practical competency in web accessibility.
 
-Multiple barriers to learning web accessibility have been systematically identified through empirical investigation. The most prevalent difficulty cited by students is the lack of practical examples, reported by 42.2% of respondents, which represents the highest barrier to effective learning. This is closely followed by limited discussion of accessibility topics in class, identified by 40% of students, indicating that curricular integration of accessibility principles remains insufficient. Additionally, 26.7% of students struggle with the absence of hands-on tools for checking accessibility, while an equal proportion remain unfamiliar with accessibility concepts altogether. Furthermore, 24.4% find the technical guidelines difficult to understand without proper pedagogical support. These findings reveal that the educational challenge is multifaceted, encompassing both pedagogical gaps—such as insufficient classroom coverage and lack of practical examples—and the absence of appropriate learning tools that can bridge the gap between theoretical knowledge and practical application.
+These systemic problems create a learning environment where most students lack confidence in their ability to build accessible web features, even though they recognize the professional value. Three-quarters of students expressed uncertainty or low confidence in creating accessible websites, with only a quarter feeling adequately prepared. This confidence problem extends into professional practice. Although most web professionals agree that websites should be designed accessibly for people with disabilities, most rarely or only occasionally check the accessibility of the websites they build or manage. Professionals consistently report that accessibility work is often deprioritized due to project timelines and is hindered by complex tools and knowledge gaps, creating a persistent gap between professional values and actual practice.
 
-While existing accessibility tools such as WAVE, AXE, and Google Lighthouse are currently available, most are designed for professional use and produce highly technical reports. These tools often require web browser extensions and familiarity with complex developer tools, making them cumbersome for use in a structured academic learning environment. Recent studies indicate that university websites continue to face significant accessibility challenges, with students with disabilities struggling to access essential educational information due to non-compliant design (accessiBe, 2025).
+While existing accessibility evaluation tools such as WAVE, AXE, and Google Lighthouse offer valuable assessment capabilities, these platforms are designed mainly as technical auditing instruments. They produce comprehensive reports aimed at professional compliance verification rather than educational support for beginners. These tools typically require browser extensions to work fully and generate output using specialized terminology. This creates additional barriers for students and beginners who already struggle with tool complexity and technical jargon. This educational gap is particularly concerning because research shows university websites continue to present substantial accessibility barriers. Students with disabilities encounter persistent difficulties accessing essential educational information and services due to non-compliant design practices. This highlights the need for academic institutions to ensure their digital platforms model inclusive accessibility standards (accessiBe, 2025).
 
-The existing professional tools also lack the essential educational components necessary to help students and faculty understand the meaning of accessibility errors and how to fix them in a pedagogical context. Empirical investigation into student learning preferences reveals clear pedagogical requirements for effective accessibility education. When asked which approaches would help them learn web accessibility better, students identified step-by-step explanations as the most critical feature, with 77.8% of respondents selecting this option. This was followed by examples of accessible versus non-accessible design (40%), simple language explanations (37.8%), feedback on their website code (35.6%), and automated accessibility checking (33.3%). These findings indicate that students require scaffolded learning experiences that progressively build understanding through clear explanations, comparative examples, and immediate feedback mechanisms.
+The imperative for addressing these interconnected deficiencies gains validation from widespread recognition among both students and practitioners that web accessibility competency represents an essential dimension of professional development in contemporary web development practice. Despite the documented barriers to accessibility education, students demonstrate strong recognition that mastering accessibility competencies will enhance their capabilities as web developers (Appendix Figure 6). This intrinsic motivation for learning, when coupled with documented confidence deficits (Appendix Figure 6), persistent implementation gaps in professional practice (Appendix Figure 7), and the systemic absence of accessible evaluation tools, structured pedagogical pathways, and real-time developmental feedback (Appendix Figures 3–5), creates a compelling rationale for developing an educational platform specifically designed to address these multilayered competency gaps through integrated evaluation, instruction, and formative assessment capabilities.
 
-Furthermore, when asked about specific learning features that should be included in an accessibility education system, students prioritized tutorials on accessibility guidelines (selected by 36 respondents), practice exercises (33 respondents), examples aligned with WCAG criteria (20 respondents), short lessons per accessibility rule (20 respondents), and instant feedback on errors (18 respondents). This data demonstrates a clear preference for structured, modular learning experiences that combine theoretical instruction with practical application and immediate validation. The gap between what students need—simplified, educational, and easy-to-use tools with pedagogical scaffolding—and what currently exists represents the felt problem for students and instructors struggling to effectively teach or apply complex WCAG standards. The focus is therefore on transforming complex accessibility standards into comprehensible and practical guidance tailored for the educational environment.
-
-The importance of addressing this gap is further validated by the widespread recognition among students that learning web accessibility is essential for professional development. When asked whether learning web accessibility would make them better web developers, only one student strongly disagreed, while four disagreed. Fifteen students remained neutral, but the overwhelming majority—25 students—agreed or strongly agreed with this statement. This demonstrates a clear recognition of the professional value of accessibility competencies despite the current barriers to acquiring them. The strong agreement on the importance of accessibility skills, combined with the low confidence levels in implementing these skills, creates a compelling rationale for developing an educational tool that bridges this competency gap.
-
-As a result, the researcher intended to find a solution by developing a Web-Based Accessibility Evaluation Tool for Inclusive Web Design. This proposed system differs from existing tools by offering a simplified, educational, and locally deployable platform that automatically evaluates websites based on selected WCAG 2.1 criteria. The goal is to provide plain-language technical explanations and actionable recommendations to make accessibility evaluations easier and promote compliance among students and instructors. The system design is directly informed by empirical data on student learning preferences, prioritizing tutorials on accessibility guidelines, practice exercises, examples aligned with WCAG criteria, short lessons per accessibility rule, and instant feedback on errors—all features identified as critical for effective accessibility education. By addressing the specific barriers students face—lack of practical examples, absence of hands-on checking tools, difficulty understanding guidelines, and limited classroom discussion—the proposed tool aims to create a comprehensive educational solution that transforms accessibility education from a theoretical concept into a practical, achievable competency.
+As a result, the researcher intended to find a solution by developing a Web-Based Accessibility Evaluation Tool for Inclusive Web Design. This proposed system differs from existing tools by offering a simplified, educational, and locally deployable platform that automatically evaluates websites and codes based on selected WCAG 2.1 criteria. In direct response to the empirical findings, the goal is to provide plain-language technical explanations, step-by-step guidance, and actionable recommendations to make accessibility evaluations easier and promote compliance among students and professionals.
 
 ### Objectives of the Study
 
@@ -62,11 +57,11 @@ The project has the following capabilities:
 
 3. **Input Methods**: It will evaluate web pages through two primary inputs: URL-based input (where a user submits a website link) and direct HTML code input (where the user manually pastes code).
 
-4. **Feedback Generation**: Beyond detection, the tool provides clear, plain-language explanations and actionable recommendations that help users understand the significance of each issue and how it impacts individuals with disabilities. This directly addresses the identified need for step-by-step explanations (prioritized by 77.8% of students) and simple language explanations (37.8% of students) in accessibility education, ensuring that complex technical concepts are translated into comprehensible guidance suitable for learners at various levels of expertise.
+4. **Feedback Generation**: Beyond detection, the tool provides clear, plain-language explanations and actionable recommendations that help users understand the significance of each issue and how it impacts individuals with disabilities. This directly addresses the identified need for step-by-step explanations and simple language descriptions in accessibility education, ensuring that complex technical concepts are translated into comprehensible guidance suitable for learners at various levels of expertise.
 
 5. **Issue Identification**: The system identifies common accessibility barriers such as missing alternative text, insufficient color contrast, improper heading structures, inaccessible forms, and broken keyboard navigation.
 
-6. **Educational Features**: The system incorporates tutorials on accessibility guidelines, practice exercises, and examples aligned with WCAG criteria, directly responding to the learning preferences identified through empirical research on accessibility instruction. These features address the most frequently cited learning barriers: the lack of practical examples (42.2% of students), absence of hands-on tools (26.7%), and difficulty understanding guidelines (24.4%). By providing comparative examples of accessible versus non-accessible design (requested by 40% of students) and instant feedback on code (requested by 35.6%), the tool creates a comprehensive learning environment that supports both theoretical understanding and practical skill development.
+6. **Educational Features**: The system incorporates tutorials on accessibility guidelines, practice exercises, and examples aligned with WCAG criteria, directly responding to the learning preferences identified through empirical research on accessibility instruction. These features address the most frequently cited learning barriers including the lack of practical examples, absence of hands-on tools, and difficulty understanding guidelines. By providing comparative examples of accessible versus non-accessible design and instant feedback on code, the tool creates a comprehensive learning environment that supports both theoretical understanding and practical skill development.
 
 ### Time and Place of the Study
 
@@ -89,6 +84,7 @@ Building upon the preceding concepts, theories, and findings from relevant liter
 #### INPUT
 
 **Knowledge Requirements:**
+
 - Web Content Accessibility Guidelines 2.1 Principles
 - Inclusive Web Design Practices
 - Web Development Fundamentals
@@ -96,16 +92,19 @@ Building upon the preceding concepts, theories, and findings from relevant liter
 - Software Testing and Evaluation Standards (ISO 25010)
 
 **Software Requirements:**
+
 - Programming Language: PHP
 - Database: MySQL
 - Front-end Technologies: HTML, CSS, JavaScript
 - Web Browser
 
 **Hardware Requirements:**
+
 - Personal Computer or Laptop
 - Internet Connectivity
 
 **Empirical Data:**
+
 - Survey data from Information Technology students (45 respondents)
 - Survey data from web development professionals (24 respondents)
 - Identified learning barriers in web accessibility education
@@ -120,29 +119,34 @@ Building upon the preceding concepts, theories, and findings from relevant liter
 **Methodology: Agile Methodology**
 
 **Requirement Analysis:**
+
 - WCAG 2.1 Success Criteria
 - Performance Requirements
 - Educational Feature Requirements (based on accessibility education research)
 
 **System Design:**
+
 - UI/UX Design (emphasizing simplicity and educational value)
 - Database Design
 - System Flow
 - Educational Module Design
 
 **Development:**
+
 - Front-end Implementation
 - Back-end Implementation
 - Database Integration
 - Educational Content Development
 
 **Testing:**
+
 - Functional Testing
 - Usability Testing
 - Performance Testing
 - ISO 25010 Evaluation
 
 **Deployment:**
+
 - System Deployment
 - User Training
 - Documentation
@@ -150,6 +154,7 @@ Building upon the preceding concepts, theories, and findings from relevant liter
 #### OUTPUT
 
 **Web-Based Accessibility Evaluation Tool with:**
+
 - Automated WCAG 2.1 compliance checking
 - Plain-language explanations
 - Step-by-step guidance
@@ -161,15 +166,15 @@ Building upon the preceding concepts, theories, and findings from relevant liter
 
 The successful completion of this study will enhance accessibility education in web development curricula by providing a practical learning tool for IT students and instructors, ultimately contributing to more accessible web development practices and a more inclusive digital environment. Specifically, the tool addresses the identified gaps in accessibility education by:
 
-1. Providing practical examples that 42.2% of students identified as lacking in current curricula, thereby addressing the most prevalent learning barrier
-2. Offering hands-on checking tools that facilitate experiential learning, responding to the needs of 26.7% of students who cited this as a difficulty
-3. Simplifying complex guidelines through pedagogically sound explanations, addressing the 24.4% of students who find guidelines difficult to understand
-4. Delivering step-by-step guidance that aligns with the learning preferences of 77.8% of students who identified this as their preferred learning approach
-5. Supporting students who recognize that accessibility skills are essential for professional development, as evidenced by the overwhelming agreement (25 out of 45 respondents) that accessibility knowledge will make them better web developers
-6. Supplementing classroom instruction to address the 40% of students who identified limited discussion in class as a barrier to learning accessibility
-7. Providing instant feedback mechanisms and practice exercises that enable iterative learning and skill refinement, responding to the 35.6% of students who requested feedback on their website code
+1. Providing integrated measurement and evaluation capabilities that enable students to assess accessibility compliance and validate their implementations through hands-on checking tools
+2. Delivering structured step-by-step instructional guidance through tutorials, modular lessons, and progressive learning pathways that build foundational knowledge systematically
+3. Offering real-time feedback mechanisms with instant validation, simple language error explanations, and benchmark examples that support iterative learning and skill refinement
+4. Bridging the gap between theoretical knowledge and practical implementation through concrete examples demonstrating accessible versus non-accessible design aligned with WCAG criteria
+5. Supplementing classroom instruction with accessible educational resources that simplify complex guidelines and provide scaffolded learning experiences
+6. Supporting students who recognize that accessibility skills are essential for professional development by providing the tools and guidance necessary to develop practical competency
+7. Creating an educationally-focused platform that transforms accessibility from an abstract concept into achievable skills through practice exercises and immediate validation
 
-By systematically addressing these empirically validated needs, the tool is positioned to significantly improve accessibility education outcomes, increase student confidence in implementing accessible design, and ultimately contribute to a more inclusive digital ecosystem through the development of accessibility-competent web developers.
+By systematically addressing the three critical deficiencies identified through empirical research—measurement difficulties, inadequate instructional guidance, and lack of real-time feedback—the tool is positioned to significantly improve accessibility education outcomes, increase student confidence in implementing accessible design, and ultimately contribute to a more inclusive digital ecosystem through the development of accessibility-competent web developers.
 
 **Figure 1.** Conceptual framework of Development of Web-Based Accessibility Evaluation Tool for Inclusive Web Design
 
